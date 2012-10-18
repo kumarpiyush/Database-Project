@@ -19,8 +19,9 @@
 -- Table structure for table `book`
 --
 
-CREATE DATABASE foobar;
+CREATE DATABASE IF NOT EXISTS foobar; 
 USE foobar;
+DROP TABLE IF EXISTS `book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `book` (
@@ -168,4 +169,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-10-18 22:19:37
+-- Dump completed on 2012-10-18 23:27:44
