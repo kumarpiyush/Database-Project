@@ -18,7 +18,6 @@
 --
 -- Table structure for table `book`
 --
-
 CREATE DATABASE IF NOT EXISTS foobar; 
 USE foobar;
 DROP TABLE IF EXISTS `book`;
