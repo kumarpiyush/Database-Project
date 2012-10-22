@@ -1,0 +1,101 @@
+﻿StreetAddress	City	State	ZipCode
+Via Antonio Cecchi 12	San Gaetano	VE	30021
+Via Antonio Cecchi 81	Scaltenigo	VE	30030
+Piazza Cardinale Riario Sforza 57	Tatti	GR	58040
+Via Silvio Spaventa 149	Castelcavallino	PG	61029
+Piazza Bovio 148	Gaggio Di Piano	MO	41010
+Piazza Principe Umberto 6	Firenze	FI	50142
+Via Antonio Cecchi 24	Bettole Sesia	VC	13011
+Via Giberti 5	Favria	TO	10083
+Corso Alcide De Gasperi 49	Poggio Franco	BA	70124
+Via Alfredo Fusco 52	Spezzano Albanese	CS	87019
+Viale Augusto 99	Ventotene	LT	04020
+Via delle Coste 98	Cantalice	RI	02014
+Via degli Aldobrandeschi 59	Guardiaregia	CB	86014
+Via Pasquale Scura 133	Monzone	MS	54025
+Via Palermo 26	Barlassina	MI	20030
+Via Acrone 115	Pontestura	AL	15027
+Via delle Viole 115	Allein	AO	11010
+Via Rosmini 2	Castel San Lorenzo	SA	84049
+Via Scuderlando 98	Forcella	TE	64030
+Via Giulio Camuzzoni 89	Santuario Di Polsi	RC	89030
+Via Firenze 54	Sant'Agapito Scalo	IS	86070
+Strada Provinciale 65 102	Colognola Al Piano	BG	24126
+Piazzetta Concordia 84	Sant'Andrea Dei Bagni	PR	43048
+Via Torricelli 35	Madonna Di Campiglio	TN	38084
+Corso Vittorio Emanuale 51	Campagna	PN	33085
+Via Bernardino Rota 66	Mango	CN	12056
+Via Antonio Cecchi 8	Balmuccia	VC	13020
+Via Venezia 43	Paola Santuario	CS	87027
+Via Alessandro Manzoni 83	Cozzo	PV	27030
+Via Foria 35	Borello	FO	47022
+Via Leopardi 74	Samolaco	SO	23027
+Via Moiariello 107	Scaletta Uzzone	CN	12070
+Via Nazario Sauro 121	Lazzate	MI	20020
+Via Santa Lucia 15	Collepepe	PG	06050
+Via Archimede 85	Lagaro	BO	40030
+Via Galileo Ferraris 35	Bagnolo San Vito	MN	46031
+Via Vipacco 25	Bastia	SV	17030
+Via Santa Teresa degli Scalzi 105	Godrano	PA	90030
+Via Pasquale Scura 40	Molinello	MS	54020
+Via Capo le Case 135	Villnoss	BZ	39040
+Via dei Serpenti 46	Paspardo	BS	25050
+Via Goffredo Mameli 65	Poggio Catino	RI	02040
+Via Goffredo Mameli 146	Mondaino	RN	47836
+Via Giovanni Amendola 121	Farfengo	CR	26023
+Via delle Mura Gianicolensi 34	Casapulla	CE	81020
+Via Giovanni Amendola 2	Cumignano Sul Naviglio	CR	26020
+Via Alfredo Fusco 116	Torano Castello	CS	87010
+Via Moiariello 126	Villafalletto	CN	12020
+Via degli Aldobrandeschi 54	Siddi	CA	09020
+Via Roma 102	Torre San Patrizio	AP	63010
+Via Pisanelli 16	Durazzano	RA	48010
+Via Croce Rossa 90	Su Tillio	NU	08020
+Via degli Aldobrandeschi 63	Villaspeciosa	CA	09010
+Via Leopardi 103	Era Samolaco	SO	23027
+Via del Piave 44	Bosio	AL	15060
+Via del Piave 96	Borgo San Martino	AL	15032
+Via del Caggio 74	Frassineto	AR	52040
+Via delle Coste 125	Borgo San Pietro	RI	02020
+Via del Piave 105	Santo Stefano Quisquina	AG	92020
+Via Nuova del Campo 82	Mongiuffi Madonna Della Catena	ME	98030
+Via dei Serpenti 74	Monterotondo	BS	25050
+Via Lagrange 121	Caprarola	VT	01032
+Via Torre di Mezzavia 102	Madonna Del Carmine	CH	66030
+Via San Domenico 148	Matsch	BZ	39020
+Vicolo Cieco Fondachetto 134	Omignano Stazione	SA	84060
+Via del Piave 116	Borghetto Borbera	AL	15060
+Via Loreto 139	Lisciano	AP	63100
+Via Acrone 58	Murisengo	AL	15020
+Piazza Mercato 127	Oste	PO	59013
+Via Nizza 129	Roverbasso	TV	31013
+Via Nicola Mignogna 128	Seiano	NA	80066
+Via Santa Teresa 106	Rosolini	SR	96019
+Via Castelfidardo 82	Destro	CS	87060
+Via Santa Lucia 28	Cenerente	PG	06070
+Discesa Gaiola 124	Francavilla Sul Sinni	PZ	85034
+Via Carlo Cattaneo 144	Cala Reale	SS	07040
+Piazza Mercato 5	Viggiano	PZ	85059
+Vicolo Tre Marchetti 148	Fonte	TV	31010
+Via Nuova Agnano 6	Sambuca Val Di Pesa	FI	50020
+Via Croce Rossa 41	Torpe	NU	08020
+Via Antonio Cecchi 108	Villanova Di Fossalta Di Portogruaro	VE	30025
+Via Colonnello Galliano 91	San Martino Dei Mulini	RN	47828
+Viale Ippocrate 123	San Nazzaro Val Cavargna	CO	22010
+Via dei Serpenti 77	Molinetto	BS	25080
+Via dei Fiorentini 47	Roccarainola	NA	80030
+Via Lombardi 48	Presezzo	BG	24030
+Via Torricelli 90	Dare	TN	38080
+Piazza Giuseppe Garibaldi 26	Montechiarugolo	PR	43022
+Via Santa Teresa 15	Carlentini	SR	96013
+Via delle Viole 73	Challand Saint Anselme	AO	11020
+Via Lombardi 117	Piazza Brembana	BG	24014
+Piazza Trieste e Trento 58	Pagno	CN	12030
+Largo Febo 136	Cogozzo	BS	25069
+Via Tasso 105	Perugia	PG	06126
+Viale Augusto 40	Castro Marina	LE	73030
+Via Spalato 114	Giudecca	VE	30133
+Via Licola Patria 5	Castelvetere Sul Calore	AV	83040
+Via delle Coste 132	Configni	RI	02040
+Via Foria 95	Gambettola	FO	47035
+Strada Statale 104	Camburzano	BI	13891

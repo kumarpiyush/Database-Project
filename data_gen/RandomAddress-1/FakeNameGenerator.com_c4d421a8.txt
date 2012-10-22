@@ -1,0 +1,101 @@
+﻿StreetAddress	City	State	ZipCode
+4625 Radford Street	Louisville	KY	40202
+2126 Late Avenue	Oklahoma City	OK	73102
+4271 Spinnaker Lane	Freeport	IL	61032
+1821 Twin Oaks Drive	Grand Rapids	MI	49503
+4587 Bailey Drive	Iowa City	IA	52240
+1306 Blackwell Street	Fairbanks	AK	99701
+173 Pringle Drive	Chicago	IL	60606
+3328 Ruckman Road	Oklahoma City	OK	73116
+816 Chardonnay Drive	Seattle	WA	98161
+4400 Boundary Street	Jacksonville	FL	32217
+307 Sand Fork Road	Knox	IN	46534
+1384 Hedge Street	Elizabeth	NJ	07201
+4582 Oakmound Drive	Elmhurst	IL	60126
+4184 Scenic Way	Mattoon	IL	61938
+4069 Gladwell Street	Memphis	TN	38106
+4 Coleman Avenue	Palm Springs	CA	92262
+2392 Lakewood Drive	North Bergen	NJ	07047
+2278 Half and Half Drive	Cantua Creek	CA	93608
+3519 Swick Hill Street	Hempstead	TX	77445
+824 Rollins Road	Arnold	NE	69120
+4666 Ocala Street	Orlando	FL	32822
+1250 Victoria Court	Bucksport	ME	04416
+533 Worley Avenue	Lynchburg	VA	24551
+4874 Wood Street	Covington	LA	70433
+2726 Oakwood Avenue	New York	NY	10021
+675 West Fork Street	Sidney	MT	59270
+1523 Lauren Drive	Madison	WI	53718
+4879 Geraldine Lane	New York	NY	10011
+623 Tetrick Road	Fort Myers	FL	33901
+1833 Hall Place	Longview	TX	75604
+4095 Simons Hollow Road	Wilkes Barre	PA	18701
+2157 Sharon Lane	Jefferson City	MO	65101
+2879 Preston Street	Wichita	KS	67202
+2458 Wood Duck Drive	Marquette	MI	49855
+2503 Palmer Road	Westerville	OH	43081
+4747 Poling Farm Road	Norfolk	NE	68701
+1243 Bastin Drive	Warminster	PA	18974
+3984 Hudson Street	Newark	NJ	07102
+671 Sumner Street	Burbank	CA	91504
+3387 Heavens Way	Sarasota	FL	34236
+4644 Geraldine Lane	Westbury	NY	11590
+1559 Emily Renzelli Boulevard	San Jose	CA	95131
+3095 Gladwell Street	Carthage	TX	75633
+1383 Junkins Avenue	Valdosta	GA	31601
+1144 Crummit Lane	Exeter	NE	68351
+2749 Arbor Court	Cheyenne	WY	82003
+1470 Cherry Camp Road	Chicago	IL	60653
+536 Junior Avenue	Atlanta	GA	30303
+910 Wescam Court	Wakefield	MA	01880
+2677 Duck Creek Road	San Carlos	CA	94070
+1862 Liberty Street	Farmers Branch	TX	75244
+3720 Terra Street	Kingston	WA	98346
+3147 Smithfield Avenue	Booker	TX	79005
+2054 Buffalo Creek Road	Nashville	TN	37218
+3785 Scenicview Drive	Tukwila	WA	98168
+4545 Cedarstone Drive	Toledo	OH	43613
+1807 Kinney Street	Springfield	MA	01103
+576 Poe Road	Charleston	SC	29405
+2549 Whiteman Street	Somers Point	NJ	08244
+4474 Glory Road	Nashville	TN	37204
+2438 August Lane	Minden	LA	71055
+4626 Timbercrest Road	Anchorage	AK	99515
+2085 Frosty Lane	Spencer	NY	14883
+644 Brannon Avenue	Jacksonville	FL	32217
+2032 Sigley Road	Gorham	KS	67640
+3868 Fantages Way	Portland	ME	04101
+546 Zimmerman Lane	Los Angeles	CA	90057
+1855 Diane Street	Camarillo	CA	93010
+2909 University Hill Road	Witt	IL	62094
+636 Parrill Court	Crown Point	IN	46307
+1351 Shinn Street	New York	NY	10038
+95 Capitol Avenue	Indianapolis	IN	46225
+2724 Birch  Street	El Paso	TX	79915
+1134 White River Way	Ogden	UT	84403
+3032 Keyser Ridge Road	Randleman	NC	27317
+2558 Joes Road	Albany	NY	12210
+977 Sherman Street	Chapman	KS	67431
+4252 Walkers Ridge Way	Downers Grove	IL	60515
+3204 Elk City Road	Shreveport	LA	71101
+892 Jewell Road	Minneapolis	MN	55415
+258 Joseph Street	Sheboygan Falls	WI	53085
+3611 Clement Street	Atlanta	GA	30303
+3316 Thorn Street	Rock Springs	WY	82901
+444 Goodwin Avenue	Yakima	WA	98901
+3212 Broadcast Drive	Matthews	NC	28105
+4054 Polk Street	Tucson	AZ	85746
+1866 Pearcy Avenue	Decatur	IN	46733
+3226 Tree Frog Lane	Independence	MO	64052
+2136 Tuna Street	Bloomfield Township	MI	48302
+3597 Emily Renzelli Boulevard	Soledad	CA	93960
+1341 Hartland Avenue	Appleton	WI	54911
+2175 Five Points	Laurel	MD	20707
+4697 Mandan Road	New Florence	MO	63363
+1016 Joyce Street	Kinston	NC	28501
+736 Creekside Lane	Los Angeles	CA	90017
+140 Browning Lane	Johnson City	NY	13790
+552 Ray Court	Fayetteville	NC	28305
+38 Arlington Avenue	Des Arc	AR	72040
+4724 Fantages Way	West Enfield	ME	04493
+2874 Stiles Street	Pittsburgh	PA	15219

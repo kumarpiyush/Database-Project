@@ -1,0 +1,101 @@
+﻿StreetAddress	City	State	ZipCode
+2417 Kinchant St	Haney	BC	V2V 4H9
+3890 Nootka Street	Vancouver	BC	V5M 3M5
+1788 Van Horne Ave	Dryden	ON	P8N 2A7
+4803 Hastings Street	Vancouver	BC	V6C 1B4
+3417 Richmond Street	Oshawa	ON	S4P 3Y2
+2129 Galts Ave	Red Deer	AB	T4N 2A6
+38 St Jean Baptiste St	Petite Riviere St Francois	QC	G0A 2L0
+4150 Kinchant St	Prince George	BC	V2L 3N1
+2472 Maria St	Burlington	ON	L7R 2G6
+1587 Terry Fox Dr	Fond Du Lac	SK	S4P 3Y2
+2513 Main St	Fort Qu'appelle	SK	S0G 1S0
+3145 York St	London	ON	N5W 2S9
+479 Rogers Road	Toronto	ON	M6E 1R1
+2939 Tanner Street	Vancouver	BC	V5R 2T4
+2141 Alness Street	Toronto	ON	M3J 2J1
+4544 Robson St	Vancouver	BC	V6B 3K9
+588 St. John Street	Borden	SK	S4P 3Y2
+406 Cork St	Guelph	ON	N1H 2W8
+3858 Victoria Park Ave	Toronto	ON	M2J 3T7
+4265 rue Saint-Antoine	Drummondville	QC	J2C 4N1
+3816 Tanner Street	Vancouver	BC	V5R 2T4
+1284 Mesa Vista Drive	Logan Lake	BC	V0K 1W0
+2362 rue Garneau	Quebec	QC	G1V 3V5
+1707 Reserve St	Coboconk	ON	K0M 1K0
+108 Calgary Avenue	Penticton	BC	V2A 2T6
+4308 Exmouth Street	Sarnia	ON	N7T 4C8
+4864 Alaska Hwy	Chetwynd	BC	V0C 1J0
+4188 Ganges Road	Sooke	BC	V0S 1N0
+1004 Stoney Creek	Gainsborough	SK	S4P 3Y2
+67 Merivale Road	Ottawa	ON	K2H 5B6
+224 Dunning Road	Cumberland	ON	K4C 1P5
+979 Lockhart Drive	Barrie	ON	L4M 3B1
+3629 Heritage Drive	Calgary	AB	T2V 2W2
+3918 Carling Avenue	Ottawa	ON	K1Z 7B5
+815 9th Ave	Lethbridge	AB	T1J 2J7
+1488 Stum Lake Road	Mcleese Lake	BC	V0L 1P0
+2568 Heritage Drive	Calgary	AB	T2V 2W2
+1042 Woodvale Drive	Belmont	ON	N0L 1B0
+1665 St Jean Baptiste St	Sayabec	QC	G0J 3K0
+2535 5th Avenue	Fort Vermilion	AB	T0H 1N0
+4406 Saint-Denis Street	Montreal	QC	H9R 3J4
+3089 Water Street	Kitchener	ON	N2H 5A5
+547 Reserve St	Seeleys Bay	ON	K0H 2N0
+1545 Center St	Vulcan	AB	T0L 2B0
+2944 Hammarskjold Dr	Burnaby	BC	V5B 3C9
+3764 Glover Road	Langley	BC	V3A 1Z3
+4977 Lockhart Drive	Barrie	ON	L4M 3B1
+140 40th Street	Calgary	AB	T2E 7T6
+3923 Adelaide St	Toronto	ON	M5H 1P6
+4764 MacLaren Street	Ottawa	ON	K1P 5M7
+2319 Main St	Lucky Lake	SK	S0L 1Z0
+1869 Albert Street	London	ON	N5W 5K6
+2088 Lynden Road	Brechin	ON	L0K 1B0
+1110 Jasper Ave	Edmonton	AB	T5J 3N6
+4473 Rue King	Sherbrooke	QC	J1H 1R4
+1751 Horner Ave	Toronto	ON	M8W 4Y4
+4110 Bay Street	Toronto	ON	M5J 2R8
+2187 Lockhart Drive	Barrie	ON	L4M 3B1
+2123 Bay Street	Toronto	ON	M5J 2R8
+3456 Thurston Dr	Orleans	ON	K1C 1T1
+582 chemin Hudson	Montreal	QC	H4J 1M9
+480 St Marys Rd	Winnipeg	MB	R3B 3K6
+3378 Carling Avenue	Ottawa	ON	K1Z 7B5
+4545 Cork St	Guelph	ON	N1H 2W8
+2657 Adelaide St	Toronto	ON	M5H 1P6
+1630 Venture Place	Slave Lake	AB	T0G 2A2
+4842 Algoma St	Thunder Bay	ON	P7A 4T3
+2476 Holdom Avenue	Surrey	BC	V3T 4Y5
+672 rue Ontario Ouest	Montreal	QC	H2X 1Y8
+612 rue Parc	Sherbrooke	QC	J1L 1C9
+398 102nd Avenue	Trail	BC	V1R 3W5
+3198 Embro St	Bright	ON	N0J 1B0
+744 Richmond Street	Oshawa	ON	S4P 3Y2
+1408 Nootka Street	Vancouver	BC	V5M 3M5
+441 Charleton Ave	Hamilton	ON	L8N 3X3
+1236 Bridgeport Rd	Orangeville	ON	L9W 2C8
+2211 Roger Street	Port Alberni	BC	V9Y 4M8
+2878 Queen Elisabeth Blvd	Kinistino	SK	S4P 3Y2
+4364 Bay Street	Toronto	ON	M5J 2R8
+1157 43rd Avenue	Whitehorse	NT	Y1A 2A2
+4031 Park Ct	Jasper	AB	T0E 1E0
+1800 Heritage Drive	Calgary	AB	T2V 2W2
+591 James Street	St Catharines	ON	L2R 3H6
+1787 Hastings Street	Vancouver	BC	V6C 1B4
+4619 Bay Street	Toronto	ON	M5J 2R8
+4432 St. John Street	Craik	SK	S4P 3Y2
+3919 40th Street	Calgary	AB	T2M 0X4
+1978 Dufferin Street	Toronto	ON	M6H 4B6
+3754 Park Ct	Tomahawk	AB	T0E 2H0
+4640 Charing Cross Rd	Chatham	ON	N7M 2G9
+2345 Port Washington Road	Carmangay	AB	T0L 0N0
+645 47th Avenue	Pelly Crossing	NT	Y0B 1P0
+960 Tycos Dr	Toronto	ON	M5T 1T4
+1402 St. Paul Street	St Catharines	ON	L2V 3G2
+4107 Township Rd	Lloydminster	AB	T9V 0L9
+8 Heatherleigh	Cooksville	ON	L5A 1V9
+4267 Queens Sq	Hespeler	ON	N3C 1H3
+3448 43rd Avenue	Whitehorse	NT	Y1A 2A2
+2054 Tanner Street	Vancouver	BC	V5R 2T4
+2354 rue Ontario Ouest	Montreal	QC	H2X 1Y8

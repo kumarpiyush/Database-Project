@@ -39,12 +39,23 @@ void lowercase(string* str){
 
 int main(){
     srand(time(0));
-    FILE *alpha,*beta;
+    FILE *alpha,*beta,*gamma;
     alpha=fopen("random_names","r");    // to read names
-    beta=fopen("customer.dat","w");     // to put final records
+    //beta=fopen("customer.dat","w");     // to put final records
+    gamma=fopen("random_address","r");  // random addresses
+    string addresses[501];
+    char addr_tmp[200];
+    int cnt=0;
+
+    // getting addresses
+    while(fgets(addr_tmp,1000,gamma)!=NULL){
+        addr_tmp[strlen(addr_tmp)-1]='\0';
+        addresses[cnt++]=string(addr_tmp);
+    }
+
     string name;
     char first[100],last[100];
-    int count=0;
+    int index=1;
 
     // getting name
     while(fscanf(alpha,"%s%s",first,last)!=EOF){
@@ -52,7 +63,7 @@ int main(){
         name+=" ";
         name+=string(last);
 #ifdef db
-        cout<<name<<endl;
+        cout<<index<<"\t"<<name<<"\t";
 #endif
 
         // 
@@ -73,7 +84,7 @@ int main(){
         }
         lowercase(&email);
 #ifdef db
-        cout<<email<<endl;
+        cout<<email<<"\t";
 #endif
         // phone number
         int phNo[10];
@@ -85,7 +96,25 @@ int main(){
         for(int i=0;i<10;i++){
             cout<<phNo[i];
         }
-        cout<<endl;
+        cout<<"\t";
+#endif
+
+        // addresses
+#ifdef db
+        cout<<addresses[index]<<"\t";
+#endif
+        // accnt number
+        int accnt[20];
+        accnt[0]=1+rand()%9;
+        for(int i=1;i<20;i++){
+            accnt[i]=rand()%10;
+        }
+#ifdef db
+        for(int i=0;i<20;i++){
+            cout<<accnt[i];
+        }
+        cout<<"\n";
+        index++;
 #endif
     }
     return 0;
