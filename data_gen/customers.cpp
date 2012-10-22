@@ -40,8 +40,8 @@ void lowercase(string* str){
 int main(){
     srand(time(0));
     FILE *alpha,*beta;
-    alpha=fopen("random_names","r");
-    beta=fopen("customer.dat","w");
+    alpha=fopen("random_names","r");    // to read names
+    beta=fopen("customer.dat","w");     // to put final records
     string name;
     char first[100],last[100];
     int count=0;
