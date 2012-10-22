@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shopper's Stop</title>
     </head>
-    <body>
-        <h1>FooBar</h1>
-    </body>
+    <iframe src="SideBar.html" height="100%" width="200" style="position:absolute;top:0px;left:0px" frameborder="0"></iframe>
+    <iframe src="TopBar.html" align="top" height="120" style="position:absolute;top:0px;left:0px" width="100%" frameborder="0"></iframe>
+    <iframe src="MainPage.html" style="position:absolute;top:120px;left:200px;" name="mainframe" frameborder="0"></iframe>
 </html>
