@@ -1,5 +1,5 @@
-Database-Project
+Online Retail Shop Simulator
 ================
-Database project simulating online retail shop
 Made by :
-Piyush, Sameer, Umang, Sanket
+Piyush, Sameer, Umang, Sanket <br />
+[Currently going on]
