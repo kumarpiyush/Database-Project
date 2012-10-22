@@ -5,11 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shopper's Stop</title>
     </head>
-    <frameset rows="25%,75%">
-        <frame frameBorder="0" src="TopBar.html" name="top">
-        <frameset cols="20%,80%">
-            <frame frameBorder="0"  src = "SideBar.html" />
-            <frame frameBorder="0" noresize="noresize" src = "MainPage.html" name = "mainframe" />
-        </frameset>
-    </frameset> 
+    <iframe src="TopBar.html" align="top" height="120" style="position:absolute;top:0px;left:0px" width="100%" frameborder="0"></iframe>
+    <iframe src="SideBar.html" height="510" width="200" style="position:absolute;top:120px;left:0px" frameborder="0"></iframe>
+    <iframe src="MainPage.html" style="position:absolute;top:120px;left:200px;" name="mainframe" frameborder="0"></iframe>
 </html>
