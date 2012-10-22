@@ -1,0 +1,25 @@
+/* 
+    Document   : SideBar
+    Created on : Oct 22, 2012, 10:19:52 PM
+    Author     : umang
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body{
+	background-color:#0c2847;
+	color:rgb(255,255,255);
+	font-family: Georgia, serif;
+}
+div{
+	padding-top:40px;
+}
+a{
+	color:#ffffff;
+	text-decoration:none;
+}
+
