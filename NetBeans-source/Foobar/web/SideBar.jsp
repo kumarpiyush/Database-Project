@@ -11,7 +11,9 @@ and open the template in the editor.
     </head>
     <body>
         <div id="topLevel">
+            <% 
             
+            out.println("sanket rocks!!"); %>
             <!--a href = "home.html" target = "mainframe" ><b>Home</b></a></br></br>
             <a href = "about.html" target = "mainframe" ><b>About me</b></a></br></br>
             <a href = "academics.html" target = "mainframe" ><b>Academics</b></a></br></br>
