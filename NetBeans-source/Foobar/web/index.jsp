@@ -5,7 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shopper's Stop</title>
     </head>
-    <body>
-        <h1>FooBar</h1>
-    </body>
+    <frameset rows="25%,75%">
+        <frame frameBorder="0" src="TopBar.html" name="top">
+        <frameset cols="20%,80%">
+            <frame frameBorder="0"  src = "SideBar.html" />
+            <frame frameBorder="0" noresize="noresize" src = "MainPage.html" name = "mainframe" />
+        </frameset>
+    </frameset> 
 </html>
