@@ -131,5 +131,9 @@ public class DatabaseConnection {
     public void search_field(){
         
     }
+    
+    public static void sanket() throws Exception{
+        System.err.println("Sanket Rocks!!!");
+    }
 }
 

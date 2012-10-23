@@ -1,3 +1,4 @@
+<%@page import="database.DatabaseConnection"%>
 <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
@@ -12,7 +13,7 @@ and open the template in the editor.
     <body>
         <div id="topLevel">
             <% 
-            
+            DatabaseConnection.sanket();
             out.println("sanket rocks!!"); %>
             <!--a href = "home.html" target = "mainframe" ><b>Home</b></a></br></br>
             <a href = "about.html" target = "mainframe" ><b>About me</b></a></br></br>
