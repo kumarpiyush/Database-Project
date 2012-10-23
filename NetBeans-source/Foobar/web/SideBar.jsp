@@ -1,3 +1,4 @@
+<%@page import="java.sql.ResultSet"%>
 <%@page import="database.DatabaseConnection"%>
 <!--
 To change this template, choose Tools | Templates
@@ -13,13 +14,28 @@ and open the template in the editor.
     <body>
         <div id="topLevel">
             <% 
-            DatabaseConnection.sanket();
-            out.println("sanket rocks!!"); %>
-            <!--a href = "home.html" target = "mainframe" ><b>Home</b></a></br></br>
-            <a href = "about.html" target = "mainframe" ><b>About me</b></a></br></br>
-            <a href = "academics.html" target = "mainframe" ><b>Academics</b></a></br></br>
-            <a href = "projects.html" target = "mainframe" ><b>Projects</b></a></br></br>
-            <a href = "contact.html" target = "mainframe" ><b>Contact</b></a></br-->
+            DatabaseConnection cc=new DatabaseConnection();
+            ResultSet rs=cc.listofcategories();
+            while(rs.next()){
+                char name[]=rs.getString(1).toCharArray();
+                boolean flag=true;
+                for(int i=0;i<name.length;i++){
+                    if(flag){
+                        flag=false;
+                        name[i]=(char)(name[i]-32);
+                    }
+                    else{
+                        if(name[i]=='_'){
+                            name[i]=' ';
+                            flag=true;
+                        }
+                    }
+                }
+                out.println("<a href = \"MainPage.jsp?cat="+rs.getString(1)+"\" target = \"mainframe\" ><b>");
+                out.println(name);
+                out.println("</b></a></br></br>"); 
+            }
+            %>
 	</div>
     </body>
 </html>
