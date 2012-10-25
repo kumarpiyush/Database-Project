@@ -11,8 +11,8 @@ public class DatabaseConnection {
     
     private static Connection con = null;
     //private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "sameer";
-    private static final String DB_PASSWORD = "sundarban";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sanku@Sankudon";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
     private static String CATEGORY = null;
@@ -25,7 +25,7 @@ public class DatabaseConnection {
             if (con == null){
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection(URL, DB_USERNAME, DB_PASSWORD);
-            }                    
+            }
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
@@ -36,17 +36,19 @@ public class DatabaseConnection {
     }
     
     //gives the list of main categories
-    public void listofcategories(){
+    public static ResultSet listofcategories(){
         try{
             Statement stmt = con.createStatement();   
             ResultSet rs = stmt.executeQuery("select * from categories order by name;");
-            while(rs.next()){
+            return rs;
+            /*while(rs.next()){
                 System.out.println(rs.getString(1));
-            }
+            }*/
         }
         catch(SQLException e){
             e.printStackTrace();
         }
+        return null;
     }
     
     private void category_to_table(String category){
@@ -130,6 +132,10 @@ public class DatabaseConnection {
     
     public void search_field(){
         
+    }
+    
+    public static void sanket() throws Exception{
+        System.err.println("Sanket Rocks!!!");
     }
 }
 

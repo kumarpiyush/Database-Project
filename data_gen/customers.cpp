@@ -1,3 +1,8 @@
+/*
+    file to create tab sepearted records for the customer table. 
+    Names and addresses are are picked up from the file, and other details are randomly generated
+*/
+
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -25,6 +30,7 @@
 using namespace std;
 #define db
 
+// lower a string
 void lowercase(string* str){
     if(str==NULL){
         cerr<<"Null sting given\n";
@@ -41,7 +47,6 @@ int main(){
     srand(time(0));
     FILE *alpha,*beta,*gamma;
     alpha=fopen("random_names","r");    // to read names
-    //beta=fopen("customer.dat","w");     // to put final records
     gamma=fopen("random_address","r");  // random addresses
     string addresses[501];
     char addr_tmp[200];
