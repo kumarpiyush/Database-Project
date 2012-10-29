@@ -51,6 +51,21 @@ public class DatabaseConnection {
         return null;
     }
     
+    public static ResultSet topByCat(String cat, int no){
+        try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select * from (select * from "+cat+" order by title) i limit 0,"+no+";");
+            return rs;
+            /*while(rs.next()){
+                System.out.println(rs.getString(1));
+            }*/
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     private void category_to_table(String category){
         if(category.equals("Books")){
             CATEGORY = "book";
