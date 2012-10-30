@@ -66,6 +66,19 @@ public class DatabaseConnection {
         return null;
     }
     
+    public static ResultSet itemByID(String cat, String id){
+        int ID= Integer.parseInt(id);
+        try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select * from "+cat+" where ID="+ID+";");
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     private void category_to_table(String category){
         if(category.equals("Books")){
             CATEGORY = "book";
