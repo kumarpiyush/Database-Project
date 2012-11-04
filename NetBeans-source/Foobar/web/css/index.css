@@ -3,6 +3,7 @@
     width: 100%;
     overflow-y: scroll;
     background-image:url('../images/mainbg.gif');
+    background-repeat: repeat;
 }
 
 #mainPageText{
