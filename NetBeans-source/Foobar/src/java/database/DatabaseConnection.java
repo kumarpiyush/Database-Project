@@ -11,8 +11,8 @@ public class DatabaseConnection {
     
     private static Connection con = null;
     //private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "sanku@Sankudon";
+    private static final String DB_USERNAME = "sameer";
+    private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
     private static String CATEGORY = null;
@@ -35,51 +35,7 @@ public class DatabaseConnection {
         }   
     }
     
-    //gives the list of main categories
-    public static ResultSet listofcategories(){
-        try{
-            Statement stmt = con.createStatement();   
-            ResultSet rs = stmt.executeQuery("select * from categories order by name;");
-            return rs;
-            /*while(rs.next()){
-                System.out.println(rs.getString(1));
-            }*/
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    public static ResultSet topByCat(String cat, int no){
-        try{
-            Statement stmt = con.createStatement();   
-            ResultSet rs = stmt.executeQuery("select * from (select * from "+cat+" order by title) i limit 0,"+no+";");
-            return rs;
-            /*while(rs.next()){
-                System.out.println(rs.getString(1));
-            }*/
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    public static ResultSet itemByID(String cat, String id){
-        int ID= Integer.parseInt(id);
-        try{
-            Statement stmt = con.createStatement();   
-            ResultSet rs = stmt.executeQuery("select * from "+cat+" where ID="+ID+";");
-            return rs;
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    private void category_to_table(String category){
+    public void category_to_table(String category){
         if(category.equals("Books")){
             CATEGORY = "book";
             SORT_BY_2 = "title";
@@ -94,6 +50,47 @@ public class DatabaseConnection {
             SORT_BY_2 = "";
         }
     }
+    
+    //gives the list of main categories
+    public ResultSet listofcategories(){
+        try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select * from categories order by name;");
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ResultSet topByCat(String cat, int no){
+        category_to_table(cat);
+        try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" order by "+ SORT_BY_1+" limit "+no+";");
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ResultSet itemByID(String cat, String id){
+        category_to_table(cat);
+        //int ID= Integer.parseInt(id);
+        try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" where ID="+id+";");
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     
     //gives the list of products sorted by some order with an offset on index
     public void listofproducts(String category,int index){

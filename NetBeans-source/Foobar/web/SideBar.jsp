@@ -17,22 +17,10 @@ and open the template in the editor.
             DatabaseConnection cc=new DatabaseConnection();
             ResultSet rs=cc.listofcategories();
             while(rs.next()){
-                char name[]=rs.getString(1).toCharArray();
-                boolean flag=true;
-                for(int i=0;i<name.length;i++){
-                    if(flag){
-                        flag=false;
-                        name[i]=(char)(name[i]-32);
-                    }
-                    else{
-                        if(name[i]=='_'){
-                            name[i]=' ';
-                            flag=true;
-                        }
-                    }
-                }
+                //cc.category_to_table(rs.getString(1));
+                //char name[]=cc.CATEGORY.toCharArray();
                 out.println("<a href = \"MainPage.jsp?cat="+rs.getString(1)+"\" target = \"mainframe\" ><b>");
-                out.println(name);
+                out.println(rs.getString(1));
                 out.println("</b></a></br></br>"); 
             }
             %>
