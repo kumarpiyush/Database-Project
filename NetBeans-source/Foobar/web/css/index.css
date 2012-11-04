@@ -1,0 +1,13 @@
+#sideBar{
+    position: absolute;
+    margin-left: 0px;
+    width:250px;
+    margin-top: 70px;
+    height:698px;
+    background-color: lightgoldenrodyellow;
+}
+
+#topBar{
+    width: 100%;
+    
+}
