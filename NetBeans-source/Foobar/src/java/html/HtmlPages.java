@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "HtmlPages", urlPatterns = {"/HtmlPages"})
 public class HtmlPages extends HttpServlet {
-
+    
+    DatabaseConnection cc=new DatabaseConnection();
+    
     private String getSiteBrand() {
         return "<img src=\"images/4622_thumb-10-9-2012-6b0dfc22e3f44fd13c268fcdc28bcdf1.jpg\"/>";
     }
@@ -65,44 +67,56 @@ public class HtmlPages extends HttpServlet {
     
     public String getHeader(){
         String page;
-        page = "<div id=\"SiteBrand\">" + getSiteBrand() + "</div>" + getLoginOut() + getSearch();
+        page = "<div id=\"siteBrand\">" + getSiteBrand() + "</div>" + getLoginOut() + getSearch();
         
         return page;
     }
     
     public String getSideBar() throws SQLException{
-        String page;
-        page="<div id=\"topLevel\">";
-        DatabaseConnection cc=new DatabaseConnection();
+        String page="";
+        //page="<div id=\"topLevel\">";
         ResultSet rs=cc.listofcategories();
         while(rs.next()){
-            page+="<a href = \"index.jsp?cat="+rs.getString(1)+"\" target = \"mainframe\" ><b>";
+            page+="<a href = \"index.jsp?cat="+rs.getString(1)+"\" ><b>";
             page+=rs.getString(1);
-            page+="</b></a></br></br>";
+            page+="</b></a></br></br>\n\t\t\t\t";
         }
-        /*
-        DatabaseConnection cc=new DatabaseConnection();
+        return page;
+    }
+    
+    public String getMainPage(String cat,String id,String subcat) throws SQLException{
+        String page="";
+        
+        if(cat==null){
             ResultSet rs=cc.listofcategories();
             while(rs.next()){
-                char name[]=rs.getString(1).toCharArray();
-                boolean flag=true;
-                for(int i=0;i<name.length;i++){
-                    if(flag){
-                        flag=false;
-                        name[i]=(char)(name[i]-32);
-                    }
-                    else{
-                        if(name[i]=='_'){
-                            name[i]=' ';
-                            flag=true;
-                        }
+                System.err.println(rs.getString(1));
+                ResultSet rs2=cc.topByCat(rs.getString(1),3);
+                page+="<div id=\"collectedEntry\">";
+                if("Books".equals(rs.getString(1))){
+                    while(rs2.next()){
+                        page+="<div id=\"entry\">";
+                        page+="<a href=\"index.jsp?cat="+rs.getString(1)+"&id="+rs2.getString(1)+"\">";
+                        page+=rs2.getString("title");
+                        page+="</a>";
+                        page+="<br/>";
+                        page+=rs2.getString("author");
+                        page+="<br/>";
+                        page+="<strike>";
+                        page+=rs2.getString("mrp");
+                        page+="</strike>&nbsp;&nbsp;";
+                        page+=rs2.getString("price");
+                        page+="</div>";
                     }
                 }
-                out.println("<a href = \"MainPage.jsp?cat="+rs.getString(1)+"\" target = \"mainframe\" ><b>");
-                out.println(name);
-                out.println("</b></a></br></br>"); 
+                page+="</div>";
             }
-         */
+        }
+        else{
+            if(id==null && subcat==null){
+                cc.listofproducts(cat,10,0);
+            }
+        }
         return page;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

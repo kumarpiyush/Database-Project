@@ -9,18 +9,33 @@
         <title>Shopper's Stop</title>
     </head>
     <body>
+        <%
+        //inits
+        HtmlPages cc=new HtmlPages();
+        %>
+        <div id="mainPage">
+            <div id="mainPageText">
+                <%
+                String cat=request.getParameter("cat");
+                String id=request.getParameter("id");
+                String subcat=request.getParameter("subcat");
+                out.println(cc.getMainPage(cat,id,subcat));
+                %>
+            </div>
+        </div>
+        <div id="sideBar">
+            <div id="sideBarText">
+                <%
+                out.println(cc.getSideBar());
+                %>
+            </div>
+        </div>
         <div id="topBar">
             <%
-            HtmlPages cc=new HtmlPages();
             out.println(cc.getHeader());
             %>
         </div>
-        <div id="sideBar">
-            <%
-            //HtmlPages cc=new HtmlPages();
-            out.println(cc.getSideBar());
-            %>
-        </div>
+        
     </body>
     <%
     //<iframe src="SideBar.jsp" height="100%" width="200" style="position:absolute;top:0px;left:0px" frameborder="0"></iframe>
