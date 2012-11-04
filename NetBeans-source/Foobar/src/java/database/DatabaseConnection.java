@@ -51,6 +51,7 @@ public class DatabaseConnection {
         }
     }
     
+    //***************************************************************************
     //gives the list of main categories
     public ResultSet listofcategories(){
         try{
@@ -64,11 +65,13 @@ public class DatabaseConnection {
         return null;
     }
     
+    //***************************************************************************
     public ResultSet topByCat(String cat, int no){
-        category_to_table(cat);
+        if(cat!=null)
+            category_to_table(cat);
         try{
             Statement stmt = con.createStatement();   
-            ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" order by "+ SORT_BY_1+" limit "+no+";");
+            ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" order by "+ SORT_BY_1+" "+ORDER+" limit "+no+";");
             return rs;
         }
         catch(SQLException e){
@@ -77,9 +80,10 @@ public class DatabaseConnection {
         return null;
     }
     
+    //***************************************************************************
     public ResultSet itemByID(String cat, String id){
-        category_to_table(cat);
-        //int ID= Integer.parseInt(id);
+        if(cat!=null)
+            category_to_table(cat);
         try{
             Statement stmt = con.createStatement();   
             ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" where ID="+id+";");
@@ -91,18 +95,40 @@ public class DatabaseConnection {
         return null;
     }
     
-    
+    public ResultSet itemBySubCat(String cat, String subcat,int no,int offset){
+        if(cat!=null)
+            category_to_table(cat);
+        try{
+            PreparedStatement stmt = con.prepareStatement("select * from ? where category = ? order by ? ?, ? asc limit ?,?");   
+            stmt.setString(1, CATEGORY);
+            stmt.setString(2, subcat);
+            stmt.setString(3, SORT_BY_1);
+            stmt.setString(4, ORDER);
+            stmt.setString(5, SORT_BY_2);
+            stmt.setInt(6, no);
+            stmt.setInt(7, offset);
+            ResultSet rs = stmt.executeQuery();
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    //***************************************************************************
     //gives the list of products sorted by some order with an offset on index
-    public void listofproducts(String category,int index){
-        category_to_table(category);
+    public void listofproducts(String category,int no,int offset){
+        if(category!=null)
+            category_to_table(category);
         try{
             //TODO fill all the sort bys and check order by
-            PreparedStatement stmt = con.prepareStatement("select * from ? order by ? ?, ? asc limit 30,?");   
+            PreparedStatement stmt = con.prepareStatement("select * from ? order by ? ?, ? asc limit ?,?");   
             stmt.setString(1, CATEGORY);
             stmt.setString(2, SORT_BY_1);
             stmt.setString(3, ORDER);
             stmt.setString(4, SORT_BY_2);
-            stmt.setInt(5, index);
+            stmt.setInt(5, no);
+            stmt.setInt(6, offset);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 System.out.println(rs.getString(1));
@@ -117,7 +143,7 @@ public class DatabaseConnection {
     public void list_of_categories_for_product(String category){
         category_to_table(category);
         try{
-            //TODO fill all the sort bys and check order by
+            //TODO fill all the sort byif(cat!=null)s and check order by
             PreparedStatement stmt = con.prepareStatement("select distinct(category) from ? order by category asc");   
             stmt.setString(1, CATEGORY);
             ResultSet rs = stmt.executeQuery();
@@ -138,20 +164,6 @@ public class DatabaseConnection {
         }
         else{
             ORDER = "desc";
-        }
-        try{
-            PreparedStatement stmt = con.prepareStatement("select * from ? order by ? ?, ? asc limit 30");   
-            stmt.setString(1, CATEGORY);
-            stmt.setString(2, SORT_BY_1);
-            stmt.setString(3, ORDER);
-            stmt.setString(4, SORT_BY_2);
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                System.out.println(rs.getString(1));
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
         }
     }
     
