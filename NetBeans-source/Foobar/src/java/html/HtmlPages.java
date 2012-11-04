@@ -84,6 +84,23 @@ public class HtmlPages extends HttpServlet {
         return page;
     }
     
+    public String getElem(String category,String id,String arg1,String arg2,String mrp, String price){
+        String page="";
+        page+="<div id=\"entry\">";
+        page+="<a href=\"index.jsp?cat="+category+"&id="+id+"\">";
+        page+=arg1;
+        page+="</a>";
+        page+="<br/>";
+        page+=arg2;
+        page+="<br/>";
+        page+="<strike>";
+        page+=mrp;
+        page+="</strike>&nbsp;&nbsp;";
+        page+=price;
+        page+="</div>";
+        return page;
+    }
+    
     public String getMainPage(String cat,String id,String subcat) throws SQLException{
         String page="";
         
@@ -95,18 +112,7 @@ public class HtmlPages extends HttpServlet {
                 page+="<div id=\"collectedEntry\">";
                 if("Books".equals(rs.getString(1))){
                     while(rs2.next()){
-                        page+="<div id=\"entry\">";
-                        page+="<a href=\"index.jsp?cat="+rs.getString(1)+"&id="+rs2.getString(1)+"\">";
-                        page+=rs2.getString("title");
-                        page+="</a>";
-                        page+="<br/>";
-                        page+=rs2.getString("author");
-                        page+="<br/>";
-                        page+="<strike>";
-                        page+=rs2.getString("mrp");
-                        page+="</strike>&nbsp;&nbsp;";
-                        page+=rs2.getString("price");
-                        page+="</div>";
+                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
                     }
                 }
                 page+="</div>";
@@ -114,7 +120,21 @@ public class HtmlPages extends HttpServlet {
         }
         else{
             if(id==null && subcat==null){
-                cc.listofproducts(cat,10,0);
+                ResultSet rs2=cc.listofproducts(cat,10,0);
+                while(rs2.next()){
+                    page+="<div id=\"entry\">";
+                    page+="<a href=\"index.jsp?cat="+rs.getString(1)+"&id="+rs2.getString(1)+"\">";
+                    page+=rs2.getString("title");
+                    page+="</a>";
+                    page+="<br/>";
+                    page+=rs2.getString("author");
+                    page+="<br/>";
+                    page+="<strike>";
+                    page+=rs2.getString("mrp");
+                    page+="</strike>&nbsp;&nbsp;";
+                    page+=rs2.getString("price");
+                    page+="</div>";
+                }
             }
         }
         return page;
