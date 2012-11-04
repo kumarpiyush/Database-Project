@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 public class HtmlPages extends HttpServlet {
     
     DatabaseConnection cc=new DatabaseConnection();
+    int noOfProducts=9;
+    int offset=0;
     
     private String getSiteBrand() {
         return "<img src=\"images/retailor-logo.png\"/>";
@@ -77,9 +79,9 @@ public class HtmlPages extends HttpServlet {
         //page="<div id=\"topLevel\">";
         ResultSet rs=cc.listofcategories();
         while(rs.next()){
-            page+="<a href = \"index.jsp?cat="+rs.getString(1)+"\" ><b>";
+            page+="<div onmouseover=\"showSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" ><b>";
             page+=rs.getString(1);
-            page+="</b></a></br></br>\n\t\t\t\t";
+            page+="</b></a></div></br></br>\n\t\t\t\t";
         }
         return page;
     }
@@ -120,7 +122,7 @@ public class HtmlPages extends HttpServlet {
         }
         else{
             if(id==null && subcat==null){
-                ResultSet rs2=cc.listofproducts(cat,10,0);
+                ResultSet rs2=cc.listofproducts(cat,noOfProducts,offset);
                 while(rs2.next()){
                     page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
                 }
@@ -147,7 +149,7 @@ public class HtmlPages extends HttpServlet {
             }
             else{
                 System.err.println(subcat);
-                ResultSet rs2=cc.itemBySubCat(cat, subcat, 10, 0);
+                ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
                 while(rs2.next()){
                     page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
                 }
