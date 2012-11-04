@@ -25,7 +25,7 @@ public class HtmlPages extends HttpServlet {
     DatabaseConnection cc=new DatabaseConnection();
     
     private String getSiteBrand() {
-        return "<img src=\"images/4622_thumb-10-9-2012-6b0dfc22e3f44fd13c268fcdc28bcdf1.jpg\"/>";
+        return "<img src=\"images/retailor-logo.png\"/>";
     }
 
     private String getLoginOut() {
@@ -122,18 +122,34 @@ public class HtmlPages extends HttpServlet {
             if(id==null && subcat==null){
                 ResultSet rs2=cc.listofproducts(cat,10,0);
                 while(rs2.next()){
+                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
+                }
+            }
+            else if(id!=null){
+                ResultSet rs2=cc.itemByID(cat, id);
+                while(rs2.next()){
                     page+="<div id=\"entry\">";
-                    page+="<a href=\"index.jsp?cat="+rs.getString(1)+"&id="+rs2.getString(1)+"\">";
-                    page+=rs2.getString("title");
-                    page+="</a>";
+                    page+=rs2.getString(2);
                     page+="<br/>";
-                    page+=rs2.getString("author");
+                    page+=rs2.getString(3);
+                    page+="<br/>";
+                    page+=rs2.getString(4);
                     page+="<br/>";
                     page+="<strike>";
-                    page+=rs2.getString("mrp");
+                    page+=rs2.getString(5);
                     page+="</strike>&nbsp;&nbsp;";
-                    page+=rs2.getString("price");
+                    page+=rs2.getString(6);
+                    page+="<br/>";
+                    page+=rs2.getString(7);
+                    page+="<br/>";
                     page+="</div>";
+                }
+            }
+            else{
+                System.err.println(subcat);
+                ResultSet rs2=cc.itemBySubCat(cat, subcat, 10, 0);
+                while(rs2.next()){
+                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
                 }
             }
         }

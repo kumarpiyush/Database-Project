@@ -101,15 +101,8 @@ public class DatabaseConnection {
         if(cat!=null)
             category_to_table(cat);
         try{
-            PreparedStatement stmt = con.prepareStatement("select * from ? where category = ? order by ? ?, ? asc limit ?,?");   
-            stmt.setString(1, CATEGORY);
-            stmt.setString(2, subcat);
-            stmt.setString(3, SORT_BY_1);
-            stmt.setString(4, ORDER);
-            stmt.setString(5, SORT_BY_2);
-            stmt.setInt(6, no);
-            stmt.setInt(7, offset);
-            ResultSet rs = stmt.executeQuery();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" where category = '"+subcat+"' order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no);
             return rs;
         }
         catch(SQLException e){
@@ -119,26 +112,25 @@ public class DatabaseConnection {
     }
     //***************************************************************************
     //gives the list of products sorted by some order with an offset on index
-    public void listofproducts(String category,int no,int offset){
+    public ResultSet listofproducts(String category,int no,int offset){
         if(category!=null)
             category_to_table(category);
         try{
             //TODO fill all the sort bys and check order by
-            PreparedStatement stmt = con.prepareStatement("select * from ? order by ? ?, ? asc limit ?,?");   
-            stmt.setString(1, CATEGORY);
+            Statement stmt = con.createStatement();
+            /*stmt.setString(1, CATEGORY);
             stmt.setString(2, SORT_BY_1);
             stmt.setString(3, ORDER);
             stmt.setString(4, SORT_BY_2);
-            stmt.setInt(5, no);
-            stmt.setInt(6, offset);
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                System.out.println(rs.getString(1));
-            }
+            stmt.setInt(5, offset);
+            stmt.setInt(6, no);*/
+            ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no);
+            return rs;
         }
         catch(SQLException e){
             e.printStackTrace();
         }
+        return null;
     }
     
     //gives the list of sub-categories for given product
