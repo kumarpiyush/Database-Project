@@ -16,10 +16,8 @@ public class DatabaseConnection {
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
-    private static String CATEGORY = null;
-    private static String ORDER = "desc";
-    private static String SORT_BY_1 = "popularity"; //this has to be popularity
-    private static String SORT_BY_2 = null;
+    private String CATEGORY = null;
+    private String SORT_BY_2 = null;
     
     public DatabaseConnection() {
         try{
@@ -67,9 +65,13 @@ public class DatabaseConnection {
     }
     
     //***************************************************************************
-    public ResultSet topByCat(String cat, int no){
+    public ResultSet topByCat(String cat,String SORT_BY_1,String ORDER, int no){
         if(cat!=null)
             category_to_table(cat);
+        if(SORT_BY_1==null){
+            SORT_BY_1="popularity";
+            ORDER="desc";
+        }
         try{
             Statement stmt = con.createStatement();   
             ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" order by "+ SORT_BY_1+" "+ORDER+" limit "+no+";");
@@ -96,9 +98,13 @@ public class DatabaseConnection {
         return null;
     }
     
-    public ResultSet itemBySubCat(String cat, String subcat,int no,int offset){
+    public ResultSet itemBySubCat(String cat, String subcat,String SORT_BY_1,String ORDER, int no,int offset){
         if(cat!=null)
             category_to_table(cat);
+        if(SORT_BY_1==null){
+            SORT_BY_1="popularity";
+            ORDER="desc";
+        }
         try{
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" where category = '"+subcat+"' order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no);
@@ -111,9 +117,13 @@ public class DatabaseConnection {
     }
     //***************************************************************************
     //gives the list of products sorted by some order with an offset on index
-    public ResultSet listofproducts(String category,int no,int offset){
+    public ResultSet listofproducts(String category,String SORT_BY_1,String ORDER,int no,int offset){
         if(category!=null)
             category_to_table(category);
+        if(SORT_BY_1==null){
+            SORT_BY_1="popularity";
+            ORDER="desc";
+        }
         try{
             //TODO fill all the sort bys and check order by
             Statement stmt = con.createStatement();
@@ -142,40 +152,26 @@ public class DatabaseConnection {
         return null;
     }
     
-    //gives the list of sub-categories for given product
-    public void list_of_categories_for_product(String category){
-        category_to_table(category);
-        try{
-            //TODO fill all the sort byif(cat!=null)s and check order by
-            PreparedStatement stmt = con.prepareStatement("select distinct(category) from ? order by category asc");   
-            stmt.setString(1, CATEGORY);
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                System.out.println(rs.getString(1));
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-    
-    //order the data according to sortby and if whatorder = false, increasing, else descreasing
-    public void order_data(String sortby,boolean whatorder){
-        SORT_BY_1 = sortby;
-        if (whatorder){
-            ORDER = "asc";
-        }
-        else{
-            ORDER = "desc";
-        }
-    }
-    
     public void search_field(){
         
     }
     
-    public static void sanket() throws Exception{
-        System.err.println("Sanket is lollz!!!");
+    public int loginCheck(String username,String password){
+        return 144;
+    }
+    
+    public String useridToName(int userid){
+        String name="";
+        try{
+           Statement stmt = con.createStatement();   
+           ResultSet rs = stmt.executeQuery("select name from customer where ID = "+userid);
+           rs.next();
+           name = rs.getString(1);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return name;
     }
 }
 

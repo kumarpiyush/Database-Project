@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="html.HtmlPages"%>
+<%@page import="html.pageRender"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,7 +12,7 @@
         <script type="text/javascript">
             <%
                 //inits
-                HtmlPages cc=new HtmlPages();
+                pageRender cc=new pageRender();
             %>
         </script>
     </head>
@@ -19,6 +20,7 @@
         <div id="mainPage">
             <div id="mainPageText">
                 <%
+                session=request.getSession();
                 String cat=request.getParameter("cat");
                 String id=request.getParameter("id");
                 String subcat=request.getParameter("subcat");
@@ -35,7 +37,7 @@
         </div>
         <div id="topBar">
             <%
-            out.println(cc.getHeader());
+            out.println(cc.getHeader(session));
             %>
         </div>
         
