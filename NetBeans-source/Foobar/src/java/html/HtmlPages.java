@@ -78,11 +78,18 @@ public class HtmlPages extends HttpServlet {
         String page="";
         //page="<div id=\"topLevel\">";
         ResultSet rs=cc.listofcategories();
+        page+="<ul class=\"nav\">\n";
         while(rs.next()){
-            page+="<div onmouseover=\"showSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" ><b>";
+            page+="<li class=\"dropdown\" onmouseover=\"showSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" >";
             page+=rs.getString(1);
-            page+="</b></a></div></br></br>\n\t\t\t\t";
+            page+="</a></li>\n";
+            //page+="</b></a></li>\n\t\t\t\t";
+            //page+="</b></a>";
+           //page+="<li class=\"dropdown\"><a href=\"#\">Work</a><ul><li><a href=\"#\">Sublink</a></li><li><a href=\"#\">Sublink</a></li></ul></li>";
+            //page+="</li>";
         }
+        page+="</ul>\n";
+        //page+="<ul class=\"nav\">\n<li><a href=\"#\">Home</a></li>\n<li class=\"dropdown\">\n<a href=\"#\">Work</a>\n<ul><li><a href=\"#\">Sublink</a></li><li><a href=\"#\">Sublink</a></li></ul></li><li><a href=\"#\">Portofolio</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Contact</a></li></ul>";
         return page;
     }
     
