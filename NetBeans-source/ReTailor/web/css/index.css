@@ -1,0 +1,98 @@
+body{
+    
+    background-color: #e5e5e5;
+}
+
+#mainPage{
+    height: 100%;
+    width: 100%;
+}
+
+#mainPageText{
+    position: absolute;
+    left: 250px;
+    top: 100px;
+    /*width: 85%;
+    height: 135%;
+    background-image:url('../images/bg.jpg');
+    background-repeat: repeat;
+    background-color: #e5e5e5;*/
+}
+
+#collectedEntry{
+    position: relative;
+    height: 250px;
+    width: 900px;
+}
+
+#entry{
+    position: relative;
+    float: left;
+    height: 250px;
+    width: 250px;
+    margin-left: 40px;
+    margin-right: 10px;
+    margin-top: 60px;
+    text-align: center;
+    
+}
+
+#sideBar{
+    position: fixed;
+    /*position: static;*/
+    top: 0px;
+    left: 0px;
+    margin-left: 0px;
+    width:250px;
+    height: 100%;
+    background-color: #bfb084;
+}
+
+#sideBar a{
+    color: white;
+    text-decoration: none;
+}
+
+#siteBrand{
+    /*display: block;*/
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#sideBarText{
+    position: relative;
+    margin-top: 200px;
+    margin-left: 20px;
+    line-height:150%;
+}
+
+#topBar{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    height: 100px;
+    background-color: #711b17;
+}
+
+.product_img{
+    height: 200px;
+    width: 130px;
+    
+}
+
+.product_detail{
+    position: relative;
+    margin-left: 180px;
+    height: 400px;
+}
+
+.product_description{
+    font-size: 20px;
+    color: black;
+    strike: red;
+    font-family: fantasy;
+    text-shadow: 3px 3px #DDDDDD;
+}

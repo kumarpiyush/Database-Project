@@ -19,7 +19,7 @@ public class DatabaseConnection {
     
     private static String CATEGORY = null;
     private static String ORDER = "desc";
-    private static String SORT_BY_1 = "ID"; //this has to be popularity
+    private static String SORT_BY_1 = "popularity"; //this has to be popularity
     private static String SORT_BY_2 = null;
     
     public DatabaseConnection() {
@@ -133,6 +133,21 @@ public class DatabaseConnection {
         return null;
     }
     
+    //***************************************************************************
+    //gives the list of products sorted by some order with an offset on index
+    public ResultSet listofsubcats(String category){
+        
+         try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select distinct category from "+category);
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     //gives the list of sub-categories for given product
     public void list_of_categories_for_product(String category){
         category_to_table(category);
@@ -166,7 +181,7 @@ public class DatabaseConnection {
     }
     
     public static void sanket() throws Exception{
-        System.err.println("Sanket Rocks!!!");
+        System.err.println("Sanket is lollz!!!");
     }
 }
 

@@ -6,13 +6,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/navigation.css">
         <title>Shopper's Stop</title>
+        <script type="text/javascript">
+            <%
+                //inits
+                HtmlPages cc=new HtmlPages();
+                String catArray=cc.getAllSubCatsJS();
+                out.println(catArray);
+            %>
+        </script>
     </head>
     <body>
-        <%
-        //inits
-        HtmlPages cc=new HtmlPages();
-        %>
         <div id="mainPage">
             <div id="mainPageText">
                 <%
