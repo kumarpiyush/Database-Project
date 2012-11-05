@@ -54,14 +54,14 @@ ul.nav {
 		font-weight: bold;
 		font-size: 14px;
 		text-decoration: none;
-		color: #000000;
+		color: black;
 		text-shadow: 0 1px 0 #fff;
 
 		/* Background & effects */
-		background: #eeeeee; /* Background for old browsers */
+		background: brown; /* Background for old browsers */
 		background: -webkit-linear-gradient(bottom, #eaeaea, #f4f4f4); /* Background for Chrome & Safari */
 		background: -ms-linear-gradient(bottom, #eaeaea, #f4f4f4); /* Background for Internet Explorer 10 */
-		background: -moz-linear-gradient(bottom, #eaeaea, #f4f4f4); /* Background for Firefox */
+		background: -moz-linear-gradient(bottom, bfb084, bfb084 ); /* Background for Firefox */
 		background: -o-linear-gradient(bottom, #eaeaea, #f4f4f4); /* Background for Opera */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#eaeaea',GradientType=0); /* Background for Internet Explorer 8-9 */
 		box-shadow: inset 0 1px 0 #fff; /* Subtle white inner shadow */
@@ -77,20 +77,21 @@ ul.nav {
 		 height: 0px;
 
 		 /* Creating the triangle using borders */
-		 border-top: 5px solid #b2b2b2;
-		 border-left: 4px solid transparent;
+		 border-left: 5px solid #b2b2b2;
 		 border-right: 4px solid transparent;
-		 border-bottom: 5px solid transparent;
+		 border-bottom: 4px solid transparent;
+		 border-top: 5px solid transparent;
 		}
 
 	/* The hover state of the links */
 	.nav>li>a:hover, .nav>li:hover>a {
-		background: #eeeeee;
+		background: yellow;
 		background: -webkit-linear-gradient(bottom, #f3f3f3, #ffffff);
 		background: -ms-linear-gradient(bottom, #f3f3f3, #ffffff); 
-		background: -moz-linear-gradient(bottom, #f3f3f3, #ffffff);
+		background: -moz-linear-gradient(bottom, #711b17, #711b17);
 		background: -o-linear-gradient(bottom, #f3f3f3, #ffffff);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0);
+                
 	}
 
 	/* Subtle drop shadow for the last navigation link */
@@ -127,7 +128,7 @@ ul.nav {
 		display: block;
 		width: 140px;
 		padding: 8px 10px 8px 25px;
-		border-top: 1px solid #e1e1e1;
+		border-top: 1px solid red;
 
 		/* Text */
 		font-family: Arial, Helvetica, sans-serif;
@@ -136,14 +137,14 @@ ul.nav {
 		text-decoration: none;
 		border-left: 1px solid #cfcfcf;
 		border-right: 1px solid #cfcfcf;
-		/*background: white;
-		color: #b7b7b7;*/
+		background: pink;
+		color: blueviolet;
 		
 	}
 
 	/* The hover state of the dropdown menu links */
 	.nav ul li a:hover {
-		color: #787878;
+		color: greenyellow;
 	}
 
 	.nav .dropdown:hover li:first-child a {
