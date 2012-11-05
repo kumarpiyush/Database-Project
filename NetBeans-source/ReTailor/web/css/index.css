@@ -80,7 +80,8 @@ body{
 .product_img{
     height: 200px;
     width: 130px;
-    
+    padding:1px;
+    border:1px solid #021a40;
 }
 
 .product_detail{
@@ -89,6 +90,10 @@ body{
     height: 400px;
 }
 
+.detail_img{
+    padding:1px;
+    border:1px solid #021a40;
+}
 .product_description{
     font-size: 20px;
     color: black;

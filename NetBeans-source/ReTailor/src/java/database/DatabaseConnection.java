@@ -11,9 +11,8 @@ public class DatabaseConnection {
     
     private static Connection con = null;
     //private static final String DBNAME = "foobar";
-    //private static final String DB_USERNAME = "sameer";
-    //private static final String DB_PASSWORD = "sundarban";
-    private static final String DB_USERNAME = "root";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
@@ -43,13 +42,13 @@ public class DatabaseConnection {
             SORT_BY_2 = "title";
         }else if(category.equals("Computer Accessories")){
             CATEGORY = "computer_accessories";
-            SORT_BY_2 = "";
+            SORT_BY_2 = "brand";
         }else if(category.equals("Electronics")){
             CATEGORY = "electronics";
-            SORT_BY_2 = "";
+            SORT_BY_2 = "brand";
         }else if(category.equals("Clothing")){
             CATEGORY = "clothing";
-            SORT_BY_2 = "";
+            SORT_BY_2 = "category";
         }
     }
     
@@ -118,12 +117,6 @@ public class DatabaseConnection {
         try{
             //TODO fill all the sort bys and check order by
             Statement stmt = con.createStatement();
-            /*stmt.setString(1, CATEGORY);
-            stmt.setString(2, SORT_BY_1);
-            stmt.setString(3, ORDER);
-            stmt.setString(4, SORT_BY_2);
-            stmt.setInt(5, offset);
-            stmt.setInt(6, no);*/
             ResultSet rs = stmt.executeQuery("select * from "+CATEGORY+" order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no);
             return rs;
         }
@@ -136,11 +129,12 @@ public class DatabaseConnection {
     //***************************************************************************
     //gives the list of products sorted by some order with an offset on index
     public ResultSet listofsubcats(String category){
-        
-         try{
-            Statement stmt = con.createStatement();   
-            ResultSet rs = stmt.executeQuery("select distinct category from "+category);
-            return rs;
+        if(category!=null)
+            category_to_table(category);
+        try{
+           Statement stmt = con.createStatement();   
+           ResultSet rs = stmt.executeQuery("select distinct category from "+CATEGORY);
+           return rs;
         }
         catch(SQLException e){
             e.printStackTrace();
