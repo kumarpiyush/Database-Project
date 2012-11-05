@@ -83,58 +83,15 @@ public class HtmlPages extends HttpServlet {
         }
     }
     
-    public String getAllSubCatsJS() throws SQLException{
-        String page = "\n";
-        ResultSet rs=cc.listofcategories();
-        while(rs.next()){
-            if("Books".equals(rs.getString(1))){
-                
-                page+="var book_sub_cats = new Array{";
-                ResultSet rs2 = cc.listofsubcats("book");
-                if(rs2.next()){
-                    page+="\"" + rs2.getString(1) + "\"";
-                }
-                while(rs2.next()){
-                    page+=", \"" + rs2.getString(1) + "\"";
-                }
-                page+="};";
-                
-            }
-           /* else if("Clothing".equals(rs.getString(1))){
-                page+="var clothing_sub_cats = new Array{";
-                ResultSet rs2 = cc.listofsubcats("clothing");
-                if(rs2.next()){
-                    page+="\"" + rs2.getString(1) + "\"";
-                }
-                while(rs2.next()){
-                    page+=", \"" + rs2.getString(1) + "\"";
-                }
-                page+="}\n";
-            }*/
-        }
-            return page;
-    }
-    
     public String getSubCatsDropDown(String cat) throws SQLException{
         String page = "<ul>\n";
-        if("Books".equals(cat)){
-            ResultSet rs = cc.listofsubcats("book");
-            while(rs.next()){
-                page+="<li><a href = \"index.jsp?cat=Books&subcat=";
-                page+= rs.getString(1)+"\">"+rs.getString(1)+"</a></li>\n";
-            }
+        ResultSet rs = cc.listofsubcats(cat);
+        while(rs.next()){
+            page+="<li><a href = \"index.jsp?cat="+cat+"&subcat=";
+            page+= rs.getString(1)+"\">"+rs.getString(1)+"</a></li>\n";
         }
-        else if("Clothing".equals(cat)){
-            ResultSet rs = cc.listofsubcats("clothing");
-            while(rs.next()){
-                page+="<li><a href = \"index.jsp?cat=Clothing&subcat=";
-                page+= rs.getString(1)+"\">"+rs.getString(1)+"</a></li>\n";
-            }
-        }
-       /* else if("Clothing".equals(
-        }*/
-         page+="</ul>\n";
-         return page;
+        page+="</ul>\n";
+        return page;
     }
     
     public String getHeader() throws SQLException{
@@ -152,7 +109,7 @@ public class HtmlPages extends HttpServlet {
         ResultSet rs=cc.listofcategories();
         page+="<ul class=\"nav\">\n";
         while(rs.next()){
-            page+="<li class=\"dropdown\" onmouseover=\"showSubCats();\" onmouseout=\"hideSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" >";
+            page+="<li class=\"dropdown\" ><a href = \"index.jsp?cat="+rs.getString(1)+"\" >";
             page+=rs.getString(1);
             page+="</a>";
             page+=getSubCatsDropDown(rs.getString(1));
@@ -182,34 +139,46 @@ public class HtmlPages extends HttpServlet {
         return page;
     }
     
+    public String organiseResult(ResultSet rs, String cat) throws SQLException{
+        String page="";
+        if("Books".equals(cat)){
+            page+="<div id=\"collectedEntry\">";
+            while(rs.next()){
+                page+=getElem(cat, rs.getString(1), rs.getString("title"), rs.getString("author"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
+            }
+            page+="</div>";
+        }
+        else if("Clothing".equals(cat)){
+            page+="<div id=\"collectedEntry\">";
+            while(rs.next()){
+                page+=getElem(cat, rs.getString(1), rs.getString("category"), rs.getString("category2"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
+            }
+            page+="</div>";
+        }
+        else if("Electronics".equals(cat)){
+            page+="<div id=\"collectedEntry\">";
+            while(rs.next()){
+                page+=getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
+            }
+            page+="</div>";
+        }
+        return page;
+    }
+    
     public String getMainPage(String cat,String id,String subcat) throws SQLException{
         String page="";
         
         if(cat==null){
             ResultSet rs=cc.listofcategories();
             while(rs.next()){
-                System.err.println(rs.getString(1));
                 ResultSet rs2=cc.topByCat(rs.getString(1),3);
-                page+="<div id=\"collectedEntry\">";
-                if("Books".equals(rs.getString(1))){
-                    while(rs2.next()){
-                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
-                    }
-                }
-                if("Clothing".equals(rs.getString(1))){
-                    while(rs2.next()){
-                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("category"), rs2.getString("category2"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
-                    }
-                }
-                page+="</div>";
+                page+=organiseResult(rs2, rs.getString(1));
             }
         }
         else{
             if(id==null && subcat==null){
                 ResultSet rs2=cc.listofproducts(cat,noOfProducts,offset);
-                while(rs2.next()){
-                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
-                }
+                page+=organiseResult(rs2, cat);
             }
             else if(id!=null){
                 ResultSet rs2=cc.itemByID(cat, id);
@@ -240,11 +209,7 @@ public class HtmlPages extends HttpServlet {
             else{
                 System.err.println(subcat);
                 ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
-                while(rs2.next()){
-                    
-                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
-                   
-                }
+                page+=organiseResult(rs2, cat);
             }
         }
         return page;
