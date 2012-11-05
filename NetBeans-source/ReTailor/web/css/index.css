@@ -82,3 +82,8 @@ body{
     width: 130px;
     
 }
+
+.product_detail{
+    position: relative;
+    margin-left: 180px;
+}

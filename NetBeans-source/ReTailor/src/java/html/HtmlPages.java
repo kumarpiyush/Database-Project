@@ -67,6 +67,36 @@ public class HtmlPages extends HttpServlet {
         }
     }
     
+    public String getAllSubCats() throws SQLException{
+        String page = "";
+        ResultSet rs=cc.listofcategories();
+        while(rs.next()){
+            if("Books".equals(rs.getString(1))){
+                page+="var book_sub_cats = new Array{";
+                ResultSet rs2 = cc.listofsubcats("book");
+                if(rs2.next()){
+                    page+="\"" + rs2.getString(1) + "\"";
+                }
+                while(rs2.next()){
+                    page+=", \"" + rs2.getString(1) + "\"";
+                }
+                page+="}\n";
+            }
+           /* else if("Clothing".equals(rs.getString(1))){
+                page+="var clothing_sub_cats = new Array{";
+                ResultSet rs2 = cc.listofsubcats("clothing");
+                if(rs2.next()){
+                    page+="\"" + rs2.getString(1) + "\"";
+                }
+                while(rs2.next()){
+                    page+=", \"" + rs2.getString(1) + "\"";
+                }
+                page+="}\n";
+            }*/
+        }
+            return page;
+    }
+    
     public String getHeader(){
         String page;
         page = "<div id=\"siteBrand\">" + getSiteBrand() + "</div>" + getLoginOut() + getSearch();
@@ -80,13 +110,9 @@ public class HtmlPages extends HttpServlet {
         ResultSet rs=cc.listofcategories();
         page+="<ul class=\"nav\">\n";
         while(rs.next()){
-            page+="<li class=\"dropdown\" onmouseover=\"showSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" >";
+            page+="<li class=\"dropdown\" onmouseover=\"showSubCats();\" onmouseout=\"hideSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" >";
             page+=rs.getString(1);
             page+="</a></li>\n";
-            //page+="</b></a></li>\n\t\t\t\t";
-            //page+="</b></a>";
-           //page+="<li class=\"dropdown\"><a href=\"#\">Work</a><ul><li><a href=\"#\">Sublink</a></li><li><a href=\"#\">Sublink</a></li></ul></li>";
-            //page+="</li>";
         }
         page+="</ul>\n";
         //page+="<ul class=\"nav\">\n<li><a href=\"#\">Home</a></li>\n<li class=\"dropdown\">\n<a href=\"#\">Work</a>\n<ul><li><a href=\"#\">Sublink</a></li><li><a href=\"#\">Sublink</a></li></ul></li><li><a href=\"#\">Portofolio</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Contact</a></li></ul>";
@@ -139,13 +165,17 @@ public class HtmlPages extends HttpServlet {
             else if(id!=null){
                 ResultSet rs2=cc.itemByID(cat, id);
                 while(rs2.next()){
+                    page+="<table class=\"product_detail\">\n";
+                    page+="<tr>";
+                    page+="<td><img src=\""+rs2.getString("img_url")+"\"></td>\n";
+                    page+="<td>";
                     page+="<div id=\"entry\"><p>";
                     page+=rs2.getString(2);
                     page+="</p><p>";
                     page+=rs2.getString(3);
                     page+="</p><p>";
                     page+=rs2.getString(4);
-                    page+="</p>";
+                    page+="</p><p>";
                     page+="<strike>";
                     page+=rs2.getString(5);
                     page+="</strike>&nbsp;&nbsp;";
@@ -153,14 +183,18 @@ public class HtmlPages extends HttpServlet {
                     page+="</p><p>";
                     page+=rs2.getString(7);
                     page+="</p>";
-                    page+="</div>";
+                    page+="</div>\n</td>";
+                    page+="</tr>";
+                    page+="</table>";
                 }
             }
             else{
                 System.err.println(subcat);
                 ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
                 while(rs2.next()){
+                    
                     page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
+                   
                 }
             }
         }

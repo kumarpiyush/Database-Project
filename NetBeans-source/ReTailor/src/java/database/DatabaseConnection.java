@@ -133,6 +133,33 @@ public class DatabaseConnection {
         return null;
     }
     
+    //***************************************************************************
+    //gives the list of products sorted by some order with an offset on index
+    public ResultSet listofsubcats(String category){
+        try{
+            Statement stmt = con.createStatement();
+            /*stmt.setString(1, CATEGORY);
+            stmt.setString(2, SORT_BY_1);
+            stmt.setString(3, ORDER);
+            stmt.setString(4, SORT_BY_2);
+            stmt.setInt(5, offset);
+            stmt.setInt(6, no);*/
+            ResultSet rs=null;
+            if(category==null){
+                return rs;
+            }
+            
+            rs = stmt.executeQuery("select distinct category from "+category);
+            return rs;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally{
+            return null;
+        }
+    }
+    
     //gives the list of sub-categories for given product
     public void list_of_categories_for_product(String category){
         category_to_table(category);
@@ -166,7 +193,7 @@ public class DatabaseConnection {
     }
     
     public static void sanket() throws Exception{
-        System.err.println("Sanket Rocks!!!");
+        System.err.println("Sanket is lollz!!!");
     }
 }
 

@@ -8,12 +8,15 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/navigation.css">
         <title>Shopper's Stop</title>
+        <script type="text/javascript">
+            <%
+                //inits
+                HtmlPages cc=new HtmlPages();
+                //String catArray=cc.getAllSubCats();
+            %>
+        </script>
     </head>
     <body>
-        <%
-        //inits
-        HtmlPages cc=new HtmlPages();
-        %>
         <div id="mainPage">
             <div id="mainPageText">
                 <%
