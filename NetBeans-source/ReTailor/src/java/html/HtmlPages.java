@@ -159,6 +159,12 @@ public class HtmlPages extends HttpServlet {
                 page+="\n";
             }
         }
+        else if("Computer Accessories".equals(cat)){
+            while(rs.next()){
+                page+=getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
+                page+="\n";
+            }
+        }
         page+="\n";
         return page;
     }
