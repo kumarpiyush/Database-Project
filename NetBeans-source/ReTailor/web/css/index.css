@@ -86,11 +86,13 @@ body{
 .product_detail{
     position: relative;
     margin-left: 180px;
+    height: 400px;
 }
 
-product_description{
-    font-size: 40px;
-    color: red;
-    font-family: cursive;
+.product_description{
+    font-size: 20px;
+    color: black;
+    strike: red;
+    font-family: fantasy;
     text-shadow: 3px 3px #DDDDDD;
 }
