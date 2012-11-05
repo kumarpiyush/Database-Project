@@ -19,7 +19,7 @@ public class DatabaseConnection {
     
     private static String CATEGORY = null;
     private static String ORDER = "desc";
-    private static String SORT_BY_1 = "ID"; //this has to be popularity
+    private static String SORT_BY_1 = "popularity"; //this has to be popularity
     private static String SORT_BY_2 = null;
     
     public DatabaseConnection() {

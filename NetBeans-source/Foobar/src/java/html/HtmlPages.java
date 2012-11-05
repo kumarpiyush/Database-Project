@@ -130,20 +130,20 @@ public class HtmlPages extends HttpServlet {
             else if(id!=null){
                 ResultSet rs2=cc.itemByID(cat, id);
                 while(rs2.next()){
-                    page+="<div id=\"entry\">";
+                    page+="<div id=\"entry\"><p>";
                     page+=rs2.getString(2);
-                    page+="<br/>";
+                    page+="</p><p>";
                     page+=rs2.getString(3);
-                    page+="<br/>";
+                    page+="</p><p>";
                     page+=rs2.getString(4);
-                    page+="<br/>";
+                    page+="</p>";
                     page+="<strike>";
                     page+=rs2.getString(5);
                     page+="</strike>&nbsp;&nbsp;";
                     page+=rs2.getString(6);
-                    page+="<br/>";
+                    page+="</p><p>";
                     page+=rs2.getString(7);
-                    page+="<br/>";
+                    page+="</p>";
                     page+="</div>";
                 }
             }
