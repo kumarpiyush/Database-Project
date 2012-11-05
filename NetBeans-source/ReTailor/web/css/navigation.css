@@ -77,10 +77,10 @@ ul.nav {
 		 height: 0px;
 
 		 /* Creating the triangle using borders */
-		 border-left: 5px solid #b2b2b2;
+		 border-top: 5px solid #b2b2b2;
+		 border-left: 4px solid transparent;
 		 border-right: 4px solid transparent;
-		 border-bottom: 4px solid transparent;
-		 border-top: 5px solid transparent;
+		 border-bottom: 5px solid transparent;
 		}
 
 	/* The hover state of the links */
@@ -128,7 +128,7 @@ ul.nav {
 		display: block;
 		width: 140px;
 		padding: 8px 10px 8px 25px;
-		border-top: 1px solid red;
+		border-top: 1px solid #711b17;
 
 		/* Text */
 		font-family: Arial, Helvetica, sans-serif;
@@ -137,7 +137,7 @@ ul.nav {
 		text-decoration: none;
 		border-left: 1px solid #cfcfcf;
 		border-right: 1px solid #cfcfcf;
-		background: pink;
+		background: #cd7171;
 		color: blueviolet;
 		
 	}

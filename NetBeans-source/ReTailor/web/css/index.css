@@ -89,5 +89,8 @@ body{
 }
 
 product_description{
-    font 
+    font-size: 40px;
+    color: red;
+    font-family: cursive;
+    text-shadow: 3px 3px #DDDDDD;
 }

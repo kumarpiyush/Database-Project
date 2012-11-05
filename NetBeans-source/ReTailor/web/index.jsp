@@ -12,7 +12,8 @@
             <%
                 //inits
                 HtmlPages cc=new HtmlPages();
-                String catArray=cc.getAllSubCats();
+                String catArray=cc.getAllSubCatsJS();
+                out.println(catArray);
             %>
         </script>
     </head>

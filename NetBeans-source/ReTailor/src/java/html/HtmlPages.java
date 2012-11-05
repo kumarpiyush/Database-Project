@@ -67,8 +67,8 @@ public class HtmlPages extends HttpServlet {
         }
     }
     
-    public String getAllSubCats() throws SQLException{
-        String page = "";
+    public String getAllSubCatsJS() throws SQLException{
+        String page = "\n";
         ResultSet rs=cc.listofcategories();
         while(rs.next()){
             if("Books".equals(rs.getString(1))){
@@ -81,7 +81,7 @@ public class HtmlPages extends HttpServlet {
                 while(rs2.next()){
                     page+=", \"" + rs2.getString(1) + "\"";
                 }
-                page+="};\n";
+                page+="};";
                 
             }
            /* else if("Clothing".equals(rs.getString(1))){
@@ -99,6 +99,21 @@ public class HtmlPages extends HttpServlet {
             return page;
     }
     
+    public String getSubCatsDropDown(String cat) throws SQLException{
+        String page = "<ul>\n";
+        if("Books".equals(cat)){
+            ResultSet rs = cc.listofsubcats("book");
+            while(rs.next()){
+                page+="<li><a href = \"index.jsp?cat=Books&subcat=";
+                page+= rs.getString(1)+"\">"+rs.getString(1)+"</a></li>\n";
+            }
+        }
+       /* else if("Clothing".equals(
+        }*/
+         page+="</ul>\n";
+         return page;
+    }
+    
     public String getHeader(){
         String page;
         page = "<div id=\"siteBrand\">" + getSiteBrand() + "</div>" + getLoginOut() + getSearch();
@@ -114,7 +129,9 @@ public class HtmlPages extends HttpServlet {
         while(rs.next()){
             page+="<li class=\"dropdown\" onmouseover=\"showSubCats();\" onmouseout=\"hideSubCats();\"><a href = \"index.jsp?cat="+rs.getString(1)+"\" >";
             page+=rs.getString(1);
-            page+="</a></li>\n";
+            page+="</a>";
+            page+=getSubCatsDropDown(rs.getString(1));
+            page+="</li>\n";
         }
         page+="</ul>\n";
         //page+="<ul class=\"nav\">\n<li><a href=\"#\">Home</a></li>\n<li class=\"dropdown\">\n<a href=\"#\">Work</a>\n<ul><li><a href=\"#\">Sublink</a></li><li><a href=\"#\">Sublink</a></li></ul></li><li><a href=\"#\">Portofolio</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Contact</a></li></ul>";
