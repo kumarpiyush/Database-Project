@@ -28,7 +28,7 @@ public class HtmlPages extends HttpServlet {
     
     private String getSiteBrand() {
         String page="<div id=\"siteBrand\">";
-        page+="<img src=\"images/retailor-logo.png\"/>";
+        page+="<a href=\"index.jsp\"><img src=\"images/retailor-logo.png\"/></a>";
         page+="</div>";
         return page;
     }
