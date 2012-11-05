@@ -198,7 +198,7 @@ public class HtmlPages extends HttpServlet {
                 }
                 if("Clothing".equals(rs.getString(1))){
                     while(rs2.next()){
-                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("category"), rs2.getString("size"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
+                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("category"), rs2.getString("category2"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
                     }
                 }
                 page+="</div>";
