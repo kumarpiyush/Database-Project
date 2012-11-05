@@ -1,5 +1,5 @@
 body{
-    background-color: #e5e5e5;
+    /background-color: #e5e5e5;
 }
 
 #mainPage{
@@ -44,12 +44,13 @@ body{
     margin-left: 0px;
     width:250px;
     height: 100%;
-    background-color: #bfb084;
+    background-color: lightgray;
 }
 
 #sideBar a{
     color: white;
     text-decoration: none;
+    
 }
 
 #siteBrand{
@@ -73,7 +74,7 @@ body{
     margin-left: 0px;
     margin-top: 0px;
     height: 100px;
-    background-color: #711b17;
+    background-color: #403d3a;
 }
 
 .product_img{
@@ -104,11 +105,11 @@ strike{
     position: relative;
     /*top: 70px;
     float: left;*/
-    /*margin-top: 100%;
-    width: 500px;
+    margin-top: 60px;
+    /*width: 500px;
     height: 50px;*/
     margin-right: 5%;
-    float: top;
+    float: bottom;
 }
 
 #topLeft{
