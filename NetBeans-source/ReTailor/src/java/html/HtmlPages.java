@@ -93,9 +93,11 @@ public class HtmlPages extends HttpServlet {
         return page;
     }
     
-    public String getElem(String category,String id,String arg1,String arg2,String mrp, String price){
+    public String getElem(String category,String id,String arg1,String arg2,String mrp, String price, String img_url){
         String page="";
         page+="<div id=\"entry\">";
+        page+="<a href=\"index.jsp?cat="+category+"&id="+id+"\">";
+        page+="<img class=\"product_img\" src=\""+img_url+"\" alt=\"Image Missing\" ></a></br>";
         page+="<a href=\"index.jsp?cat="+category+"&id="+id+"\">";
         page+=arg1;
         page+="</a>";
@@ -121,7 +123,7 @@ public class HtmlPages extends HttpServlet {
                 page+="<div id=\"collectedEntry\">";
                 if("Books".equals(rs.getString(1))){
                     while(rs2.next()){
-                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
+                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
                     }
                 }
                 page+="</div>";
@@ -131,7 +133,7 @@ public class HtmlPages extends HttpServlet {
             if(id==null && subcat==null){
                 ResultSet rs2=cc.listofproducts(cat,noOfProducts,offset);
                 while(rs2.next()){
-                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
+                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
                 }
             }
             else if(id!=null){
@@ -158,7 +160,7 @@ public class HtmlPages extends HttpServlet {
                 System.err.println(subcat);
                 ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
                 while(rs2.next()){
-                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"));
+                    page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
                 }
             }
         }
