@@ -167,7 +167,7 @@ public class HtmlPages extends HttpServlet {
         String page="";
         page+="<div id=\"entry\">";
         page+="<a href=\"index.jsp?cat="+category+"&id="+id+"\">";
-        page+="<img class=\"product_img\" src=\""+img_url+"\" alt=\"Image Missing\" ></a></br>";
+        page+="<img class=\"product_img\" src=\""+img_url+"\" alt=\"Image Missing\" /></a><br/>";
         page+="<a href=\"index.jsp?cat="+category+"&id="+id+"\">";
         page+=arg1;
         page+="</a>";
@@ -194,14 +194,17 @@ public class HtmlPages extends HttpServlet {
                 if("Books".equals(rs.getString(1))){
                     while(rs2.next()){
                         page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
+                        page+="\n";
                     }
                 }
                 if("Clothing".equals(rs.getString(1))){
                     while(rs2.next()){
                         page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("category"), rs2.getString("size"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
+                        page+="\n";
                     }
                 }
                 page+="</div>";
+                page+="\n";
             }
         }
         else{
@@ -209,6 +212,7 @@ public class HtmlPages extends HttpServlet {
                 ResultSet rs2=cc.listofproducts(cat,noOfProducts,offset);
                 while(rs2.next()){
                     page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
+                    page+="\n";
                 }
             }
             else if(id!=null){
@@ -216,34 +220,33 @@ public class HtmlPages extends HttpServlet {
                 while(rs2.next()){
                     page+="<table class=\"product_detail\">\n";
                     page+="<tr>";
-                    page+="<td><img src=\""+rs2.getString("img_url")+"\"></td>\n";
+                    page+="<td><img class=\"detail_img\" src=\""+rs2.getString("img_url")+"\"/></td>\n";
                     page+="<td>";
                     page+="<div class = \"product_description\" id=\"entry\"><p>";
                     page+=rs2.getString(2);
-                    page+="</p><p>";
+                    page+="</p>\n<p>";
                     page+=rs2.getString(3);
-                    page+="</p><p>";
+                    page+="</p>\n<p>";
                     page+=rs2.getString(4);
-                    page+="</p><p>";
+                    page+="</p>\n<p>";
                     page+="<strike>";
                     page+=rs2.getString(5);
                     page+="</strike>&nbsp;&nbsp;";
                     page+=rs2.getString(6);
-                    page+="</p><p>";
+                    page+="</p>\n<p>";
                     page+=rs2.getString(7);
-                    page+="</p>";
+                    page+="</p>\n";
                     page+="</div>\n</td>";
-                    page+="</tr>";
-                    page+="</table>";
+                    page+="</tr>\n";
+                    page+="</table>\n";
                 }
             }
             else{
                 System.err.println(subcat);
                 ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
                 while(rs2.next()){
-                    
                     page+=getElem(cat, rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
-                   
+                    page+="\n";
                 }
             }
         }
