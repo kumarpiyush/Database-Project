@@ -19,10 +19,53 @@
         <div id="mainPage">
             <div id="mainPageText">
                 <%
-                String cat=request.getParameter("cat");
-                String id=request.getParameter("id");
-                String subcat=request.getParameter("subcat");
-                out.println(cc.getMainPage(cat,id,subcat));
+                    String sortby = "";
+                    if(request.getParameter("id")==null && request.getParameter("cat")!=null){
+                        String url = "";
+                        url+="index.jsp?cat=";
+                        url+=request.getParameter("cat");
+                        if(request.getParameter("subcat")!=null){
+                            url+="&subcat";
+                            url+=request.getParameter("subcat");
+                        }
+                        String current_option;
+                        if(request.getParameter("sort")==null) current_option = "";
+                        else current_option = request.getParameter("sort").toString();
+                        boolean is_sorted = true;
+                        if(current_option=="") is_sorted = false;
+                        sortby += "<select name=\"Sort By\" onchange=\"location = this.options[this.selectedIndex].value;\">\n\t";
+                        sortby+="<option ";
+                        if(is_sorted && current_option.equals("1")) sortby+=" selected";
+                        sortby += " value=";
+                        String url1 = url+"&sort=1";
+                        sortby = sortby + "\""+ url1 + "\"";
+                        sortby += ">Increasing Price</option>\n\t<option";
+                        if(is_sorted && current_option.equals("2")) sortby+=" selected";
+                        sortby += " value=";
+                        String url2 = url+"&sort=2";
+                        sortby = sortby + "\""+ url2 + "\"";
+                        sortby += ">Decreasing Price</option>\n\t<option";
+                        if(!is_sorted || (is_sorted && current_option.equals("3"))) sortby+=" selected";
+                        sortby += " value=";
+                        String url3 = url+"&sort=3";
+                        sortby = sortby + "\""+ url3 + "\"";
+                        sortby += ">Decreasing Popularity</option>\n\t<option";
+                        if(is_sorted && current_option.equals("4")) sortby+=" selected";
+                        sortby += " value=";
+                        String url4 = url+"&sort=4";
+                        sortby = sortby + "\""+ url4 + "\"";
+                        sortby += ">Increasing Popularity</option>\n";
+                        sortby += "</select>";
+                        out.println(sortby);
+                        if(current_option=="") current_option = "OMG!!!!!!";
+                        System.out.println("current_option = "+current_option);
+                        
+                    }
+                    
+                    String cat=request.getParameter("cat");
+                    String id=request.getParameter("id");
+                    String subcat=request.getParameter("subcat");
+                    out.println(cc.getMainPage(cat,id,subcat));
                 %>
             </div>
         </div>

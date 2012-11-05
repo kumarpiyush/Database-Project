@@ -53,6 +53,7 @@ public class HtmlPages extends HttpServlet {
         page+="</div>";
         return page;
     }
+    
 
     /**
      * Processes requests for both HTTP
@@ -68,6 +69,7 @@ public class HtmlPages extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<html>");
