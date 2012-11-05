@@ -136,28 +136,16 @@ public class DatabaseConnection {
     //***************************************************************************
     //gives the list of products sorted by some order with an offset on index
     public ResultSet listofsubcats(String category){
-        try{
-            Statement stmt = con.createStatement();
-            /*stmt.setString(1, CATEGORY);
-            stmt.setString(2, SORT_BY_1);
-            stmt.setString(3, ORDER);
-            stmt.setString(4, SORT_BY_2);
-            stmt.setInt(5, offset);
-            stmt.setInt(6, no);*/
-            ResultSet rs=null;
-            if(category==null){
-                return rs;
-            }
-            
-            rs = stmt.executeQuery("select distinct category from "+category);
+        
+         try{
+            Statement stmt = con.createStatement();   
+            ResultSet rs = stmt.executeQuery("select distinct category from "+category);
             return rs;
         }
         catch(SQLException e){
             e.printStackTrace();
         }
-        finally{
-            return null;
-        }
+        return null;
     }
     
     //gives the list of sub-categories for given product

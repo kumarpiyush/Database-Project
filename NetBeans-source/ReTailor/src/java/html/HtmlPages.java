@@ -72,6 +72,7 @@ public class HtmlPages extends HttpServlet {
         ResultSet rs=cc.listofcategories();
         while(rs.next()){
             if("Books".equals(rs.getString(1))){
+                
                 page+="var book_sub_cats = new Array{";
                 ResultSet rs2 = cc.listofsubcats("book");
                 if(rs2.next()){
@@ -80,7 +81,8 @@ public class HtmlPages extends HttpServlet {
                 while(rs2.next()){
                     page+=", \"" + rs2.getString(1) + "\"";
                 }
-                page+="}\n";
+                page+="};\n";
+                
             }
            /* else if("Clothing".equals(rs.getString(1))){
                 page+="var clothing_sub_cats = new Array{";
@@ -169,7 +171,7 @@ public class HtmlPages extends HttpServlet {
                     page+="<tr>";
                     page+="<td><img src=\""+rs2.getString("img_url")+"\"></td>\n";
                     page+="<td>";
-                    page+="<div id=\"entry\"><p>";
+                    page+="<div class = \"product_description\" id=\"entry\"><p>";
                     page+=rs2.getString(2);
                     page+="</p><p>";
                     page+=rs2.getString(3);
