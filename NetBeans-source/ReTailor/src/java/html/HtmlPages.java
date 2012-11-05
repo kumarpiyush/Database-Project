@@ -27,15 +27,31 @@ public class HtmlPages extends HttpServlet {
     int offset=0;
     
     private String getSiteBrand() {
-        return "<img src=\"images/retailor-logo.png\"/>";
+        String page="<div id=\"siteBrand\">";
+        page+="<img src=\"images/retailor-logo.png\"/>";
+        page+="</div>";
+        return page;
     }
 
     private String getLoginOut() {
         return "";
     }
 
-    private String getSearch() {
-        return "";
+    private String getSearch() throws SQLException {
+        String page="";
+        page+="<div id=\"search\">";
+        page+="<form >";
+        page+="Search:";
+        page+="<input type=\"text\" name=\"mainSearch\">";
+        page+="<select>";
+        ResultSet rs=cc.listofcategories();
+        while(rs.next()){
+            page+="<option value=\""+rs.getString(1)+"\">"+rs.getString(1)+"</option>";
+        }
+        page+="</select>";
+        page+="</form>";
+        page+="</div>";
+        return page;
     }
 
     /**
@@ -108,15 +124,24 @@ public class HtmlPages extends HttpServlet {
                 page+= rs.getString(1)+"\">"+rs.getString(1)+"</a></li>\n";
             }
         }
+        else if("Clothing".equals(cat)){
+            ResultSet rs = cc.listofsubcats("clothing");
+            while(rs.next()){
+                page+="<li><a href = \"index.jsp?cat=Clothing&subcat=";
+                page+= rs.getString(1)+"\">"+rs.getString(1)+"</a></li>\n";
+            }
+        }
        /* else if("Clothing".equals(
         }*/
          page+="</ul>\n";
          return page;
     }
     
-    public String getHeader(){
-        String page;
-        page = "<div id=\"siteBrand\">" + getSiteBrand() + "</div>" + getLoginOut() + getSearch();
+    public String getHeader() throws SQLException{
+        String page="";
+        page+="<div id=\"topLeft\">"+getSiteBrand()+"</div>";
+        page +="\n"+"<div id=\"topRight\">"+"\n"+getLoginOut();
+        page+="\n"+ getSearch()+"</div>"+"\n";
         
         return page;
     }
@@ -169,6 +194,11 @@ public class HtmlPages extends HttpServlet {
                 if("Books".equals(rs.getString(1))){
                     while(rs2.next()){
                         page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("title"), rs2.getString("author"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
+                    }
+                }
+                if("Clothing".equals(rs.getString(1))){
+                    while(rs2.next()){
+                        page+=getElem(rs.getString(1), rs2.getString(1), rs2.getString("category"), rs2.getString("size"), rs2.getString("mrp"), rs2.getString("price"), rs2.getString("img_url"));
                     }
                 }
                 page+="</div>";
