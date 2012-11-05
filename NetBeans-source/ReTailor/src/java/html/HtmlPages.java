@@ -142,28 +142,22 @@ public class HtmlPages extends HttpServlet {
     public String organiseResult(ResultSet rs, String cat) throws SQLException{
         String page="";
         if("Books".equals(cat)){
-            page+="<div id=\"collectedEntry\">\n";
             while(rs.next()){
                 page+=getElem(cat, rs.getString(1), rs.getString("title"), rs.getString("author"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page+="\n";
             }
-            page+="</div>";
         }
         else if("Clothing".equals(cat)){
-            page+="<div id=\"collectedEntry\">\n";
             while(rs.next()){
                 page+=getElem(cat, rs.getString(1), rs.getString("category"), rs.getString("category2"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page+="\n";
             }
-            page+="</div>";
         }
         else if("Electronics".equals(cat)){
-            page+="<div id=\"collectedEntry\">\n";
             while(rs.next()){
                 page+=getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page+="\n";
             }
-            page+="</div>";
         }
         page+="\n";
         return page;
@@ -171,7 +165,7 @@ public class HtmlPages extends HttpServlet {
     
     public String getMainPage(String cat,String id,String subcat) throws SQLException{
         String page="";
-        
+        page+="<div id=\"collectedEntry\">\n";
         if(cat==null){
             ResultSet rs=cc.listofcategories();
             while(rs.next()){
@@ -220,6 +214,7 @@ public class HtmlPages extends HttpServlet {
                 page+="\n";
             }
         }
+        page+="</div>";
         return page;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
