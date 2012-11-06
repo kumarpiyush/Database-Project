@@ -1,3 +1,4 @@
+<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="html.HtmlPages"%>
@@ -103,6 +104,16 @@
                         //if(current_option=="") current_option = "OMG!!!!!!";
                         //System.out.println("current_option = "+current_option);
                         
+                    }
+                    Map<String, String[]> mm = request.getParameterMap();
+                    
+                    for(Map.Entry<String, String[]> itr : mm.entrySet()){
+                        System.err.print(itr.getKey()+" :");
+                        String[] arr=itr.getValue();
+                        for(String i:arr){
+                            System.err.print(i+" ,");
+                        }
+                        System.err.println();
                     }
                     
                     String cat=request.getParameter("cat");

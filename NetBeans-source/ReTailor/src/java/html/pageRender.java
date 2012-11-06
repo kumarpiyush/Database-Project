@@ -36,7 +36,6 @@ public class pageRender {
             session.setAttribute("userid",-1);
         }
         String page="";
-        System.err.println("ERR 1 "+userid);
         if(userid<0){
             page+="\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page+="Email: <input type=\"text\" name=\"username\" />\n";
@@ -164,22 +163,22 @@ public class pageRender {
             elec=l.get(3);
             if(book!=null){
                 while(book.next()){
-                    System.err.println(book.getString(2));
+                    //System.err.println(book.getString(2));
                 }
             }
             if(compu!=null){
                 while(compu.next()){
-                    System.err.println(compu.getString(7));
+                    //System.err.println(compu.getString(7));
                 }
             }
             if(cloth!=null){
                 while(cloth.next()){
-                    System.err.println(cloth.getString(2));
+                    //System.err.println(cloth.getString(2));
                 }
             }
             if(elec!=null){
                 while(elec.next()){
-                    System.err.println(elec.getString(2));
+                    //System.err.println(elec.getString(2));
                 }
             }
         }
@@ -228,7 +227,6 @@ public class pageRender {
                     }
                 }
                 else{
-                    System.err.println(subcat);
                     ResultSet rs2=cc.itemBySubCat(cat, subcat,sort, noOfProducts, offset);
                     page+=organiseResult(rs2, cat);
                     page+="\n";
