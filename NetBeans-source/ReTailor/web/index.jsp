@@ -112,7 +112,8 @@
                     String table=request.getParameter("table");
                     
                     out.println(cc.getMainPage(cat,id,subcat,searchQuery,table,sortOption));
-                    out.println(cc.getPrevNextLinks());
+                    if(cat!=null && id==null)
+                        out.println(cc.getPrevNextLinks());
 
                     %>
             </div>
