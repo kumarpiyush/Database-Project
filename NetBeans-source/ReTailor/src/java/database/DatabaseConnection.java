@@ -194,8 +194,8 @@ public class DatabaseConnection {
         if(table.equals("Clothing") || table.equals("all")){
             String query="select * from clothing where ";
             String token;
-            while(st1.hasMoreTokens()){
-                token=st1.nextToken();
+            while(st2.hasMoreTokens()){
+                token=st2.nextToken();
                 if("Men".equals(token)){
                     token="M";
                 }
@@ -215,8 +215,8 @@ public class DatabaseConnection {
         if(table.equals("Computer Accessories") || table.equals("all")){
             String query="select * from computer_accessories where ";
             String token;
-            while(st1.hasMoreTokens()){
-                token=st1.nextToken();
+            while(st3.hasMoreTokens()){
+                token=st3.nextToken();
                 query+="(brand like \"%"+token+"%\" or model like \"%"+token+"%\" or category like \"%"+token+"%\" or description like \"%"+token+"%\") and";
             }
             query+="(brand like \"%\" or model like \"%\" or category like \"%%\" or description like \"%%\") order by popularity limit 10";
@@ -227,8 +227,8 @@ public class DatabaseConnection {
         if(table.equals("Electronics") || table.equals("all")){
             String query="select * from electronics where ";
             String token;
-            while(st1.hasMoreTokens()){
-                token=st1.nextToken();
+            while(st4.hasMoreTokens()){
+                token=st4.nextToken();
                 query+="(brand like \"%"+token+"%\" or model like \"%"+token+"%\" or category like \"%"+token+"%\" or description like \"%"+token+"%\") and";
             }
             query+="(brand like \"%\" or model like \"%\" or category like \"%%\" or description like \"%%\") order by popularity limit 10";
