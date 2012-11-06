@@ -51,6 +51,7 @@
                 session=request.getSession();
                     String sortby = "";
                     int sortOption = 0;
+                    Map<String, String[]> mm = request.getParameterMap();
                     if(request.getParameter("id")==null && request.getParameter("cat")!=null){
                         String url = "";
                         url+="index.jsp?cat=";
@@ -104,7 +105,7 @@
                         //System.out.println("current_option = "+current_option);
                         
                     }
-                    Map<String, String[]> mm = request.getParameterMap();
+                   
                     
                     for(Map.Entry<String, String[]> itr : mm.entrySet()){
                         //System.err.print(itr.getKey()+" :");
