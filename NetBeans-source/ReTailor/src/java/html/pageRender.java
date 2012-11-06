@@ -45,12 +45,14 @@ public class pageRender {
             page += "Password: <input type=\"password\" name=\"password\" />\n";
             page += "<input type=\"submit\" value=\"Login\"/>\n";
             page += "</form>\n\n";
+            page+="<a href=\"checkout.jsp\"> Checkout </a>";
         } else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi " + session.getAttribute("name").toString() + "!</span>\n\t\t\t</td>\n\t\t\t";
             page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Logout\"/>\n";
             page += "</form>\n\t\t</td>\n\t</tr></table>";
+            page+="<a href=\"checkout.jsp\"> Checkout </a>";
         }
         return page;
     }
@@ -320,7 +322,16 @@ public class pageRender {
                         page += "</div>\n</td>";
                         page += "</tr>\n";
                         page += "</table>\n";
-                        page += "<div id=\"order_product\"><p><a href=\"http://www.amazon.com\">Order Now !</a></p></div>";
+                        
+                        // now the add to cart part
+                        page+="<form name=\"addtocart\" method=\"post\" action=\"order_handler\">\n";
+                        // the product details
+                        page+="<input type=\"hidden\" name=\"cat\" value=\""+cat+"\">";
+                        page+="<input type=\"hidden\" name=\"id\" value=\""+id+"\">";
+                        
+                        page+="Number: <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
+                        page+="<input type=\"submit\" value=\"Add to Cart\">";
+                        page+="</form>";
 
                     }
                 } else {

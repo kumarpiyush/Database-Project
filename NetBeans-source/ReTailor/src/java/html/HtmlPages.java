@@ -17,10 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author sanket
- */
+
 @WebServlet(name = "HtmlPages", urlPatterns = {"/HtmlPages"})
 public class HtmlPages extends HttpServlet {
     DatabaseConnection cc=new DatabaseConnection();
