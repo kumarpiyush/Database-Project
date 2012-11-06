@@ -71,10 +71,7 @@
                         
                     }
                     
-                    String cat=request.getParameter("cat");
-                    String id=request.getParameter("id");
-                    String subcat=request.getParameter("subcat");
-                    out.println(cc.getMainPage(cat,id,subcat));
+                    
 
                     %>
             </div>
