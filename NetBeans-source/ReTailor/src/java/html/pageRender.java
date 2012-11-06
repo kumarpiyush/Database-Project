@@ -205,8 +205,10 @@ public class pageRender {
                 is_sorted = true;
                 current_option = arr[0];
             } else {
-                URL += "&" + key + "=";
-                URL += arr[0];
+                if (!key.equals("offset")){
+                    URL += "&" + key + "=";
+                    URL += arr[0];
+                }
             }
         }
         sortby += "<div  class=\"sortSelect\" ><table><tr><td>Sort :</td>\n\t<td><select name=\"Sort By\" onchange=\"location = this.options[this.selectedIndex].value;\">\n\t";
