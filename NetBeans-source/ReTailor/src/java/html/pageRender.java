@@ -175,6 +175,24 @@ public class pageRender {
         return page;
     }
 
+    private String getOptionForSortBy(String current_option, String index, String text, String URL, boolean is_sorted) {
+        String sortby = "\t\t\t<option ";
+        if (!index.equals("4")) {
+            if (is_sorted && current_option.equals(index)) {
+                sortby += " selected";
+            }
+        } else {
+            if (!is_sorted || (is_sorted && current_option.equals("4"))) {
+                sortby += " selected";
+            }
+        }
+        sortby += " value=";
+        String URL1 = URL + "&sort=" + index;
+        sortby = sortby + "\"" + URL1 + "\"";
+        sortby += ">" + text + "</option>\n\t";
+        return sortby;
+    }
+
     public String getSortBy(Map<String, String[]> mm) {
         String sortby = "";
         String URL = "index.jsp?";
@@ -184,50 +202,19 @@ public class pageRender {
             String key = itr.getKey();
             String[] arr = itr.getValue();
             if (key.equals("sort")) {
-                is_sorted=true;
+                is_sorted = true;
                 current_option = arr[0];
-            }
-            
-            else{
+            } else {
                 URL += "&" + key + "=";
                 URL += arr[0];
             }
         }
         sortby += "<div  class=\"sortSelect\" ><table><tr><td>Sort :</td>\n\t<td><select name=\"Sort By\" onchange=\"location = this.options[this.selectedIndex].value;\">\n\t";
-        sortby += "\t\t\t\t<option ";
-        if (is_sorted && current_option.equals("1")) {
-            sortby += " selected";
-        }
-        sortby += " value=";
-        String URL1 = URL + "&sort=1";
-        sortby = sortby + "\"" + URL1 + "\"";
-        sortby += ">Increasing Price</option>\n\t\t\t\t\t<option";
-        
-        if (is_sorted && current_option.equals("2")) {
-            sortby += " selected";
-        }
-        sortby += " value=";
-        String URL2 = URL + "&sort=2";
-        sortby = sortby + "\"" + URL2 + "\"";
-        sortby += ">Decreasing Price</option>\n\t\t\t\t\t<option";
-        
-        if (!is_sorted || (is_sorted && current_option.equals("3"))) {
-            sortby += " selected";
-        }
-        sortby += " value=";
-        String URL3 = URL + "&sort=3";
-        sortby = sortby + "\"" + URL3 + "\"";
-        sortby += ">Decreasing Popularity</option>\n\t\t\t\t\t<option";
-        
-        if (is_sorted && current_option.equals("4")) {
-            sortby += " selected";
-        }
-        sortby += " value=";
-        String URL4 = URL + "&sort=4";
-        sortby = sortby + "\"" + URL4 + "\"";
-        sortby += ">Increasing Popularity</option>\n";
+        sortby += getOptionForSortBy(current_option, "1", "Increasing Price", URL, is_sorted);
+        sortby += getOptionForSortBy(current_option, "2", "Decreasing Price", URL, is_sorted);
+        sortby += getOptionForSortBy(current_option, "3", "Increasing Popularity", URL, is_sorted);
+        sortby += getOptionForSortBy(current_option, "4", "Decreasing Popularity", URL, is_sorted);
         sortby += "\t\t\t\t</select></td></tr></table></div>";
-        
         return sortby;
     }
 
