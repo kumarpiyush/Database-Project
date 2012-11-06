@@ -192,7 +192,7 @@ public class pageRender {
                         page+="<tr>";
                         page+="<td><img class=\"detail_img\" src=\""+rs2.getString("img_url")+"\"/></td>\n";
                         page+="<td>";
-                        page+="<div class = \"product_description\" id=\"entry\"><p>";
+                        page+="<div class = \"product_description\" ><p>";
                         page+=rs2.getString(2);
                         page+="</p>\n<p>";
                         page+=rs2.getString(3);

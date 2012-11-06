@@ -99,7 +99,12 @@ background-color: white;
 .product_detail{
     position: relative;
     margin-left: 180px;
-    height: 400px;
+    margin-top:50px;
+    height: 350px;
+    width: 500px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border:2px solid #711b17;
 }
 
 .detail_img{
@@ -108,10 +113,19 @@ background-color: white;
 }
 .product_description{
     font-size: 20px;
-    color: black;
+    color: #711b17;
     /*strike: red;*/
-    font-family: fantasy;
-    text-shadow: 3px 3px #DDDDDD;
+    font-family: serif;
+    text-shadow: 1px 1px #f4bd15;
+    float: none;
+    height: 250px;
+    margin-left: 40px;
+    margin-right: 10px;
+    margin-top: 10px;
+    position: relative;
+    text-align: center;
+    width: 350px;
+    
 }
 
 strike{
