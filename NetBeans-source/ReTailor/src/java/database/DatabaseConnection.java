@@ -8,14 +8,15 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class DatabaseConnection {
 
     private Connection con = null;
     //private static final String DBNAME = "foobar";
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "55piyushh";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -251,5 +252,19 @@ public class DatabaseConnection {
         l.add(compu);
         l.add(elec);
         return l;
+    }
+    
+    public void insertBill(int userid,Vector<String[]> data){
+        int billid=0;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select ID from billing order by ID desc limit 1");
+            if(rs.next()){
+                
+            }
+            //return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
