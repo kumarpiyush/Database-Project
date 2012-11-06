@@ -53,10 +53,6 @@
                     int sortOption = 0;
                     int offset = 0;
                     Map<String, String[]> mm = request.getParameterMap();
-                    
-                    
-
-
                     String cat = request.getParameter("cat");
                     String id = request.getParameter("id");
                     String subcat = request.getParameter("subcat");

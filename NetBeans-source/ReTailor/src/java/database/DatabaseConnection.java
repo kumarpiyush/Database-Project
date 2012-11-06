@@ -14,8 +14,8 @@ public class DatabaseConnection {
     
     private Connection con = null;
     //private static final String DBNAME = "foobar";
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
@@ -166,65 +166,86 @@ public class DatabaseConnection {
     }
     
     public List search_field(String search, String table) throws SQLException{
-        StringTokenizer st1=new StringTokenizer(search);
-        StringTokenizer st2=new StringTokenizer(search);
-        StringTokenizer st3=new StringTokenizer(search);
-        StringTokenizer st4=new StringTokenizer(search);
+        StringTokenizer st=new StringTokenizer(search);
+        String[] arr= new String[st.countTokens()];
+        int count=0;
+        while(st.hasMoreTokens()){
+            arr[count++]=st.nextToken();
+        }
+        
+        System.err.println(count);
+        
         ResultSet book=null;
         if(table.equals("Books") || table.equals("all")){
             String query="select * from book where ";
-            String token;
-            while(st1.hasMoreTokens()){
-                token=st1.nextToken();
-                query+="(author like \"%"+token+"%\" or title like \"%"+token+"%\") and";
+            for(int i=0;i<count;i++){
+                query+="(author like ? or title like ?) and ";
             }
-            query+="(author like \"%\" or title like \"%\") order by popularity limit 10";
+            query+="true order by popularity limit 10";
+            System.err.println(query);
             PreparedStatement stmt = con.prepareStatement(query);
+            for(int i=0;i<count;i++){
+                System.err.println(arr[i]+" "+i);
+                stmt.setString(2*i+1, "%"+arr[i]+"%");
+                stmt.setString(2*i+2, "%"+arr[i]+"%");
+            }
             book = stmt.executeQuery();
         }
+        System.err.println(count);
         ResultSet cloth=null;
         if(table.equals("Clothing") || table.equals("all")){
             String query="select * from clothing where ";
-            String token;
-            while(st2.hasMoreTokens()){
-                token=st2.nextToken();
-                if("Men".equals(token)){
-                    token="M";
+            for(int i=0;i<count;i++){
+                if("Men".equals(arr[i])){
+                    arr[i]="M";
                 }
-                if("Women".equals(token)){
-                    token="W";
+                else if("Women".equals(arr[i])){
+                    arr[i]="W";
                 }
-                if("Kid".equals(token) || "Kids".equals(token) || "Children".equals(token)){
-                    token="K";
+                else if("Kid".equals(arr[i]) || "Kids".equals(arr[i]) || "Children".equals(arr[i])){
+                    arr[i]="K";
                 }
-                query+="(description like \"%"+token+"%\" or category like \"%"+token+"%\" or category2 like \"%"+token+"%\") and";
+                query+="(description like ? or category like ? or category2 like ?) and ";
             }
-            query+="(description like \"%\" or category like \"%\" or category2 like \"%%\") order by popularity limit 10";
+            query+="true order by popularity limit 10";
             PreparedStatement stmt = con.prepareStatement(query);
+            for(int i=0;i<count;i++){
+                stmt.setString(3*i+1, "%"+arr[i]+"%");
+                stmt.setString(3*i+2, "%"+arr[i]+"%");
+                stmt.setString(3*i+3, "%"+arr[i]+"%");
+            }
             cloth = stmt.executeQuery();
         }
         ResultSet compu=null;
         if(table.equals("Computer Accessories") || table.equals("all")){
             String query="select * from computer_accessories where ";
-            String token;
-            while(st3.hasMoreTokens()){
-                token=st3.nextToken();
-                query+="(brand like \"%"+token+"%\" or model like \"%"+token+"%\" or category like \"%"+token+"%\" or description like \"%"+token+"%\") and";
+            for(int i=0;i<count;i++){
+                query+="(brand like ? or model like ? or category like ? or description like ?) and ";
             }
-            query+="(brand like \"%\" or model like \"%\" or category like \"%%\" or description like \"%%\") order by popularity limit 10";
+            query+="true order by popularity limit 10";
             PreparedStatement stmt = con.prepareStatement(query);
+            for(int i=0;i<count;i++){
+                stmt.setString(4*i+1, "%"+arr[i]+"%");
+                stmt.setString(4*i+2, "%"+arr[i]+"%");
+                stmt.setString(4*i+3, "%"+arr[i]+"%");
+                stmt.setString(4*i+4, "%"+arr[i]+"%");
+            }
             compu = stmt.executeQuery();
         }
         ResultSet elec=null;
         if(table.equals("Electronics") || table.equals("all")){
             String query="select * from electronics where ";
-            String token;
-            while(st4.hasMoreTokens()){
-                token=st4.nextToken();
-                query+="(brand like \"%"+token+"%\" or model like \"%"+token+"%\" or category like \"%"+token+"%\" or description like \"%"+token+"%\") and";
+            for(int i=0;i<count;i++){
+                query+="(brand like ? or model like ? or category like ? or description like ?) and ";
             }
-            query+="(brand like \"%\" or model like \"%\" or category like \"%%\" or description like \"%%\") order by popularity limit 10";
+            query+="true order by popularity limit 10";
             PreparedStatement stmt = con.prepareStatement(query);
+            for(int i=0;i<count;i++){
+                stmt.setString(4*i+1, "%"+arr[i]+"%");
+                stmt.setString(4*i+2, "%"+arr[i]+"%");
+                stmt.setString(4*i+3, "%"+arr[i]+"%");
+                stmt.setString(4*i+4, "%"+arr[i]+"%");
+            }
             elec = stmt.executeQuery();
         }
         List<ResultSet> l=new LinkedList<ResultSet>();
@@ -232,7 +253,6 @@ public class DatabaseConnection {
         l.add(cloth);
         l.add(compu);
         l.add(elec);
-        System.err.println(search+"  "+table);
         return l;
     }
     
