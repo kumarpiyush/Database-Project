@@ -1,5 +1,5 @@
 body{
-    background-color: #e5e5e5;
+    background-color: /*#e5e5e5*/ whitesmoke;
 }
 
 #mainPage{
@@ -41,10 +41,12 @@ body{
     /*position: static;*/
     top: 0px;
     left: 0px;
-    margin-left: 0px;
+    margin-left: 50px;
     width:170px;
     height: 100%;
-    background-color: #bfb084;
+    background-color: gray;  /*whitesmoke; #bfb084;*/
+    border-left: 2px;
+    border-right: 2px;
 }
 
 #sideBar a{
@@ -124,4 +126,11 @@ strike{
     position: relative;
     float: right;
     height: 100px;
+}
+
+
+.sortSelect {
+    margin-left: 850px;
+    position: absolute;
+    width: 350px;
 }

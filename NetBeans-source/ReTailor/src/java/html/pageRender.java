@@ -21,7 +21,7 @@ public class pageRender {
     
     private String getSiteBrand() {
         String page="<div id=\"siteBrand\">";
-        page+="<a href=\"index.jsp\"><img src=\"images/retailor-logo.png\"/></a>";
+        page+="<a href=\"index.jsp\"><img style=\"margin-left:40px;\" src=\"images/retailor-logo.png\"/></a>";
         page+="</div>";
         return page;
     }
