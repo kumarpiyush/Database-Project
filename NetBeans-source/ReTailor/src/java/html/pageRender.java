@@ -45,8 +45,9 @@ public class pageRender {
             page+="</form>\n\n";
         }
         else{
-            page+="\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi "+cc.useridToName(userid)+"!</span>\n\t\t\t</td>\n\t\t\t";
+            page+="\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi "+session.getAttribute("name").toString()+"!</span>\n\t\t\t</td>\n\t\t\t";
             page+="<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
+            page+="<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
             page+="<input type=\"submit\" value=\"Logout\"/>\n";
             page+="</form>\n\t\t</td>\n\t</tr></table>";
         }
@@ -139,7 +140,7 @@ public class pageRender {
         return page;
     }
     
-    public String getMainPage(String cat,String id,String subcat, String searchQuery, String table) throws SQLException{
+    public String getMainPage(String cat,String id,String subcat, String searchQuery, String table,int sort) throws SQLException{
         String page="";
         if(searchQuery!=null){
             List<ResultSet> l=cc.search_field(searchQuery, table);
@@ -174,14 +175,14 @@ public class pageRender {
             if(cat==null){
                 ResultSet rs=cc.listofcategories();
                 while(rs.next()){
-                    ResultSet rs2=cc.topByCat(rs.getString(1),null,null,3);
+                    ResultSet rs2=cc.listofproducts(rs.getString(1),sort,3,0);
                     page+=organiseResult(rs2, rs.getString(1));
                     page+="\n";
                 }
             }
             else{
                 if(id==null && subcat==null){
-                    ResultSet rs2=cc.listofproducts(cat,null,null,noOfProducts,offset);
+                    ResultSet rs2=cc.listofproducts(cat,sort,noOfProducts,offset);
                     page+=organiseResult(rs2, cat);
                     page+="\n";
                 }
@@ -213,7 +214,7 @@ public class pageRender {
                 }
                 else{
                     System.err.println(subcat);
-                    ResultSet rs2=cc.itemBySubCat(cat, subcat,null,null, noOfProducts, offset);
+                    ResultSet rs2=cc.itemBySubCat(cat, subcat,sort, noOfProducts, offset);
                     page+=organiseResult(rs2, cat);
                     page+="\n";
                 }
