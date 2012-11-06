@@ -260,8 +260,10 @@ public class DatabaseConnection {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select ID from billing order by ID desc limit 1");
             if(rs.next()){
-                
+                billid = rs.getInt(1)+1;
             }
+            
+            
             //return rs;
         } catch (SQLException e) {
             e.printStackTrace();
