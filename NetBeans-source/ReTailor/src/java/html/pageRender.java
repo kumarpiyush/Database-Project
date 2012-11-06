@@ -158,29 +158,60 @@ public class pageRender {
             List<ResultSet> l=cc.search_field(searchQuery, table);
             ResultSet book,compu,cloth,elec;
             book=l.get(0);
-            compu=l.get(1);
-            cloth=l.get(2);
+            cloth=l.get(1);
+            compu=l.get(2);
             elec=l.get(3);
+            int count=0;
+            page+="<div id=\"collectedEntry\">\n";
             if(book!=null){
                 while(book.next()){
                     //System.err.println(book.getString(2));
+
+                    page+=getElem("Books", book.getString(1), book.getString("title"), book.getString("author"), book.getString("mrp"), book.getString("price"), book.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
             if(compu!=null){
                 while(compu.next()){
                     //System.err.println(compu.getString(7));
+                    page+=getElem("Computer Accessories", compu.getString(1), compu.getString(2), compu.getString("category"), compu.getString("mrp"), compu.getString("price"), compu.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
             if(cloth!=null){
                 while(cloth.next()){
                     //System.err.println(cloth.getString(2));
+                    page+=getElem("Clothing", cloth.getString(1), cloth.getString("category"), cloth.getString(3), cloth.getString("mrp"), cloth.getString("price"), cloth.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
             if(elec!=null){
                 while(elec.next()){
                     //System.err.println(elec.getString(2));
+                    page+=getElem("Electronics", elec.getString(1), elec.getString("model"), elec.getString("category"), elec.getString("mrp"), elec.getString("price"), elec.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
+            if(count==0){
+                page+="<p>Sorry, no results found :(</p>";
+            }
+            page+="</div>";
         }
         else{
             page+="<div id=\"collectedEntry\">\n";

@@ -48,7 +48,6 @@
         <div id="mainPage">
             <div id="mainPageText">
                 <%
-
                 session=request.getSession();
                     String sortby = "";
                     int sortOption = 0;

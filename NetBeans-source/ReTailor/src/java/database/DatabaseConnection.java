@@ -14,8 +14,8 @@ public class DatabaseConnection {
     
     private Connection con = null;
     //private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "sameer";
-    //private static final String DB_USERNAME = "root";
+    //private static final String DB_USERNAME = "sameer";
+    private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
@@ -232,7 +232,7 @@ public class DatabaseConnection {
         l.add(cloth);
         l.add(compu);
         l.add(elec);
-        System.err.println(search+table);
+        System.err.println(search+"  "+table);
         return l;
     }
     
