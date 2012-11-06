@@ -107,12 +107,12 @@
                     Map<String, String[]> mm = request.getParameterMap();
                     
                     for(Map.Entry<String, String[]> itr : mm.entrySet()){
-                        System.err.print(itr.getKey()+" :");
+                        //System.err.print(itr.getKey()+" :");
                         String[] arr=itr.getValue();
                         for(String i:arr){
-                            System.err.print(i+" ,");
+                            //System.err.print(i+" ,");
                         }
-                        System.err.println();
+                        //System.err.println();
                     }
                     
                     String cat=request.getParameter("cat");
@@ -122,7 +122,7 @@
                     String table=request.getParameter("table");
                     
                     out.println(cc.getMainPage(cat,id,subcat,searchQuery,table,sortOption));
-                    if(cat!=null && id==null)
+                    if((cat!=null || searchQuery!=null) && id==null)
                         out.println(cc.getPrevNextLinks());
 
                     %>
