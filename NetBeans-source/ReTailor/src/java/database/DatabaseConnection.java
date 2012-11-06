@@ -203,7 +203,7 @@ public class DatabaseConnection {
                 }else if("Kids".equalsIgnoreCase(arr[i]) || "Kid".equalsIgnoreCase(arr[i]) || "Children".equalsIgnoreCase(arr[i])){
                     gender="K";
                 }
-                query += "(description like ? or category like "+gender+" or category2 like ?) and ";
+                query += "(description like ? or category = '"+gender+"' or category2 like ?) and ";
             }
             query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             PreparedStatement stmt = con.prepareStatement(query);
