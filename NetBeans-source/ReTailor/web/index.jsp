@@ -17,6 +17,33 @@
         </script>
     </head>
     <body>
+        
+       
+        <!--Top Bar starts-->
+        <div id="topBar">
+            <%
+            out.println(cc.getHeader(session));
+            %>
+        </div>
+        
+        <!--Top Bar ends-->
+        
+        
+          <!--Side Bar starts-->
+        
+        <div id="sideBar">
+            <div id="sideBarText">
+                <%
+                out.println(cc.getSideBar());
+                %>
+            </div>
+        </div>
+        
+        <!--Side Bar ends--> 
+        
+        
+        <!--Main Page starts-->
+        
         <div id="mainPage">
             <div id="mainPageText">
                 <%
@@ -80,22 +107,13 @@
                     String searchQuery=request.getParameter("mainSearch");
                     String table=request.getParameter("table");
                     out.println(cc.getMainPage(cat,id,subcat,searchQuery,table));
+                    
+                    out.println(cc.getPrevNextLinks());
 
                     %>
             </div>
         </div>
-        <div id="sideBar">
-            <div id="sideBarText">
-                <%
-                out.println(cc.getSideBar());
-                %>
-            </div>
-        </div>
-        <div id="topBar">
-            <%
-            out.println(cc.getHeader(session));
-            %>
-        </div>
+        
         
     </body>
     <%
