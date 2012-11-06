@@ -140,6 +140,19 @@ public class pageRender {
         return page;
     }
     
+    public String getPrevNextLinks(){
+        String page="";
+        page+="<br/><br/><br/><div id=\"prev_next\">";
+        page+="<p><a href=\"\">Prev</a>";
+        for(int i=0; i<5; i++){
+            page+=" <a href=\"\">" + (i+1) + "</a>";
+        }
+        page+=" <a href=\"\">Next</a>";
+        page+="</p>";
+        page+="</div>";
+        return page;
+    }
+    
     public String getMainPage(String cat,String id,String subcat, String searchQuery, String table,int sort) throws SQLException{
         String page="";
         if(searchQuery!=null){
@@ -189,7 +202,7 @@ public class pageRender {
                 else if(id!=null){
                     ResultSet rs2=cc.itemByID(cat, id);
                     while(rs2.next()){
-                        page+="<table class=\"product_detail\">\n";
+                        page+="<table  class=\"product_detail\">\n";
                         page+="<tr>";
                         page+="<td><img class=\"detail_img\" src=\""+rs2.getString("img_url")+"\"/></td>\n";
                         page+="<td>";
@@ -210,6 +223,8 @@ public class pageRender {
                         page+="</div>\n</td>";
                         page+="</tr>\n";
                         page+="</table>\n";
+                        page+="<div id=\"order_product\"><p><a href=\"http://www.amazon.com\">Order Now !</a></p></div>";
+
                     }
                 }
                 else{
