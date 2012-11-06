@@ -244,7 +244,7 @@ public class DatabaseConnection {
         l.add(cloth);
         l.add(compu);
         l.add(elec);
-        System.err.println(search+table);
+        System.err.println(search+"  "+table);
         return l;
     }
     

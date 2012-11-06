@@ -39,13 +39,16 @@ public class pageRender {
         System.err.println("ERR 1 "+userid);
         if(userid<0){
             page+="\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
-                page+="Email: <input type=\"text\" name=\"username\" />\n";
-                page+="Password: <input type=\"password\" name=\"password\" />\n";
-                page+="<input type=\"submit\" value=\"Login\"/>\n";
+            page+="Email: <input type=\"text\" name=\"username\" />\n";
+            page+="Password: <input type=\"password\" name=\"password\" />\n";
+            page+="<input type=\"submit\" value=\"Login\"/>\n";
             page+="</form>\n\n";
         }
         else{
-            page+="Hi "+cc.useridToName(userid)+"!";
+            page+="\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi "+cc.useridToName(userid)+"!</span>\n\t\t\t</td>\n\t\t\t";
+            page+="<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
+            page+="<input type=\"submit\" value=\"Logout\"/>\n";
+            page+="</form>\n\t\t</td>\n\t</tr></table>";
         }
         return page;
     }
@@ -136,35 +139,78 @@ public class pageRender {
         return page;
     }
     
+    public String getPrevNextLinks(){
+        String page="";
+        page+="<br/><br/><br/><div id=\"prev_next\">";
+        page+="<p><a href=\"\">Prev</a>";
+        for(int i=0; i<5; i++){
+            page+=" <a href=\"\">" + (i+1) + "</a>";
+        }
+        page+=" <a href=\"\">Next</a>";
+        page+="</p>";
+        page+="</div>";
+        return page;
+    }
+    
     public String getMainPage(String cat,String id,String subcat, String searchQuery, String table) throws SQLException{
         String page="";
         if(searchQuery!=null){
             List<ResultSet> l=cc.search_field(searchQuery, table);
             ResultSet book,compu,cloth,elec;
             book=l.get(0);
-            compu=l.get(1);
-            cloth=l.get(2);
+            cloth=l.get(1);
+            compu=l.get(2);
             elec=l.get(3);
+            int count=0;
+            page+="<div id=\"collectedEntry\">\n";
             if(book!=null){
                 while(book.next()){
-                    System.err.println(book.getString(2));
+                    //System.err.println(book.getString(2));
+                    page+=getElem("Books", book.getString(1), book.getString("title"), book.getString("author"), book.getString("mrp"), book.getString("price"), book.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
             if(compu!=null){
                 while(compu.next()){
-                    System.err.println(compu.getString(7));
+                    //System.err.println(compu.getString(7));
+                    page+=getElem("Computer Accessories", compu.getString(1), compu.getString(2), compu.getString("category"), compu.getString("mrp"), compu.getString("price"), compu.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
             if(cloth!=null){
                 while(cloth.next()){
-                    System.err.println(cloth.getString(2));
+                    //System.err.println(cloth.getString(2));
+                    page+=getElem("Clothing", cloth.getString(1), cloth.getString("category"), cloth.getString(3), cloth.getString("mrp"), cloth.getString("price"), cloth.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
             if(elec!=null){
                 while(elec.next()){
-                    System.err.println(elec.getString(2));
+                    //System.err.println(elec.getString(2));
+                    page+=getElem("Electronics", elec.getString(1), elec.getString("model"), elec.getString("category"), elec.getString("mrp"), elec.getString("price"), elec.getString("img_url"));
+                    page+="\n";
+                    count++;
+                    if(count%3==0 && count>0){
+                        page+="</div>\n<div id=\"collectedEntry\">\n";
+                    }
                 }
             }
+            if(count==0){
+                page+="<p>Sorry, no results found :(</p>";
+            }
+            page+="</div>";
         }
         else{
             page+="<div id=\"collectedEntry\">\n";
@@ -185,11 +231,11 @@ public class pageRender {
                 else if(id!=null){
                     ResultSet rs2=cc.itemByID(cat, id);
                     while(rs2.next()){
-                        page+="<table class=\"product_detail\">\n";
+                        page+="<table  class=\"product_detail\">\n";
                         page+="<tr>";
                         page+="<td><img class=\"detail_img\" src=\""+rs2.getString("img_url")+"\"/></td>\n";
                         page+="<td>";
-                        page+="<div class = \"product_description\" id=\"entry\"><p>";
+                        page+="<div class = \"product_description\" ><p>";
                         page+=rs2.getString(2);
                         page+="</p>\n<p>";
                         page+=rs2.getString(3);
@@ -206,6 +252,8 @@ public class pageRender {
                         page+="</div>\n</td>";
                         page+="</tr>\n";
                         page+="</table>\n";
+                        page+="<div id=\"order_product\"><p><a href=\"http://www.amazon.com\">Order Now !</a></p></div>";
+
                     }
                 }
                 else{
