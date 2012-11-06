@@ -39,13 +39,16 @@ public class pageRender {
         System.err.println("ERR 1 "+userid);
         if(userid<0){
             page+="\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
-                page+="Email: <input type=\"text\" name=\"username\" />\n";
-                page+="Password: <input type=\"password\" name=\"password\" />\n";
-                page+="<input type=\"submit\" value=\"Login\"/>\n";
+            page+="Email: <input type=\"text\" name=\"username\" />\n";
+            page+="Password: <input type=\"password\" name=\"password\" />\n";
+            page+="<input type=\"submit\" value=\"Login\"/>\n";
             page+="</form>\n\n";
         }
         else{
-            page+="Hi "+cc.useridToName(userid)+"!";
+            page+="\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi "+cc.useridToName(userid)+"!</span>\n\t\t\t</td>\n\t\t\t";
+            page+="<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
+            page+="<input type=\"submit\" value=\"Logout\"/>\n";
+            page+="</form>\n\t\t</td>\n\t</tr></table>";
         }
         return page;
     }

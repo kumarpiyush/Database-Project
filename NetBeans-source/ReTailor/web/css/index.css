@@ -16,7 +16,8 @@ background-color: white;
 #mainPageText{
     position: absolute;
     left: 250px;
-    top: 100px;
+    top: 120px;
+    color:#711b17;
     /*width: 85%;
     height: 135%;
     background-image:url('../images/bg.jpg');
@@ -85,6 +86,7 @@ background-color: white;
     margin-top: 0px;
     height: 120px;
     background-color: #711b17;
+    color:#f4bd15;
 }
 
 .product_img{

@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/navigation.css">
-        <title>Shopper's Stop</title>
+        <title>ReTailor</title>
         <script type="text/javascript">
             <%
                 //inits
@@ -20,12 +20,6 @@
         <div id="mainPage">
             <div id="mainPageText">
                 <%
-                String cat=request.getParameter("cat");
-                String id=request.getParameter("id");
-                String subcat=request.getParameter("subcat");
-                String searchQuery=request.getParameter("mainSearch");
-                String table=request.getParameter("table");
-                out.println(cc.getMainPage(cat,id,subcat,searchQuery,table));
 
                 session=request.getSession();
                     String sortby = "";
@@ -34,9 +28,18 @@
                         url+="index.jsp?cat=";
                         url+=request.getParameter("cat");
                         if(request.getParameter("subcat")!=null){
-                            url+="&subcat";
+                            url+="&subcat=";
                             url+=request.getParameter("subcat");
                         }
+                        if(request.getParameter("mainSearch")!=null){
+                            url+="&mainSearch=";
+                            url+=request.getParameter("mainSearch");
+                        }
+                        if(request.getParameter("table")!=null){
+                            url+="&table=";
+                            url+=request.getParameter("table");
+                        }
+                        
                         String current_option;
                         if(request.getParameter("sort")==null) current_option = "";
                         else current_option = request.getParameter("sort").toString();
@@ -71,7 +74,12 @@
                         
                     }
                     
-                    
+                    String cat=request.getParameter("cat");
+                    String id=request.getParameter("id");
+                    String subcat=request.getParameter("subcat");
+                    String searchQuery=request.getParameter("mainSearch");
+                    String table=request.getParameter("table");
+                    out.println(cc.getMainPage(cat,id,subcat,searchQuery,table));
 
                     %>
             </div>
