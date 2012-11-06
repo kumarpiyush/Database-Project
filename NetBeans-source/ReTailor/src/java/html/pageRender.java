@@ -139,7 +139,7 @@ public class pageRender {
         return page;
     }
     
-    public String getPrevNextLinks(){
+    public String getPrevNextLinks(Map<String, String[]> mm){
         String page="";
         page+="<br/><br/><br/><div id=\"prev_next\">";
         page+="<p><a href=\"\">Prev</a>";
