@@ -195,20 +195,21 @@ public class DatabaseConnection {
             String query="select * from clothing where ";
             category_to_table("Clothing");
             for(int i=0;i<count;i++){
-                if("Men".equals(arr[i])){
-                    arr[i]="M";
+                String gender="A";
+                if("Men".equalsIgnoreCase(arr[i])){
+                    gender="M";
+                }else if("Women".equalsIgnoreCase(arr[i])){
+                    gender="W";
+                }else if("Kids".equalsIgnoreCase(arr[i]) || "Kid".equalsIgnoreCase(arr[i]) || "Children".equalsIgnoreCase(arr[i])){
+                    gender="K";
                 }
-                else if("Women".equals(arr[i])){
-                    arr[i]="W";
-                }
-                query += "(description like ? or category like ? or category2 like ?) and ";
+                query += "(description like ? or category like "+gender+" or category2 like ?) and ";
             }
             query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             PreparedStatement stmt = con.prepareStatement(query);
             for (int i = 0; i < count; i++) {
-                stmt.setString(3 * i + 1, "%" + arr[i] + "%");
-                stmt.setString(3 * i + 2, "%" + arr[i] + "%");
-                stmt.setString(3 * i + 3, "%" + arr[i] + "%");
+                stmt.setString(2 * i + 1, "%" + arr[i] + "%");
+                stmt.setString(2 * i + 2, "%" + arr[i] + "%");
             }
             cloth = stmt.executeQuery();
         }
