@@ -85,20 +85,36 @@ public class HtmlPages extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.err.println("sameer1");
-        String username = request.getParameter("username").toString();
-        String password = request.getParameter("password").toString();
-        System.err.println("sameer2");
-        System.err.println(username+" "+password);
+        //request.get
+        String flag = null;
+        String username=null,password=null;
+        try{
+            flag = request.getParameter("logoutflag");
+        }catch(Exception e){flag = null;}
         
-        int userid = cc.loginCheck(username, password);
         HttpSession session = request.getSession();
-        session.setAttribute("userid", userid);
-        System.err.println("sameer");
-        System.err.println("ERR 2 "+session.getAttribute("userid"));
+        if(flag!=null){
+            session.setAttribute("userid", -1);
+            session.setAttribute("name", null);
+            //TODO cart
+        }
+        else{
+            username = request.getParameter("username").toString();
+            password = request.getParameter("password").toString();
+            try{
+                ResultSet rs = cc.loginCheck(username, password);
+                if(rs.next()){
+                    session.setAttribute("userid", rs.getInt(1));
+                    session.setAttribute("name", rs.getString(2));
+                }
+                else{
+                    session.setAttribute("userid", -1);
+                    session.setAttribute("name", null);
+                }
+            }catch(Exception e){ }
+        }
         
         response.sendRedirect("index.jsp");
-        return;
     }
 
     /**
