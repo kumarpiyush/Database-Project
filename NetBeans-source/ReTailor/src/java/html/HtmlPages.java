@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,15 +41,17 @@ public class HtmlPages extends HttpServlet {
     private String getSearch() throws SQLException {
         String page="";
         page+="<div id=\"search\">";
-        page+="<form >";
+        page+="<form action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
         page+="Search:";
         page+="<input type=\"text\" name=\"mainSearch\">";
-        page+="<select>";
+        page+="<select name=\"table\">";
+        page+="<option value=\"all\">All</option>";
         ResultSet rs=cc.listofcategories();
         while(rs.next()){
             page+="<option value=\""+rs.getString(1)+"\">"+rs.getString(1)+"</option>";
         }
         page+="</select>";
+        page+="<input type=\"submit\" value=\"Search\">";
         page+="</form>";
         page+="</div>";
         return page;
@@ -169,57 +172,87 @@ public class HtmlPages extends HttpServlet {
         return page;
     }
     
-    public String getMainPage(String cat,String id,String subcat) throws SQLException{
+    public String getMainPage(String cat,String id,String subcat,String searchQuery,String table) throws SQLException{
         String page="";
-        page+="<div id=\"collectedEntry\">\n";
-        if(cat==null){
-            ResultSet rs=cc.listofcategories();
-            while(rs.next()){
-                ResultSet rs2=cc.topByCat(rs.getString(1),3);
-                page+=organiseResult(rs2, rs.getString(1));
-                page+="\n";
+        if(searchQuery!=null){
+            List<ResultSet> l=cc.search_field(searchQuery, table);
+            ResultSet book,compu,cloth,elec;
+            book=l.get(0);
+            compu=l.get(1);
+            cloth=l.get(2);
+            elec=l.get(3);
+            if(book!=null){
+                while(book.next()){
+                    System.err.println(book.getString(2));
+                }
+            }
+            if(compu!=null){
+                while(compu.next()){
+                    System.err.println(compu.getString(7));
+                }
+            }
+            if(cloth!=null){
+                while(cloth.next()){
+                    System.err.println(cloth.getString(2));
+                }
+            }
+            if(elec!=null){
+                while(elec.next()){
+                    System.err.println(elec.getString(2));
+                }
             }
         }
         else{
-            if(id==null && subcat==null){
-                ResultSet rs2=cc.listofproducts(cat,noOfProducts,offset);
-                page+=organiseResult(rs2, cat);
-                page+="\n";
-            }
-            else if(id!=null){
-                ResultSet rs2=cc.itemByID(cat, id);
-                while(rs2.next()){
-                    page+="<table class=\"product_detail\">\n";
-                    page+="<tr>";
-                    page+="<td><img class=\"detail_img\" src=\""+rs2.getString("img_url")+"\"/></td>\n";
-                    page+="<td>";
-                    page+="<div class = \"product_description\" id=\"entry\"><p>";
-                    page+=rs2.getString(2);
-                    page+="</p>\n<p>";
-                    page+=rs2.getString(3);
-                    page+="</p>\n<p>";
-                    page+=rs2.getString(4);
-                    page+="</p>\n<p>";
-                    page+="<strike>";
-                    page+=rs2.getString(5);
-                    page+="</strike>&nbsp;&nbsp;";
-                    page+=rs2.getString(6);
-                    page+="</p>\n<p>";
-                    page+=rs2.getString(7);
-                    page+="</p>\n";
-                    page+="</div>\n</td>";
-                    page+="</tr>\n";
-                    page+="</table>\n";
+            page+="<div id=\"collectedEntry\">\n";
+            if(cat==null){
+                ResultSet rs=cc.listofcategories();
+                while(rs.next()){
+                    ResultSet rs2=cc.topByCat(rs.getString(1),3);
+                    page+=organiseResult(rs2, rs.getString(1));
+                    page+="\n";
                 }
             }
             else{
-                System.err.println(subcat);
-                ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
-                page+=organiseResult(rs2, cat);
-                page+="\n";
+                if(id==null && subcat==null){
+                    ResultSet rs2=cc.listofproducts(cat,noOfProducts,offset);
+                    page+=organiseResult(rs2, cat);
+                    page+="\n";
+                }
+                else if(id!=null){
+                    ResultSet rs2=cc.itemByID(cat, id);
+                    while(rs2.next()){
+                        page+="<table class=\"product_detail\">\n";
+                        page+="<tr>";
+                        page+="<td><img class=\"detail_img\" src=\""+rs2.getString("img_url")+"\"/></td>\n";
+                        page+="<td>";
+                        page+="<div class = \"product_description\" id=\"entry\"><p>";
+                        page+=rs2.getString(2);
+                        page+="</p>\n<p>";
+                        page+=rs2.getString(3);
+                        page+="</p>\n<p>";
+                        page+=rs2.getString(4);
+                        page+="</p>\n<p>";
+                        page+="<strike>";
+                        page+=rs2.getString(5);
+                        page+="</strike>&nbsp;&nbsp;";
+                        page+=rs2.getString(6);
+                        page+="</p>\n<p>";
+                        page+=rs2.getString(7);
+                        page+="</p>\n";
+                        page+="</div>\n</td>";
+                        page+="</tr>\n";
+                        page+="</table>\n";
+                    }
+                }
+                else{
+                    System.err.println(subcat);
+                    ResultSet rs2=cc.itemBySubCat(cat, subcat, noOfProducts, offset);
+                    page+=organiseResult(rs2, cat);
+                    page+="\n";
+                }
             }
+            page+="</div>";
         }
-        page+="</div>";
         return page;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

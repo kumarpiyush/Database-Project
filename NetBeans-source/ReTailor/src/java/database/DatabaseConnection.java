@@ -5,14 +5,17 @@ package database;
  * @author sameer
  */
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class DatabaseConnection {
     
     
     private static Connection con = null;
     //private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "sameer";
-    //private static final String DB_USERNAME = "root";
+    //private static final String DB_USERNAME = "sameer";
+    private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
@@ -170,8 +173,75 @@ public class DatabaseConnection {
         }
     }
     
-    public void search_field(){
-        
+    public List search_field(String search, String table) throws SQLException{
+        StringTokenizer st1=new StringTokenizer(search);
+        StringTokenizer st2=new StringTokenizer(search);
+        StringTokenizer st3=new StringTokenizer(search);
+        StringTokenizer st4=new StringTokenizer(search);
+        ResultSet book=null;
+        if(table.equals("Books") || table.equals("all")){
+            String query="select * from book where ";
+            String token;
+            while(st1.hasMoreTokens()){
+                token=st1.nextToken();
+                query+="(author like \"%"+token+"%\" or title like \"%"+token+"%\") and";
+            }
+            query+="(author like \"%\" or title like \"%\") order by popularity limit 10";
+            PreparedStatement stmt = con.prepareStatement(query);
+            book = stmt.executeQuery();
+        }
+        ResultSet cloth=null;
+        if(table.equals("Clothing") || table.equals("all")){
+            String query="select * from clothing where ";
+            String token;
+            while(st1.hasMoreTokens()){
+                token=st1.nextToken();
+                if("Men".equals(token)){
+                    token="M";
+                }
+                if("Women".equals(token)){
+                    token="W";
+                }
+                if("Kid".equals(token) || "Kids".equals(token) || "Children".equals(token)){
+                    token="K";
+                }
+                query+="(description like \"%"+token+"%\" or category like \"%"+token+"%\" or category2 like \"%"+token+"%\") and";
+            }
+            query+="(description like \"%\" or category like \"%\" or category2 like \"%%\") order by popularity limit 10";
+            PreparedStatement stmt = con.prepareStatement(query);
+            cloth = stmt.executeQuery();
+        }
+        ResultSet compu=null;
+        if(table.equals("Computer Accessories") || table.equals("all")){
+            String query="select * from computer_accessories where ";
+            String token;
+            while(st1.hasMoreTokens()){
+                token=st1.nextToken();
+                query+="(brand like \"%"+token+"%\" or model like \"%"+token+"%\" or category like \"%"+token+"%\" or description like \"%"+token+"%\") and";
+            }
+            query+="(brand like \"%\" or model like \"%\" or category like \"%%\" or description like \"%%\") order by popularity limit 10";
+            PreparedStatement stmt = con.prepareStatement(query);
+            compu = stmt.executeQuery();
+        }
+        ResultSet elec=null;
+        if(table.equals("Electronics") || table.equals("all")){
+            String query="select * from electronics where ";
+            String token;
+            while(st1.hasMoreTokens()){
+                token=st1.nextToken();
+                query+="(brand like \"%"+token+"%\" or model like \"%"+token+"%\" or category like \"%"+token+"%\" or description like \"%"+token+"%\") and";
+            }
+            query+="(brand like \"%\" or model like \"%\" or category like \"%%\" or description like \"%%\") order by popularity limit 10";
+            PreparedStatement stmt = con.prepareStatement(query);
+            elec = stmt.executeQuery();
+        }
+        List<ResultSet> l=new LinkedList<ResultSet>();
+        l.add(book);
+        l.add(cloth);
+        l.add(compu);
+        l.add(elec);
+        System.err.println(search+table);
+        return l;
     }
     
     public static void sanket() throws Exception{
