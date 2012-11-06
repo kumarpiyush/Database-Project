@@ -14,8 +14,8 @@ public class DatabaseConnection {
     
     private Connection con = null;
     //private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "sameer";
-    //private static final String DB_USERNAME = "root";
+    //private static final String DB_USERNAME = "sameer";
+    private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     
@@ -165,10 +165,11 @@ public class DatabaseConnection {
         return rs;
     }
     
-    public List search_field(String search, String table) throws SQLException{
+    public List search_field(String search, String table, int sort,int no,int offset) throws SQLException{
         StringTokenizer st=new StringTokenizer(search);
         String[] arr= new String[st.countTokens()];
         int count=0;
+        sortToSort(sort);
         while(st.hasMoreTokens()){
             arr[count++]=st.nextToken();
         }
@@ -178,10 +179,11 @@ public class DatabaseConnection {
         ResultSet book=null;
         if(table.equals("Books") || table.equals("all")){
             String query="select * from book where ";
+            category_to_table("Books");
             for(int i=0;i<count;i++){
                 query+="(author like ? or title like ?) and ";
             }
-            query+="true order by popularity limit 10";
+            query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             System.err.println(query);
             PreparedStatement stmt = con.prepareStatement(query);
             for(int i=0;i<count;i++){
@@ -195,6 +197,7 @@ public class DatabaseConnection {
         ResultSet cloth=null;
         if(table.equals("Clothing") || table.equals("all")){
             String query="select * from clothing where ";
+            category_to_table("Clothing");
             for(int i=0;i<count;i++){
                 if("Men".equals(arr[i])){
                     arr[i]="M";
@@ -207,7 +210,7 @@ public class DatabaseConnection {
                 }
                 query+="(description like ? or category like ? or category2 like ?) and ";
             }
-            query+="true order by popularity limit 10";
+            query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             PreparedStatement stmt = con.prepareStatement(query);
             for(int i=0;i<count;i++){
                 stmt.setString(3*i+1, "%"+arr[i]+"%");
@@ -219,10 +222,11 @@ public class DatabaseConnection {
         ResultSet compu=null;
         if(table.equals("Computer Accessories") || table.equals("all")){
             String query="select * from computer_accessories where ";
+            category_to_table("Computer Accessories");
             for(int i=0;i<count;i++){
                 query+="(brand like ? or model like ? or category like ? or description like ?) and ";
             }
-            query+="true order by popularity limit 10";
+            query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             PreparedStatement stmt = con.prepareStatement(query);
             for(int i=0;i<count;i++){
                 stmt.setString(4*i+1, "%"+arr[i]+"%");
@@ -235,10 +239,11 @@ public class DatabaseConnection {
         ResultSet elec=null;
         if(table.equals("Electronics") || table.equals("all")){
             String query="select * from electronics where ";
+            category_to_table("Electronics");
             for(int i=0;i<count;i++){
                 query+="(brand like ? or model like ? or category like ? or description like ?) and ";
             }
-            query+="true order by popularity limit 10";
+            query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             PreparedStatement stmt = con.prepareStatement(query);
             for(int i=0;i<count;i++){
                 stmt.setString(4*i+1, "%"+arr[i]+"%");

@@ -20,6 +20,7 @@ public class pageRender {
 
     DatabaseConnection cc = new DatabaseConnection();
     int noOfProducts = 12;
+    int noOfGroups=4;
     int offset = 0;
 
     private String getSiteBrand() {
@@ -231,72 +232,73 @@ public class pageRender {
         return sortby;
     }
 
+    
+    public String getSearch(String searchQuery, String table, int sort, int no, int off_set) throws SQLException{
+        String page="";
+         List<ResultSet> l;
+        if(table.equals("all")){
+            l= cc.search_field(searchQuery, table, sort, no, off_set/noOfGroups);
+        }
+        else{
+            l = cc.search_field(searchQuery, table, sort, noOfGroups*no, off_set);
+        }
+        ResultSet book, compu, cloth, elec;
+        book = l.get(0);
+        cloth = l.get(1);
+        compu = l.get(2);
+        elec = l.get(3);
+        int count = 0;
+        page += "<div id=\"collectedEntry\">\n";
+        if (book != null) {
+            while (book.next()) {
+                //System.err.println(book.getString(2));
+
+                page += getElem("Books", book.getString(1), book.getString("title"), book.getString("author"), book.getString("mrp"), book.getString("price"), book.getString("img_url"));
+                page += "\n";
+                count++;
+            }
+        }
+        if (compu != null) {
+            while (compu.next()) {
+                //System.err.println(compu.getString(7));
+                page += getElem("Computer Accessories", compu.getString(1), compu.getString(2), compu.getString("category"), compu.getString("mrp"), compu.getString("price"), compu.getString("img_url"));
+                page += "\n";
+                count++;
+            }
+        }
+        if (cloth != null) {
+            while (cloth.next()) {
+                //System.err.println(cloth.getString(2));
+                page += getElem("Clothing", cloth.getString(1), cloth.getString("category"), cloth.getString(3), cloth.getString("mrp"), cloth.getString("price"), cloth.getString("img_url"));
+                page += "\n";
+                count++;
+            }
+        }
+        if (elec != null) {
+            while (elec.next()) {
+                //System.err.println(elec.getString(2));
+                page += getElem("Electronics", elec.getString(1), elec.getString("model"), elec.getString("category"), elec.getString("mrp"), elec.getString("price"), elec.getString("img_url"));
+                page += "\n";
+                count++;
+            }
+        }
+        if (count == 0) {
+            page += "<p>Sorry, no results found :(</p>";
+        }
+        page += "</div>";
+        return page;
+    }
+    
     public String getMainPage(String cat, String id, String subcat, String searchQuery, String table, int sort, int off_set) throws SQLException {
         String page = "";
         if (searchQuery != null) {
-            List<ResultSet> l = cc.search_field(searchQuery, table);
-            ResultSet book, compu, cloth, elec;
-            book = l.get(0);
-            cloth = l.get(1);
-            compu = l.get(2);
-            elec = l.get(3);
-            int count = 0;
-            page += "<div id=\"collectedEntry\">\n";
-            if (book != null) {
-                while (book.next()) {
-                    //System.err.println(book.getString(2));
-
-                    page += getElem("Books", book.getString(1), book.getString("title"), book.getString("author"), book.getString("mrp"), book.getString("price"), book.getString("img_url"));
-                    page += "\n";
-                    count++;
-                    if (count % 3 == 0 && count > 0) {
-                        page += "</div>\n<div id=\"collectedEntry\">\n";
-                    }
-                }
-            }
-            if (compu != null) {
-                while (compu.next()) {
-                    //System.err.println(compu.getString(7));
-                    page += getElem("Computer Accessories", compu.getString(1), compu.getString(2), compu.getString("category"), compu.getString("mrp"), compu.getString("price"), compu.getString("img_url"));
-                    page += "\n";
-                    count++;
-                    if (count % 3 == 0 && count > 0) {
-                        page += "</div>\n<div id=\"collectedEntry\">\n";
-                    }
-                }
-            }
-            if (cloth != null) {
-                while (cloth.next()) {
-                    //System.err.println(cloth.getString(2));
-                    page += getElem("Clothing", cloth.getString(1), cloth.getString("category"), cloth.getString(3), cloth.getString("mrp"), cloth.getString("price"), cloth.getString("img_url"));
-                    page += "\n";
-                    count++;
-                    if (count % 3 == 0 && count > 0) {
-                        page += "</div>\n<div id=\"collectedEntry\">\n";
-                    }
-                }
-            }
-            if (elec != null) {
-                while (elec.next()) {
-                    //System.err.println(elec.getString(2));
-                    page += getElem("Electronics", elec.getString(1), elec.getString("model"), elec.getString("category"), elec.getString("mrp"), elec.getString("price"), elec.getString("img_url"));
-                    page += "\n";
-                    count++;
-                    if (count % 3 == 0 && count > 0) {
-                        page += "</div>\n<div id=\"collectedEntry\">\n";
-                    }
-                }
-            }
-            if (count == 0) {
-                page += "<p>Sorry, no results found :(</p>";
-            }
-            page += "</div>";
+            page+=getSearch(searchQuery, table, sort, noOfProducts/noOfGroups, off_set);
         } else {
             page += "<div id=\"collectedEntry\">\n";
             if (cat == null) {
                 ResultSet rs = cc.listofcategories();
                 while (rs.next()) {
-                    ResultSet rs2 = cc.listofproducts(rs.getString(1), sort, 3, 0);
+                    ResultSet rs2 = cc.listofproducts(rs.getString(1), sort, noOfProducts/noOfGroups, 0);
                     page += organiseResult(rs2, rs.getString(1));
                     page += "\n";
                 }
