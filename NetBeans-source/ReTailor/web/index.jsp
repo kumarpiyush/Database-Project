@@ -20,12 +20,7 @@
         <div id="mainPage">
             <div id="mainPageText">
                 <%
-                String cat=request.getParameter("cat");
-                String id=request.getParameter("id");
-                String subcat=request.getParameter("subcat");
-                String searchQuery=request.getParameter("mainSearch");
-                String table=request.getParameter("table");
-                out.println(cc.getMainPage(cat,id,subcat,searchQuery,table));
+                
 
                 session=request.getSession();
                     String sortby = "";
@@ -74,8 +69,9 @@
                     String cat=request.getParameter("cat");
                     String id=request.getParameter("id");
                     String subcat=request.getParameter("subcat");
-                    out.println(cc.getMainPage(cat,id,subcat));
-
+                    String searchQuery=request.getParameter("mainSearch");
+                    String table=request.getParameter("table");
+                    out.println(cc.getMainPage(cat,id,subcat,searchQuery,table));
                     %>
             </div>
         </div>

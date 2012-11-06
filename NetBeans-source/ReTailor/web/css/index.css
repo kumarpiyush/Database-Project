@@ -1,9 +1,5 @@
 body{
-<<<<<<< HEAD
-    /background-color: #e5e5e5;
-=======
     background-color: /*#e5e5e5*/ whitesmoke;
->>>>>>> d354a14d2af82238ad32b9c277b90454ab744dae
 }
 
 #mainPage{
@@ -48,13 +44,9 @@ body{
     margin-left: 50px;
     width:170px;
     height: 100%;
-<<<<<<< HEAD
-    background-color: lightgray;
-=======
     background-color: gray;  /*whitesmoke; #bfb084;*/
     border-left: 2px;
     border-right: 2px;
->>>>>>> d354a14d2af82238ad32b9c277b90454ab744dae
 }
 
 #sideBar a{
@@ -82,13 +74,8 @@ body{
     left: 0px;
     margin-left: 0px;
     margin-top: 0px;
-<<<<<<< HEAD
-    height: 100px;
-    background-color: #403d3a;
-=======
     height: 80px;
     background-color: #711b17;
->>>>>>> d354a14d2af82238ad32b9c277b90454ab744dae
 }
 
 .product_img{
