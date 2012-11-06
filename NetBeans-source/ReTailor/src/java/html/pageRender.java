@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  */
 public class pageRender {
     DatabaseConnection cc=new DatabaseConnection();
-    int noOfProducts=9;
+    int noOfProducts=12;
     int offset=0;
     
     private String getSiteBrand() {
