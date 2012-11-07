@@ -1,6 +1,6 @@
 /*
  * This file returns html segments for the page
- * checkout.jsp
+ * checkout.jsp and thankyou.jsp
  */
 
 /**

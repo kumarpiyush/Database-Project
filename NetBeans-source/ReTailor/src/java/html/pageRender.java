@@ -1,6 +1,6 @@
 /*
  * This file returns html segments for the page
- * index.jsp, profie.jsp and thankyou.jsp
+ * index.jsp, checkout.jsp, profie.jsp and thankyou.jsp
  */
 package html;
 
