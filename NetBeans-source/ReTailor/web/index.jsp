@@ -73,11 +73,13 @@
                         out.println(cc.getSortBy(mm));
                     }
 
-                    out.println(cc.getMainPage(cat, id, subcat, searchQuery, table, sortOption, offset));
+                    
 
+                    out.println(cc.getMainPage(cat, id, subcat, searchQuery, table, sortOption, offset));
                     if ((cat != null || searchQuery != null) && id == null) {
                         out.println(cc.getPrevNextLinks(mm));
                     }
+
                 %>
 
             </div>
