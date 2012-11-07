@@ -302,21 +302,10 @@ public class DatabaseConnection {
         return prepStmt.executeQuery();
     }
 
+    // returns transaction summary
     public ResultSet getSpecificBillDetails(String specificBill) throws SQLException {
         PreparedStatement prepStmt = con.prepareStatement("select ID,customer_id,total_cost,DATE_FORMAT(bill_date,'%b %d %Y %h:%i %p') from bill_details where bill_id = ?");
         prepStmt.setString(1, specificBill);
         return prepStmt.executeQuery();
-    }
-    
-    // returns transaction summary
-    public String[] getSpecificBillSummary(String specificBill) throws SQLException{
-        Statement stmt = con.createStatement();
-        ResultSet rs=stmt.executeQuery("select * from billing where ID = "+specificBill);
-        String[] details=new String[3];
-        details[0]=rs.getString(1);
-        details[1]=rs.getString(3);
-        details[2]=rs.getString(4);
-        
-        return details;
     }
 }
