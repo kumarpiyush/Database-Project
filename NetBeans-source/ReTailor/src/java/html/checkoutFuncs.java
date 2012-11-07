@@ -1,3 +1,14 @@
+/*
+ * This file returns html segments for the page
+ * checkout.jsp and thankyou.jsp
+ */
+
+/**
+ *
+ * @author
+ * ReTailor
+ */
+
 package html;
 import java.sql.ResultSet;
 import java.util.*;
