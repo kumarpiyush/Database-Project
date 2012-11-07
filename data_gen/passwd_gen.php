@@ -4,7 +4,7 @@
        echo "Database connection error1\n";
        die(mysql_error());
     }
-    $pdb=mysql_select_db("foobar", $pconnect);
+    $pdb=mysql_select_db("retailor", $pconnect);
     if(!$pdb){
        echo "Database connection error2";
        die();

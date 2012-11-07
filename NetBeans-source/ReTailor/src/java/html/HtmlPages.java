@@ -1,7 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This file handles the login and session details
  */
+
+/**
+ *
+ * @author
+ * ReTailor
+ */
+
 package html;
 
 import database.DatabaseConnection;
@@ -82,7 +88,6 @@ public class HtmlPages extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //request.get
         String flag = null;
         String username=null,password=null;
         try{
@@ -93,7 +98,6 @@ public class HtmlPages extends HttpServlet {
         if(flag!=null){
             session.setAttribute("userid", -1);
             session.setAttribute("name", null);
-            //TODO cart
         }
         else{
             username = request.getParameter("username").toString();
@@ -111,7 +115,8 @@ public class HtmlPages extends HttpServlet {
             }catch(Exception e){ }
         }
         
-        response.sendRedirect("index.jsp");
+        String target_url=request.getParameter("target_url");
+        response.sendRedirect(target_url==null?"index.jsp":target_url);
     }
 
     /**

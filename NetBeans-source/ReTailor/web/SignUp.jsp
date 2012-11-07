@@ -57,6 +57,7 @@ and open the template in the editor.
                 <input class="input-block-level" type="repassword" placeholder="Confirm Password">
                 <div><p></p></div>
                 <button class="btn btn-large btn-info" type="submit">Sign Up</button>
+
             </form>
         </div>
     </body>
