@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class DatabaseConnection {
 
@@ -251,5 +252,10 @@ public class DatabaseConnection {
         l.add(compu);
         l.add(elec);
         return l;
+    }
+    
+    // function to put the ordered things in the database
+    public void storeOrders(Vector<String[]> cart){
+        
     }
 }
