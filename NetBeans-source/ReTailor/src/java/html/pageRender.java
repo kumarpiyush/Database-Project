@@ -52,7 +52,7 @@ public class pageRender {
         }
         String page = "";
         if (userid < 0) {
-            page += "\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"jump_and_link2();\">\n";
+            page += "\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\">\n";
             page += "Email: <input type=\"text\" name=\"username\" />\n";
             page += "Password: <input type=\"password\" name=\"password\" />\n";
             page += "<input type=\"hidden\" name=\"target_url\" value=\"1\"/>\n";
@@ -63,7 +63,7 @@ public class pageRender {
         } else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a></span>\n\t\t\t</td>\n\t\t\t";
             
-            page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"jump_and_link1();\">\n";
+            page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
             page += "<input type=\"hidden\" name=\"target_url\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Logout\"/>\n";

@@ -112,11 +112,9 @@ public class HtmlPages extends HttpServlet {
                     session.setAttribute("userid", -1);
                     session.setAttribute("name", null);
                 }
-            }catch(Exception e){ }
+            }catch(Exception e){}
         }
-        
-        String target_url=request.getParameter("target_url");
-        response.sendRedirect(target_url==null?"index.jsp":target_url);
+        response.sendRedirect("index.jsp");
     }
 
     /**

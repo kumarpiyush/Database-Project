@@ -55,6 +55,7 @@
                 session.setAttribute("tmp_billid", null);
                 String ret=cf.getThankYou(billid);
                 out.println(ret);
+                
                 %>
             </div>
         </div>

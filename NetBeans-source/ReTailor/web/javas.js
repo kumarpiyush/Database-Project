@@ -4,18 +4,6 @@ function jump_and_link(){
     return true;
 }
 
-function jump_and_link1(){
-    //document.getElementById("target_url").innerHTML=document.URL;
-    document.logout_form.target_url.value=document.URL;
-    return true;
-}
-
-function jump_and_link2(){
-    //document.getElementById("target_url").innerHTML=document.URL;
-    document.login_form.target_url.value=document.URL;
-    return true;
-}
-
 function isValid(){
     var x=document.forms["loginform"]["number"].value;
     for(var i=0;i<x.length;i++){
