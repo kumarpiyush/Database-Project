@@ -133,7 +133,7 @@ strike{
     position: relative;
     /*top: 70px;
     float: left;*/
-    margin-top: 60px;
+    padding-top: 80px;
     /*width: 500px;
     height: 50px;*/
     margin-right: 5%;
@@ -152,10 +152,10 @@ strike{
 }
 
 
-.sortSelect {
+#sortSelect {
     margin-left: 850px;
-    position: absolute;
-    width: 350px;
+    /*position: absolute;
+    float:left;*/
 }
 
 #order_product{
@@ -171,4 +171,9 @@ strike{
     padding-bottom: 100px;
     word-spacing:30px;
     text-align:center;
+}
+
+#user{
+    margin-top: 50px;
+    margin-left: 50px;
 }
