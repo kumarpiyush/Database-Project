@@ -66,12 +66,12 @@ public class order_handler extends HttpServlet {
                     // now check the quantity in table
                     Integer amt=cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
                     if(amt<Integer.parseInt(cart.elementAt(i)[2])){
-                        // ordered more than one could buy
+                        // ordered more than what we have
                         order[2]=amt.toString();        // give him what we have
                         cart.setElementAt(order, i);
                     }
                     if(amt<=0){
-                        cart.removeElementAt(i);
+                        cart.removeElementAt(i);        // well, we're broke
                     }
                     break;
                 }
@@ -90,12 +90,13 @@ public class order_handler extends HttpServlet {
             }
 
             session.setAttribute("cart_array",cart);
-            String target_page="";
-            target_page=request.getParameter("target_url");
-            response.sendRedirect(target_page==null?"index.jsp":target_page);
+            String target_url="";
+            target_url=request.getParameter("target_url");
+            System.err.println("target_url "+target_url);
+            response.sendRedirect(target_url==null?"index.jsp":target_url);
         }
         
-        else{                // customer is done shopping
+        else{                // customer is done shopping, this one finalizes the purchase
             int userid=-1;
             try{
                 Integer.parseInt(session.getAttribute("userid").toString());
@@ -105,7 +106,6 @@ public class order_handler extends HttpServlet {
                 e.printStackTrace();
             }
             cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
-            response.sendRedirect("index.jsp");
 
             session.setAttribute("cart_array",null);   // huh!
             response.sendRedirect("index.jsp");

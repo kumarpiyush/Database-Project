@@ -327,10 +327,11 @@ public class pageRender {
                         page += "</table>\n";
 
                         // now the add to cart part
-                        page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\">\n";
+                        page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">\n";
                         // the product details
                         page += "<input type=\"hidden\" name=\"cat\" value=\"" + cat + "\">";
                         page += "<input type=\"hidden\" name=\"id\" value=\"" + id + "\">";
+                        page += "<input type=\"hidden\" name=\"target_url\" value=''>";
 
                         page += "Number: <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
                         page += "<input type=\"submit\" value=\"Add to Cart\">";
