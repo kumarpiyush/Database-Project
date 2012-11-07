@@ -58,17 +58,17 @@ public class pageRender {
         String page = "";
         if (userid < 0) {
 
-            page += " <a href=\"#myModal\"  data-toggle=\"modal\">LogIn</a>";
+            page += " <a style=\"color: white;\" href=\"#myModal\"  data-toggle=\"modal\">LogIn</a>";
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
             //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
-            page += "<a href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
+            page += "<a style=\"margin-left: 20px;\" href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
         } else {
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
             page += "<table style=\"margin-top: -5px;\"><tr><td>";
-            page += "Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a>";
+            page += "Hi <a style=\"color: white;\" href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a>";
             page += "</td><td>";
             //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
-            page += "<a href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
+            page += "<a style=\"margin-left: 10px;\" href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
             page += "</td><td>";
             page += "<form style=\"margin: 0 0 0 0\" action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
@@ -357,7 +357,8 @@ public class pageRender {
         modal += "\n<div><p></p></div>";
         modal += "\n<button class=\"btn btn-large btn-info\" type=\"submit\" value=\"Login\">Log In</button>";
         modal += "\n</form></div>\n\n";
-        modal += "\n<a href = \"SignUp.jsp\" ><button class=\"btn btn-large btn-info\" type=\"submit\" value=\"Login\">Sign Up</button></a>";
+        modal += "\n<a style=\"margin-left: 73%; position: absolute;top: 73%;\" href = \"SignUp.jsp\" ><button class=\"btn btn-large btn-info\" >Sign Up</button></a>";
+
         modal += "</div>";
         modal += "</div>";
         return modal;
