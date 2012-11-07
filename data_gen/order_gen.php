@@ -37,6 +37,44 @@
         }*/
     }
     fclose($alpha);
+    /*
+    $q=$_POST['q'];
+    if($q=='a'){ 
+        $d=$_POST['d'];
+        $e=$_POST['e'];
+        
+        $query="INSERT INTO calender (date, event) VALUES ('{$d}', '{$e}')";
+        $result=mysql_query($query, $pconnect);
+        if(!$result){
+            echo "error";
+        }
+    }
+    
+    else if($q=='t'){
+        $d=$_POST['d'];
+        $query="SELECT * FROM `calender` WHERE `date`='" . $d . "'";
+        $result=mysql_query($query, $pconnect);
+        if(!$result){
+            echo "error";
+        }
+        
+        while($row=mysql_fetch_array($result)){
+            $i=$row['id'];
+            $e=$row['event'];
+            echo "<img src=\"files/cross.png\" style=\"cursor:pointer;\" onclick=\"delete_event({$i});\"> {$e} <br>";
+        }
+    }
+    
+    else if($q=='d'){
+        $i=$_POST['i'];
+        
+        $query="DELETE FROM `pdatabase`.`calender` WHERE `calender`.`id` = {$i}";
+        $result=mysql_query($query,$pconnect);
+        if(!$result){
+            echo "error";
+        }
+    }
+     */
 ?>
 
 <?php
