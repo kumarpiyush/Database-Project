@@ -21,9 +21,9 @@ public class DatabaseConnection {
     private Connection con = null;
     private static final String DBNAME = "retailor";
     
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "55piyushh";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/retailor";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -299,7 +299,7 @@ public class DatabaseConnection {
         if (cat != null) {
             category_to_table(cat);
         }
-        PreparedStatement prepStmt = con.prepareStatement("Update " + CATEGORY + " set quantity = quantity - ? where ID = ?");
+        PreparedStatement prepStmt = con.prepareStatement("Update " + CATEGORY + " set quantity = quantity - ?, popularity = popularity + 1 where ID = ?");
         prepStmt.setInt(1, quantity);
         prepStmt.setString(2, userid);
         prepStmt.executeUpdate();
@@ -320,6 +320,26 @@ public class DatabaseConnection {
         prepStmt.setString(1, id);
         return prepStmt.executeQuery();
     }
+    
+    //***************************************************************************
+    //returns the bill details
+    public String[] getBillDetailsInStringFormat(String id) throws SQLException {
+        PreparedStatement prepStmt = con.prepareStatement("select ID,customer_id,total_cost,DATE_FORMAT(bill_date,'%b %d %Y %h:%i %p') from billing where customer_id = ?");
+        prepStmt.setString(1, id);
+        ResultSet rs=prepStmt.executeQuery();
+        if(rs.next()){
+            String[] ret=new String[4];
+            ret[0]=rs.getString(1);
+            ret[1]=rs.getString(2);
+            ret[2]=rs.getString(3);
+            ret[3]=rs.getString(4);
+            return ret;
+        }
+        else{
+            return null;
+        }
+    }
+    
 
     //***************************************************************************
     // returns transaction summary
