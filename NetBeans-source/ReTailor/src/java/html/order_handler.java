@@ -105,6 +105,7 @@ public class order_handler extends HttpServlet {
             target_url=request.getParameter("target_url");
             response.sendRedirect(target_url==null?"index.jsp":target_url);
         }
+        
         else{                // customer is done shopping, this one finalizes the purchase
             int userid=-1;
             try{
