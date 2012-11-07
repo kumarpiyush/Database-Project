@@ -39,6 +39,7 @@ public class checkoutFuncs {
                 rs.next();
                 temp[3]=rs.getString("price");//cost of 1 object
                 processed_order.add(temp);
+                
                 ret+="<div id=\"buyDisplay\">";
                 ret+="<table id=\"buyOuterTable\">";
                 ret+="<tr id=\"buyOuterRow\">";
@@ -51,7 +52,7 @@ public class checkoutFuncs {
                 ret+="<tr><td>Cost of one item: &#8377;"+rs.getString(6)+"</td></tr>";
                 ret+="<tr><td>Total cost: &#8377;"+Integer.parseInt(rs.getString(6)) * Integer.parseInt(i[2])+"</td></tr>";
                 //ret+="</tr>";
-                ret+="</table>";
+                ret+="</table>\n\n";
                 ret+="</td>";
                 //ret+=(i[0]+" "+i[1]+" "+i[2]+"<br />"); // category, ID, count
                 ret+="<td>";
