@@ -445,7 +445,7 @@ public class pageRender {
                     page += "<table class=\"userDetails\">\n";
                     do {
                         page += "<tr><td>Product Type: </td><td>" + rs.getString("prod_type") + "</td></tr>";
-                        page += "<tr><td>Product ID: </td><td>" + rs.getString("prod_id") + "</td></tr>";
+                        page += "<tr><td colspan=\"2\">View the item: <a href=\"index.jsp?cat="+rs.getString("prod_type")+"&id="+rs.getString("prod_id")+"\">click here</a>.</td></tr>";
                         page += "<tr><td>Quantity: </td><td>" + rs.getString("quantity") + "</td></tr>";
                         page += "<tr><td>Cost of one item: &#8377;</td><td>" + rs.getString("cost") + "</td></tr>";
                     } while (rs.next());
