@@ -108,12 +108,17 @@ public class order_handler extends HttpServlet {
             catch(Exception e){
                 e.printStackTrace();
             }
+            String billid=null;
+            
             try {
-                cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
-            } catch (SQLException ex) { }
-
+                billid=cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+            }
+            catch (SQLException ex) { }
+            session.setAttribute("tmp_billid", billid); // temporary, will be removed soon
+            
+            // send the user to thankyou page
             session.setAttribute("cart_array",null);   // huh!
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("thankyou.jsp");
             return;                                   // bye!
         }
     }
