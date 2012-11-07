@@ -29,8 +29,24 @@ public class checkoutFuncs {
         Vector<String[]> processed_order=new Vector<String[]>();
         String[] temp=null;
         if(order!=null){
-            ret+="<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">";
-            ret+="<input type='hidden' name='place_order' value='1'>";
+            String login_str="Confirm Edits and Order";
+            boolean logged_in=true;
+            if(session.getAttribute("userid").toString().equals("-1")){
+                logged_in=false;
+                login_str="Click here to Sign up, or do a login to proceed";
+            }
+            
+            if(logged_in){  // put in database
+                ret+="<form action='order_handler' method='post'>";
+                ret+="<input type='hidden' name='place_order' value='1'>";
+                //ret+="<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">";
+                //ret+="<input type='hidden' name='place_order' value='1'>";
+            }
+            else{
+                ret+="<form action='SignUp.jsp'>";
+            }
+            
+            int j=0;
             for(String[] i : order){
                 ResultSet rs=cc.itemByID(i[0], i[1]);
                 temp=new String[4];
@@ -41,12 +57,12 @@ public class checkoutFuncs {
                 temp[3]=rs.getString("price");//cost of 1 object
                 processed_order.add(temp);
                 
-                ret+="<div id=\"buyDisplay\">";
-                ret+="<table id=\"buyOuterTable\">";
-                ret+="<tr id=\"buyOuterRow\">";
-                ret+="<td><img src=\""+rs.getString("img_url")+"\"/ id=\"buyImage\"></td>";
+                ret+="<div>";
+                ret+="<table>";
+                ret+="<tr>";
+                ret+="<td><img src=\""+rs.getString("img_url")+"\"/></td>";
                 ret+="<td>";
-                ret+="<table id=\"buyInnerTable\">";
+                ret+="<table>";
                 ret+="<tr><td>"+rs.getString(3)+"</td></tr>";
                 ret+="<tr><td>"+rs.getString(2)+"("+rs.getString(4)+")</td></tr>";
                 ret+="<tr><td>Number: "+i[2]+"</td></tr>";
@@ -57,41 +73,34 @@ public class checkoutFuncs {
                 ret+="</td>";
                 //ret+=(i[0]+" "+i[1]+" "+i[2]+"<br />"); // category, ID, count
                 ret+="<td>";
-                ret+="<table><tr><td>Edit order:</td></tr><tr><td><input type=\"number\" min=\"0\" name=\"product"+i+"\" value=\""+i[2]+"\"/></td></tr></table>";
+                ret+="<table><tr><td>Edit order:</td></tr><tr><td><input type=\"number\" min=\"0\" name=\"product"+j+"\" value=\""+i[2]+"\"/></td></tr></table>";
                 ret+="</td>";
                 ret+="</tr>";
                 ret+="</table>";
                 ret+="</div>";
+                j++;
             }
-            ret+="<input type=\"submit\" value=\"Confirm Edit\">";
-            ret+="</form>";
+            //ret+="<input type=\"submit\" value=\"Confirm Edit and Order\">";
+            //ret+="</form>";
             session.setAttribute("cart_array", processed_order);
             // <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">
-            
-            
-            String login_str="Order Current Selection";
-            boolean logged_in=true;
-            if(session.getAttribute("userid").toString().equals("-1")){
-                logged_in=false;
-                login_str="Please login and proceed to order";
-            }
-
-            if(logged_in){  // put in database
-                ret+="<form action='order_handler' method='post'>";
-                ret+="<input type='hidden' name='place_order' value='1'>";
-                ret+="<input type='submit' value='"+login_str+"'";
-                return ret;
+/*            if(logged_in){  // put in database
+                //ret+="<form action='order_handler' method='post'>";
+                //ret+="<input type='hidden' name='place_order' value='1'>";
+                
             }
             else{           // call the login page address
-                // TODO : ask around for a login page
-                ret+="<form action='index.jsp' method='post'>";
+                //ret+="<form action='SignUp.jsp' method='post'>";
                 ret+="<input type='submit' value='"+login_str+"'";
+                ret+="</form>";
                 return ret;
-            }
+            }*/
+            ret+="<input type='submit' value='"+login_str+"'>";
+            ret+="</form>";
+            return ret;
         }
         else{
-            ret="<h1>If you don't have money then get out!! Don't you ever bring an empty cart to me!!!!</h1>";
-            // TODO : soften this
+            ret="The cart is empty. Go back and buy something gringo!";
             return ret;
         }
     }

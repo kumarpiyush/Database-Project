@@ -3,6 +3,7 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
+<%@page import="html.HtmlPages"%>
 <html>
     <head>
         <title>Re-Tailor</title>
@@ -33,9 +34,9 @@ and open the template in the editor.
                 <ul class="nav pull-right" >
 
 
-                    <form class="pull-right">
-                        <input class="input-medium" type="text" placeholder="Email" style="margin-top:15px;">
-                        <input class="input-medium" type="password" placeholder="Password"style="margin-top:15px;">
+                    <form class="pull-right" action="HtmlPages" name="login_form" method="post">
+                        <input class="input-medium" name="username" type="text" placeholder="Email" style="margin-top:15px;">
+                        <input class="input-medium" name="password" type="password" placeholder="Password"style="margin-top:15px;">
                         <button class="btn" type="submit" >Login</button>
                     </form>
 

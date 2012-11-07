@@ -24,7 +24,7 @@ public class DatabaseConnection {
     
     //private static final String DB_USERNAME = "sameer";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "sundarban";
+    private static final String DB_PASSWORD = "55piyushh";
     private static final String URL = "jdbc:mysql://localhost/retailor";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
