@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import database.DatabaseConnection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -64,7 +67,10 @@ public class order_handler extends HttpServlet {
                     found=true;
                     cart.setElementAt(order, i);
                     // now check the quantity in table
-                    Integer amt=cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
+                    Integer amt = 0;
+                    try {
+                        amt = cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
+                    } catch (SQLException ex) { }
                     if(amt<Integer.parseInt(cart.elementAt(i)[2])){
                         // ordered more than what we have
                         order[2]=amt.toString();        // give him what we have
@@ -79,7 +85,10 @@ public class order_handler extends HttpServlet {
             if(!found){
                 System.err.println("didn't find it in cart!");
                 // now check the quantity in table
-                Integer amt=cc.quantityOfItemID(order[0],order[1]);
+                Integer amt = 0;
+                try {
+                    amt = cc.quantityOfItemID(order[0],order[1]);
+                } catch (SQLException ex) { }
                 if(amt<Integer.parseInt(order[2])){
                     // ordered more than one could buy
                     order[2]=amt.toString();        // give him what we have
@@ -95,7 +104,6 @@ public class order_handler extends HttpServlet {
             System.err.println("target_url "+target_url);
             response.sendRedirect(target_url==null?"index.jsp":target_url);
         }
-        
         else{                // customer is done shopping, this one finalizes the purchase
             int userid=-1;
             try{
@@ -105,7 +113,12 @@ public class order_handler extends HttpServlet {
                 System.err.println("should never come here, didn't you check valid login before directing here (see checkout.jsp)");
                 e.printStackTrace();
             }
-            int billid=cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+            String billid=null;
+            
+            try {
+                billid=cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+            }
+            catch (SQLException ex) { }
             session.setAttribute("tmp_billid", billid); // temporary, will be removed soon
             
             // send the user to thankyou page
