@@ -20,6 +20,8 @@ import database.DatabaseConnection;
 @WebServlet(name = "order_handler", urlPatterns = {"/order_handler"})
 public class order_handler extends HttpServlet {
 
+    DatabaseConnection cc=new DatabaseConnection();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,11 +76,10 @@ public class order_handler extends HttpServlet {
         }
         
         else{                // customer is done shopping
-            DatabaseConnection cc=new DatabaseConnection();
-            cc.storeOrders((Vector<String[]>)session.getAttribute("cart_array"));
+            
+            cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
             response.sendRedirect("index.jsp");
             
-            session.setAttribute("place_order",null);
             session.setAttribute("cart_array",null);   // huh!
             return;                                   // bye!
         }
