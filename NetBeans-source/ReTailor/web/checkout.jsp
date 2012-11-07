@@ -62,7 +62,7 @@
         </div>
 
         <%
-            
+            out.println(cc.getModal());
         %>
 
 

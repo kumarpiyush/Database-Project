@@ -43,7 +43,7 @@ public class order_handler extends HttpServlet {
             isOrderDone=request.getParameter("place_order");
         }
         catch(Exception e){
-            // my work is done here
+            e.printStackTrace();
         }
         if(isOrderDone==null){      // order still in progress
             System.err.println("isOrderDone: "+isOrderDone);
@@ -108,6 +108,8 @@ public class order_handler extends HttpServlet {
         }
         
         else{                // customer is done shopping, this one finalizes the purchase
+            System.err.println("isOrderDone: "+isOrderDone);
+                    
             int userid=-1;
             try{
                 Integer.parseInt(session.getAttribute("userid").toString());
@@ -117,17 +119,49 @@ public class order_handler extends HttpServlet {
             }
             String billid=null;
             Vector<String[]> cart=(Vector<String[]>)session.getAttribute("cart_array");
-            
+            Vector<String[]> newCart=new Vector<String[]>();        // after adjustments are made at the pre-final page
+            boolean orderOk=true;
+            try{
+                for(int i=0;i<cart.size();i++){
+                    Integer newCount=Integer.parseInt(request.getParameter("product"+i));
+                    System.err.println(i+" "+newCount);
+                    if((newCount>0)){
+                        String[] tmp=new String[4];
+                        tmp[0]=cart.elementAt(i)[0];
+                        tmp[1]=cart.elementAt(i)[1];
+                        tmp[2]=newCount.toString();
+                        tmp[3]=cart.elementAt(i)[3];
+                        
+                        newCart.add(tmp);
+                    }
+                    // else the user removed the product
+                }
+                cart=newCart;
+                if(cart.size()==0){
+                    System.err.println("User has nothing to order :P");
+                    orderOk=false;
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
             
             try {
-                billid=cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+                if(orderOk){
+                    billid=cc.storeOrders(session.getAttribute("userid").toString(),cart);
+                }
             }
             catch (SQLException ex) { }
             session.setAttribute("tmp_billid", billid); // temporary, will be removed soon
             
             // send the user to thankyou page
             session.setAttribute("cart_array",null);   // huh!
-            response.sendRedirect("profile.jsp?id="+session.getAttribute("userid").toString()+"&bill=true&specific="+billid);
+            if(orderOk){
+                response.sendRedirect("profile.jsp?id="+session.getAttribute("userid").toString()+"&bill=true&specific="+billid);
+            }
+            else{
+                response.sendRedirect("index.jsp");
+            }
             return;                                   // bye!
         }
     }

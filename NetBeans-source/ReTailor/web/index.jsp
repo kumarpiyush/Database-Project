@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/navigation.css">
         <title>ReTailor</title>
-        <script type="text/javascript" src="javas.js"></script>
+        <script type="text/javascript" src="js/javas.js"></script>
         <%
             //inits
             pageRender cc = new pageRender();

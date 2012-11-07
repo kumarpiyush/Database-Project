@@ -329,4 +329,40 @@ public class DatabaseConnection {
         prepStmt.setString(1, specificBill);
         return prepStmt.executeQuery();
     }
+    
+    //***************************************************************************
+    //check whether the email exists
+    public boolean checkEmail(String email) throws SQLException {
+        PreparedStatement prepStmt = con.prepareStatement("select email from customer where email = ?");
+        prepStmt.setString(1, email);
+        ResultSet rs = prepStmt.executeQuery();
+        if(rs.next()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    //***************************************************************************
+    //insert into customer
+    public int signupCustomer(String name,String email,String phone,String address,String password) throws SQLException{
+        int id = 1;
+        System.err.println("details "+name+email+phone+address+password);
+        
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select ID from customer order by ID desc limit 1");
+        if (rs.next()) {
+            id = rs.getInt(1) + 1;
+        }
+        System.err.println("id : "+id);
+        PreparedStatement prepStmt = con.prepareStatement("insert into customer values ( ?, ?, ?, ?, ?, PASSWORD(?))");
+        prepStmt.setInt(1, id);
+        prepStmt.setString(2, name);
+        prepStmt.setString(3, email);
+        prepStmt.setString(4, phone);
+        prepStmt.setString(5, address);
+        prepStmt.setString(6, password);
+        prepStmt.executeUpdate();
+        return id;
+    }
 }

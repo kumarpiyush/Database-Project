@@ -3,6 +3,7 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
+<%@page import="html.HtmlPages"%>
 <html>
     <head>
         <title>Re-Tailor</title>
@@ -33,9 +34,9 @@ and open the template in the editor.
                 <ul class="nav pull-right" >
 
 
-                    <form class="pull-right">
-                        <input class="input-medium" type="text" placeholder="Email" style="margin-top:15px;">
-                        <input class="input-medium" type="password" placeholder="Password"style="margin-top:15px;">
+                    <form class="pull-right" action="HtmlPages" name="login_form" method="post">
+                        <input class="input-medium" name="username" type="text" placeholder="Email" style="margin-top:15px;">
+                        <input class="input-medium" name="password" type="password" placeholder="Password"style="margin-top:15px;">
                         <button class="btn" type="submit" >Login</button>
                     </form>
 
@@ -47,11 +48,24 @@ and open the template in the editor.
 
 
         <div class="container" style="margin-top: 100px; width: 450px; padding: 30px 30px 30px 30px;  border:1px solid #021a40;">
-            <form class="form-signin" onsubmit="isValid" method="post">
+            <form name="signUpForm" class="form-signin" onsubmit="return isValid()" method="post" action="AddAccount">
                 <h2 class="form-signin-heading">Please sign up</h2>
                 <input name="name" class="input-block-level" type="text" placeholder="Name">
-                <input name="email" class="input-block-level" type="email" placeholder="Email address" >
-                <input name="number" class="input-block-level" type="number" placeholder="Phone Number">
+                <%
+                    String emailValidaton = (String) session.getAttribute("invalidemail");
+                    if (emailValidaton == null) {
+                %>
+                <input name="email" class="input-block-level" type="email" placeholder="Email address">
+                <%                    } else {
+                %>
+                <input name="email" class="input-block-level" type="email" placeholder="Email address"><font color="red">* Email Exists</font><br />
+                <%
+                        session.setAttribute("invalidemail", null);
+                    }
+                %>
+
+
+                <input name="number" class="input-block-level" type="text" placeholder="Phone Number">
                 <input name="address" class="input-block-level" type="text" placeholder="Address">
                 <input name="password" class="input-block-level" type="password" placeholder="Password">
                 <input name="repassword" class="input-block-level" type="password" placeholder="Confirm Password">
