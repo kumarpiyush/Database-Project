@@ -14,9 +14,9 @@ public class DatabaseConnection {
 
     private Connection con = null;
     private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "sameer";
-    //private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "sundarban";
+    //private static final String DB_USERNAME = "sameer";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "55piyushh";
 
     private static final String URL = "jdbc:mysql://localhost/foobar";
     private String CATEGORY = null;
@@ -290,5 +290,4 @@ public class DatabaseConnection {
         Statement stmt = con.createStatement();
         return stmt.executeQuery("select * from bill_details where bill_id = "+specificBill);
     }
-    
 }

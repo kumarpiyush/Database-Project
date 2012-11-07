@@ -62,11 +62,13 @@ public class order_handler extends HttpServlet {
                     found=true;
                     cart.setElementAt(order, i);
                     // now check the quantity in table
+                    int amt=cc.fetchAmount(cart.elementAt(i)[0],cart.elementAt(i)[1]);
                     break;
                 }
             }
             if(!found){
                 System.err.println("didn't find it in cart!");
+                // now check the quantity in table
                 cart.add(order);
             }
 
@@ -76,10 +78,17 @@ public class order_handler extends HttpServlet {
         
         else{                // customer is done shopping
             DatabaseConnection cc=new DatabaseConnection();
-            int userid=Integer.parseInt((String)session.getAttribute("usesid"));
+            int userid=-1;
+            try{
+                Integer.parseInt(session.getAttribute("userid").toString());
+            }
+            catch(Exception e){
+                System.err.println("should never come here, didn't you check valid login before directing here (see checkout.jsp)");
+                e.printStackTrace();
+            }
+            
             cc.storeOrders(userid,(Vector<String[]>)session.getAttribute("cart_array"));
             
-            session.setAttribute("place_order",null);
             session.setAttribute("cart_array",null);   // huh!
             response.sendRedirect("index.jsp");
             return;                                   // bye!
