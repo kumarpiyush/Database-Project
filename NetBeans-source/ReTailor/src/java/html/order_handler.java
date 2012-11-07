@@ -20,6 +20,8 @@ import database.DatabaseConnection;
 @WebServlet(name = "order_handler", urlPatterns = {"/order_handler"})
 public class order_handler extends HttpServlet {
 
+    DatabaseConnection cc=new DatabaseConnection();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,30 +58,55 @@ public class order_handler extends HttpServlet {
             boolean found=false;
             for(int i=0;i<cart.size();i++){
                 if(cart.elementAt(i)[1].equals(order[1]) && cart.elementAt(i)[0].equals(order[0])){
-                    System.err.println("found already in cart! "+i);        // reminds me to clean and build
+                    System.err.println("found already in cart! "+i);        // sometimes, reminds me to clean and build
                     Integer res=new Integer(Integer.parseInt(order[2])+Integer.parseInt(cart.elementAt(i)[2]));
                     order[2]=res.toString();
                     found=true;
                     cart.setElementAt(order, i);
                     // now check the quantity in table
+                    Integer amt=cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
+                    if(amt<Integer.parseInt(cart.elementAt(i)[2])){
+                        // ordered more than one could buy
+                        order[2]=amt.toString();        // give him what we have
+                        cart.setElementAt(order, i);
+                    }
+                    if(amt<=0){
+                        cart.removeElementAt(i);
+                    }
                     break;
                 }
             }
             if(!found){
                 System.err.println("didn't find it in cart!");
-                cart.add(order);
+                // now check the quantity in table
+                Integer amt=cc.quantityOfItemID(order[0],order[1]);
+                if(amt<Integer.parseInt(order[2])){
+                    // ordered more than one could buy
+                    order[2]=amt.toString();        // give him what we have
+                }
+                if(amt>0){
+                    cart.add(order);                // no use adding if we don't have
+                }
             }
 
             session.setAttribute("cart_array",cart);
-            response.sendRedirect("index.jsp");
+            String target_page="";
+            target_page=request.getParameter("target_url");
+            response.sendRedirect(target_page==null?"index.jsp":target_page);
         }
         
         else{                // customer is done shopping
-            DatabaseConnection cc=new DatabaseConnection();
-            int userid=Integer.parseInt((String)session.getAttribute("usesid"));
-            cc.storeOrders(userid,(Vector<String[]>)session.getAttribute("cart_array"));
-            
-            session.setAttribute("place_order",null);
+            int userid=-1;
+            try{
+                Integer.parseInt(session.getAttribute("userid").toString());
+            }
+            catch(Exception e){
+                System.err.println("should never come here, didn't you check valid login before directing here (see checkout.jsp)");
+                e.printStackTrace();
+            }
+            cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+            response.sendRedirect("index.jsp");
+
             session.setAttribute("cart_array",null);   // huh!
             response.sendRedirect("index.jsp");
             return;                                   // bye!

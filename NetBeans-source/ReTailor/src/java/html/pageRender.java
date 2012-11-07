@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -46,14 +47,17 @@ public class pageRender {
             page += "Password: <input type=\"password\" name=\"password\" />\n";
             page += "<input type=\"submit\" value=\"Login\"/>\n";
             page += "</form>\n\n";
-            page += "<a href=\"checkout.jsp\"> Checkout </a>";
-        } else {
+            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
+            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
+        }
+        else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a></span>\n\t\t\t</td>\n\t\t\t";
             page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Logout\"/>\n";
             page += "</form>\n\t\t</td>\n\t</tr></table>";
-            page += "<a href=\"checkout.jsp\"> Checkout </a>";
+            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
+            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
         }
         return page;
     }
