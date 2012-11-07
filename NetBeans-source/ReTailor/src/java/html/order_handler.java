@@ -63,6 +63,7 @@ public class order_handler extends HttpServlet {
                     order[2]=res.toString();
                     found=true;
                     cart.setElementAt(order, i);
+                    // now check the quantity in table
                     break;
                 }
             }
@@ -79,8 +80,9 @@ public class order_handler extends HttpServlet {
             
             cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
             response.sendRedirect("index.jsp");
-            
+
             session.setAttribute("cart_array",null);   // huh!
+            response.sendRedirect("index.jsp");
             return;                                   // bye!
         }
     }

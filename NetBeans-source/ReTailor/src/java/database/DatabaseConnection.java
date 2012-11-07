@@ -268,7 +268,8 @@ public class DatabaseConnection {
             
             
             //return rs;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return billid;
