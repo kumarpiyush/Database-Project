@@ -49,8 +49,8 @@ public class checkoutFuncs {
                 ret+="<tr><td>"+rs.getString(3)+"</td></tr>";
                 ret+="<tr><td>"+rs.getString(2)+"("+rs.getString(4)+")</td></tr>";
                 ret+="<tr><td>Number: "+i[2]+"</td></tr>";
-                ret+="<tr><td>Cost of one item:"+rs.getString(6)+"</td></tr>";
-                ret+="<tr><td>Total cost:"+Integer.parseInt(rs.getString(6)) * Integer.parseInt(i[2])+"</td></tr>";
+                ret+="<tr><td>Cost of one item: &#8377;"+rs.getString(6)+"</td></tr>";
+                ret+="<tr><td>Total cost: &#8377;"+Integer.parseInt(rs.getString(6)) * Integer.parseInt(i[2])+"</td></tr>";
                 //ret+="</tr>";
                 ret+="</table>\n\n";
                 ret+="</td>";

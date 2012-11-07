@@ -122,9 +122,9 @@ public class pageRender {
         page += "<br/>";
         page += arg2;
         page += "<br/>";
-        page += "<strike>";
+        page += "<strike>&#8377;";
         page += mrp;
-        page += "</strike>&nbsp;&nbsp;";
+        page += "</strike>&nbsp;&nbsp;&#8377;";
         page += price;
         page += "</div>";
         return page;
@@ -317,9 +317,9 @@ public class pageRender {
                             page += "</p>\n<p>";
                             page += rs2.getString(4);
                             page += "</p>\n<p>";
-                            page += "<strike>";
+                            page += "<strike>&#8377;";
                             page += rs2.getString(5);
-                            page += "</strike>&nbsp;&nbsp;";
+                            page += "</strike>&nbsp;&nbsp;&#8377;";
                             page += rs2.getString(6);
                             page += "</p>\n<p>";
                             page += rs2.getString(7);
@@ -393,9 +393,9 @@ public class pageRender {
                 page += "<table class=\"userDetails\">\n";
                 ResultSet rs = cc.getBillDetails(id);
                 while (rs.next()) {
-                    page += "<tr><td>Bill ID:</td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
-                    page += "<tr><td>Bill Date:</td><td>" + rs.getString(4) + "</td></tr>";
-                    page += "<tr><td>Bill Cost:</td><td>" + rs.getString("total_cost") + "</td></tr>";
+                    page += "<tr><td>Bill ID: </td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
+                    page += "<tr><td>Bill Date: </td><td>" + rs.getString(4) + "</td></tr>";
+                    page += "<tr><td>Bill Cost: &#8377;</td><td>" + rs.getString("total_cost") + "</td></tr>";
                 }
                 page += "</table>";
             } else {
@@ -404,10 +404,10 @@ public class pageRender {
                     page += "<p>Bill details of Bill No. " + specificBill + "</p>";
                     page += "<table class=\"userDetails\">\n";
                     do {
-                        page += "<tr><td>Product Type:</td><td>" + rs.getString("prod_type") + "</td></tr>";
-                        page += "<tr><td>Product ID:</td><td>" + rs.getString("prod_id") + "</td></tr>";
-                        page += "<tr><td>Quantity:</td><td>" + rs.getString("quantity") + "</td></tr>";
-                        page += "<tr><td>Cost:</td><td>" + rs.getString("cost") + "</td></tr>";
+                        page += "<tr><td>Product Type: </td><td>" + rs.getString("prod_type") + "</td></tr>";
+                        page += "<tr><td>Product ID: </td><td>" + rs.getString("prod_id") + "</td></tr>";
+                        page += "<tr><td>Quantity: </td><td>" + rs.getString("quantity") + "</td></tr>";
+                        page += "<tr><td>Cost of one item: &#8377;</td><td>" + rs.getString("cost") + "</td></tr>";
                     } while (rs.next());
                     page += "</table>";
                 } else {
