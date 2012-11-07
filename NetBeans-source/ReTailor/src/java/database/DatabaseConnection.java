@@ -307,4 +307,16 @@ public class DatabaseConnection {
         Statement stmt = con.createStatement();
         return stmt.executeQuery("select * from bill_details where bill_id = "+specificBill);
     }
+    
+    // returns transaction summary
+    public String[] getSpecificBillSummary(String specificBill) throws SQLException{
+        Statement stmt = con.createStatement();
+        ResultSet rs=stmt.executeQuery("select * from billing where ID = "+specificBill);
+        String[] details=new String[3];
+        details[0]=rs.getString(1);
+        details[1]=rs.getString(3);
+        details[2]=rs.getString(4);
+        
+        return details;
+    }
 }

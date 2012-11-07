@@ -1,13 +1,16 @@
 package html;
+import java.sql.ResultSet;
 import java.util.*;
 import javax.servlet.http.HttpSession;
-
+import database.DatabaseConnection;
 /**
  *
  * @author
  * piyush
  */
 public class checkoutFuncs {
+    DatabaseConnection cc=new DatabaseConnection();
+    
     // returns the code to be displayed on checkout page
     public String getOrderCode(Vector<String[]> order,HttpSession session){
         String ret="";
@@ -37,7 +40,20 @@ public class checkoutFuncs {
         }
         else{
             ret="<h1>If you don't have money then get out!! Don't you ever bring an empty cart to me!!!!</h1>";
+            // TODO : soften this
             return ret;
         }
+    }
+    
+    // thank you message
+    public String getThankYou(String billid){
+        ResultSet rs=null;
+        try{
+            rs=cc.getSpecificBillDetails(billid);
+        }
+        catch(Exception e){
+            //die
+        }
+        return null;
     }
 }

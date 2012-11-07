@@ -105,10 +105,12 @@ public class order_handler extends HttpServlet {
                 System.err.println("should never come here, didn't you check valid login before directing here (see checkout.jsp)");
                 e.printStackTrace();
             }
-            cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
-
+            int billid=cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+            session.setAttribute("tmp_billid", billid); // temporary, will be removed soon
+            
+            // send the user to thankyou page
             session.setAttribute("cart_array",null);   // huh!
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("thankyou.jsp");
             return;                                   // bye!
         }
     }
