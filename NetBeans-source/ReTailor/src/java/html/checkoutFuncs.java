@@ -29,6 +29,7 @@ public class checkoutFuncs {
         Vector<String[]> processed_order=new Vector<String[]>();
         String[] temp=null;
         if(order!=null){
+
             String login_str="Confirm Edits and Order";
             boolean logged_in=true;
             if(session.getAttribute("userid").toString().equals("-1")){
@@ -57,12 +58,12 @@ public class checkoutFuncs {
                 temp[3]=rs.getString("price");//cost of 1 object
                 processed_order.add(temp);
                 
-                ret+="<div>";
-                ret+="<table>";
-                ret+="<tr>";
-                ret+="<td><img src=\""+rs.getString("img_url")+"\"/></td>";
+                ret+="<div id=\"buyDisplay\">";
+                ret+="<table id=\"buyOuterTable\" class=\"table\">";
+                ret+="<tr id=\"buyOuterRow\">";
+                ret+="<td style=\"width:200px;\"><img src=\""+rs.getString("img_url")+"\"/ id=\"buyImage\"></td>";
                 ret+="<td>";
-                ret+="<table>";
+                ret+="<table id=\"buyInnerTable\" class=\"table\">";
                 ret+="<tr><td>"+rs.getString(3)+"</td></tr>";
                 ret+="<tr><td>"+rs.getString(2)+"("+rs.getString(4)+")</td></tr>";
                 ret+="<tr><td>Number: "+i[2]+"</td></tr>";
@@ -94,4 +95,6 @@ public class checkoutFuncs {
             return ret;
         }
     }
+    
+    
 }
