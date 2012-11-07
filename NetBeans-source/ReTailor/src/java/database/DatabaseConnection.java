@@ -323,26 +323,6 @@ public class DatabaseConnection {
     }
     
     //***************************************************************************
-    //returns the bill details
-    public String[] getBillDetailsInStringFormat(String id) throws SQLException {
-        PreparedStatement prepStmt = con.prepareStatement("select ID,customer_id,total_cost,DATE_FORMAT(bill_date,'%b %d %Y %h:%i %p') from billing where customer_id = ?");
-        prepStmt.setString(1, id);
-        ResultSet rs=prepStmt.executeQuery();
-        if(rs.next()){
-            String[] ret=new String[4];
-            ret[0]=rs.getString(1);
-            ret[1]=rs.getString(2);
-            ret[2]=rs.getString(3);
-            ret[3]=rs.getString(4);
-            return ret;
-        }
-        else{
-            return null;
-        }
-    }
-    
-
-    //***************************************************************************
     // returns transaction summary
     public ResultSet getSpecificBillDetails(String specificBill) throws SQLException {
         PreparedStatement prepStmt = con.prepareStatement("select * from bill_details where bill_id = ?");

@@ -57,6 +57,7 @@ public class pageRender {
         }
         String page = "";
         if (userid < 0) {
+
             page += " <a href=\"#myModal\"  data-toggle=\"modal\">LogIn</a>";
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
             //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";

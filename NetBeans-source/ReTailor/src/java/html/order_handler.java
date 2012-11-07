@@ -127,7 +127,7 @@ public class order_handler extends HttpServlet {
             
             // send the user to thankyou page
             session.setAttribute("cart_array",null);   // huh!
-            response.sendRedirect("thankyou.jsp");
+            response.sendRedirect("profile.jsp?id="+session.getAttribute("userid").toString()+"&bill=true&specific="+billid);
             return;                                   // bye!
         }
     }
