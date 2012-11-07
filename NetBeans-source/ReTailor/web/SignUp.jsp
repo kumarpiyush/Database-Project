@@ -48,14 +48,27 @@ and open the template in the editor.
 
 
         <div class="container" style="margin-top: 100px; width: 450px; padding: 30px 30px 30px 30px;  border:1px solid #021a40;">
-            <form class="form-signin" onsubmit="isValid" method="post" action="AddAccount">
+            <form name="signUpForm" class="form-signin" onsubmit="return isValid()" method="post" action="AddAccount">
                 <h2 class="form-signin-heading">Please sign up</h2>
                 <input name="name" class="input-block-level" type="text" placeholder="Name">
-                <input name="email" class="input-block-level" type="email" placeholder="Email address" >
-                <input name="number" class="input-block-level" type="number" placeholder="Phone Number">
+                <%
+                    String emailValidaton = (String) session.getAttribute("invalidemail");
+                    if (emailValidaton == null) {
+                %>
+                <input name="email" class="input-block-level" type="email" placeholder="Email address">
+                <%                    } else {
+                %>
+                <input name="email" class="input-block-level" type="email" placeholder="Email address"><font color="red">* Email Exists</font><br />
+                <%
+                        session.setAttribute("invalidemail", null);
+                    }
+                %>
+
+
+                <input name="number" class="input-block-level" type="text" placeholder="Phone Number">
                 <input name="address" class="input-block-level" type="text" placeholder="Address">
-                <input class="input-block-level" type="password" placeholder="Password">
-                <input class="input-block-level" type="repassword" placeholder="Confirm Password">
+                <input name="password" class="input-block-level" type="password" placeholder="Password">
+                <input name="repassword" class="input-block-level" type="password" placeholder="Confirm Password">
                 <div><p></p></div>
                 <button class="btn btn-large btn-info" type="submit">Sign Up</button>
 
