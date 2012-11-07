@@ -96,17 +96,19 @@ public class pageRender {
 
     public String getHeader(HttpSession session) throws SQLException {
         String page = "";
-        page += "<div class=\"navbar navbar-inverse navbar-fixed-top\" ><div class=\"navbar-inner\">";
+        page += "<div class=\"navbar navbar-inverse navbar-fixed-top\" style=\"height: 70px;\"><div class=\"navbar-inner\">";
         page += getSiteBrand();
 
         page += "<div class=\"container \">";
-        page += "<div class=\"nav pull-right\" style=\"position: absolute; margin-left:650px\">";
+        page += "<div class=\"nav pull-right\" style=\"position: absolute; margin-left:600px\">";
 
-        page += "<table><tr><td>";
+        page += "<ul>";
+        page += "<table ><tr><td>";
         page += getSearch();
         page += "</td><td>";
         page += "\n" + getLoginHandler(session);
         page += "</td></tr></table>";
+        page += "</ul>";
 
         page += "</div></div>";
         page += "</div></div>";
@@ -328,16 +330,37 @@ public class pageRender {
         page += "<form class=\"navbar-search \" action=\"index.jsp\" name=\"search\" method=\"get\">";
         page += "<input class=\"search-query span2\" placeholder=\"Search\" type=\"text\" name=\"mainSearch\"/>";
         page += "<select name=\"table\" class=\"controls\" style=\"margin-left: 15px; margin-right: 15px; margin-top: 5px; width: 170px; \">";
-      
+
         ResultSet rs = cc.listofcategories();
         while (rs.next()) {
             page += "<option value=\"" + rs.getString(1) + "\">" + rs.getString(1) + "</option>";
         }
         page += "</select>";
-        
+
         page += "</form>";
 
         return page;
+    }
+
+    public String getModal() {
+        String modal = "";
+        modal += "<div id=\"myModal\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+        modal += "<div class=\"modal-header\">";
+        modal += "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>";
+        modal += "<h3 id=\"myModalLabel\">Log in</h3>";
+        modal += "</div>";
+        modal += "<div class=\"modal-body\">";
+        modal += "\n<div class=\"container\" style=\"margin-top: 100px; width: 450px; padding: 30px 30px 30px 30px;  border:1px solid #021a40;\">";
+        modal += "\n<form class=\"form-signin\"  action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"HtmlPages\">";
+        modal += "\n<input name=\"username\" class=\"input-block-level\" type=\"email\" placeholder=\"Email address\" >";
+        modal += "\n<input name=\"password\" class=\"input-block-level\" type=\"password\" placeholder=\"Password\">";
+        modal += "\n<div><p></p></div>";
+        modal += "\n<button class=\"btn btn-large btn-info\" type=\"submit\" value=\"Login\">Log In</button>";
+        modal += "\n</form></div>\n\n";
+        modal += "\n<a href = \"SignUp.jsp\" ><button class=\"btn btn-large btn-info\" type=\"submit\" value=\"Login\">Sign Up</button></a>";
+        modal += "</div>";
+        modal += "</div>";
+        return modal;
     }
 
     public String getMainPage(String cat, String id, String subcat, String searchQuery, String table, int sort, int off_set) throws SQLException {
@@ -414,7 +437,7 @@ public class pageRender {
         String id = "" + ID;
         page += "<div id=\"user\">";
         if (!bill) {
-            page += "<table class=\"userDetails\">\n";
+            page += "<table class=\"table table-bordered userDetails\" >\n";
             ResultSet rs = cc.getUserDetails(id);
             if (!rs.next()) {
                 page += "<tr><td>Severe Error Occured</td></tr>";
@@ -426,32 +449,37 @@ public class pageRender {
                 page += "<tr><td>Address:</td><td>" + rs.getString("address") + "</td></tr>";
             }
             page += "</table>";
-            page += "<br/>See your previous transactions <a href=\"profile.jsp?id=" + id + "&bill=true\">here</a>.<br/>";
+            page += "<br/><p style=\"margin-left: 250px;\">See your previous transactions <a href=\"profile.jsp?id=" + id + "&bill=true\">here</a>.</p>";
         } else {
             if (specificBill == null) {
-                page += "<table class=\"userDetails\">\n";
+                //page += "<table class=\"table  table-bordered userDetails\">\n";
                 ResultSet rs = cc.getBillDetails(id);
                 while (rs.next()) {
-
+                    // page+="<tr><td>";
+                    page += "<table class=\"table  table-bordered userDetails\">\n";
                     page += "<tr><td>Bill ID: </td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
                     page += "<tr><td>Bill Date: </td><td>" + rs.getString(4) + "</td></tr>";
-                    page += "<tr><td>Bill Cost: &#8377;</td><td>" + rs.getString("total_cost") + "</td></tr>";
+                    page += "<tr><td>Bill Cost: </td><td> &#8377;" + rs.getString("total_cost") + "</td></tr>";
+                    page += "</table>";
+                    //page += "</td></tr>";
                 }
-                page += "</table>";
+                // page += "</table>";
             } else {
                 ResultSet rs = cc.getSpecificBillDetails(specificBill);
                 if (rs.next()) {
-                    page += "<p>Bill details of Bill No. " + specificBill + "</p>";
-                    page += "<table class=\"userDetails\">\n";
+                    page += "<p style=\"margin-left: 250px;\" >Bill details of Bill No. " + specificBill + "</p>";
+
                     do {
+                        page += "<table class=\"table table-bordered userDetails\" >\n";
                         page += "<tr><td>Product Type: </td><td>" + rs.getString("prod_type") + "</td></tr>";
                         page += "<tr><td>Product ID: </td><td>" + rs.getString("prod_id") + "</td></tr>";
                         page += "<tr><td>Quantity: </td><td>" + rs.getString("quantity") + "</td></tr>";
-                        page += "<tr><td>Cost of one item: &#8377;</td><td>" + rs.getString("cost") + "</td></tr>";
+                        page += "<tr><td>Cost of one item: </td><td> &#8377;" + rs.getString("cost") + "</td></tr>";
+                        page += "</table>";
                     } while (rs.next());
-                    page += "</table>";
+
                 } else {
-                    page += "<p>Dont try to be smart. There is no such bill</p>";
+                    page += "<p style=\"margin-left: 250px;\">Dont try to be smart. There is no such bill</p>";
                 }
             }
         }

@@ -31,6 +31,7 @@ public class checkoutFuncs {
         if(order!=null){
             ret+="<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">";
             ret+="<input type='hidden' name='place_order' value='1'>";
+            
             for(String[] i : order){
                 ResultSet rs=cc.itemByID(i[0], i[1]);
                 temp=new String[4];
@@ -42,11 +43,11 @@ public class checkoutFuncs {
                 processed_order.add(temp);
                 
                 ret+="<div id=\"buyDisplay\">";
-                ret+="<table id=\"buyOuterTable\">";
+                ret+="<table id=\"buyOuterTable\" class=\"table\">";
                 ret+="<tr id=\"buyOuterRow\">";
-                ret+="<td><img src=\""+rs.getString("img_url")+"\"/ id=\"buyImage\"></td>";
+                ret+="<td style=\"width:200px;\"><img src=\""+rs.getString("img_url")+"\"/ id=\"buyImage\"></td>";
                 ret+="<td>";
-                ret+="<table id=\"buyInnerTable\">";
+                ret+="<table id=\"buyInnerTable\" class=\"table\">";
                 ret+="<tr><td>"+rs.getString(3)+"</td></tr>";
                 ret+="<tr><td>"+rs.getString(2)+"("+rs.getString(4)+")</td></tr>";
                 ret+="<tr><td>Number: "+i[2]+"</td></tr>";
@@ -95,4 +96,6 @@ public class checkoutFuncs {
             return ret;
         }
     }
+    
+    
 }

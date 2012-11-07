@@ -53,8 +53,8 @@ and open the template in the editor.
                 <input name="email" class="input-block-level" type="email" placeholder="Email address" >
                 <input name="number" class="input-block-level" type="number" placeholder="Phone Number">
                 <input name="address" class="input-block-level" type="text" placeholder="Address">
-                <input class="input-block-level" type="password" placeholder="Password">
-                <input class="input-block-level" type="repassword" placeholder="Confirm Password">
+                <input name="password" class="input-block-level" type="password" placeholder="Password">
+                <input name="repassword" class="input-block-level" type="password" placeholder="Confirm Password">
                 <div><p></p></div>
                 <button class="btn btn-large btn-info" type="submit">Sign Up</button>
 
