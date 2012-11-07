@@ -7,6 +7,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="js/jquery-latest.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/navigation.css">
         <title>ReTailor</title>
@@ -77,10 +80,7 @@
                         out.println(cc.getPrevNextLinks(mm));
                     }
                 %>
-            </div>
-        </div>
-
-
+                
     </body>
     <%
         //<iframe src="SideBar.jsp" height="100%" width="200" style="position:absolute;top:0px;left:0px" frameborder="0"></iframe>

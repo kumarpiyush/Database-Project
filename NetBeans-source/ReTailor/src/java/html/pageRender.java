@@ -45,7 +45,7 @@ public class pageRender {
             page += "Password: <input type=\"password\" name=\"password\" />\n";
             page += "<input type=\"submit\" value=\"Login\"/>\n";
             page += "</form>\n\n";
-            page+="<a href=\"checkout.jsp\"> Checkout </a>";
+            page+="<a style=\"margin-top: 0px;\" href=\"checkout.jsp\"> Checkout </a>";
         } else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi " + session.getAttribute("name").toString() + "!</span>\n\t\t\t</td>\n\t\t\t";
             page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
@@ -167,12 +167,10 @@ public class pageRender {
         if (!offset_found) {
             nextURL += "&offset=" + noOfProducts;
         }
-        page += "<br/><br/><br/><div id=\"prev_next\">";
-        page += " <a href=\"" + prevURL + "\">Prev</a>";
-        /* for(int i=0; i<5; i++){
-         page+=" <a href=\"\">" + (i+1) + "</a>";
-         }*/
-        page += " <a href=\"" + nextURL + "\">Next</a>";
+        page += "<br/><br/><br/><ul class=\"pager prev_next\">";
+        page += " <li class=\"previous\"><a href=\"" + prevURL + "\">&larr; Previous</a></li>";
+        
+        page += " <li class=\"next\"><a href=\"" + nextURL + "\">Next &rarr;</a>";
         page += "</p>";
         page += "</div>";
         return page;
@@ -348,9 +346,9 @@ public class pageRender {
     private String getSearch() throws SQLException {
         String page = "";
         page += "<div id=\"search\">";
-        page += "<form action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
+        page += "<form class=\"navbar-search \" style=\"margin-top:-20px;\" action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
         page += "Search:";
-        page += "<input type=\"text\" name=\"mainSearch\">";
+        page += "<input type=\"text\" class=\"search-query\" placeholder=\"Search\" name=\"mainSearch\">";
         page += "<select name=\"table\">";
         page += "<option value=\"all\">All</option>";
         ResultSet rs = cc.listofcategories();
