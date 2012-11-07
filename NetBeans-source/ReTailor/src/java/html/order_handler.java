@@ -40,7 +40,6 @@ public class order_handler extends HttpServlet {
         catch(Exception e){
             // my work is done here
         }
-        System.err.println("isOrderDone "+isOrderDone);
         if(isOrderDone==null){      // order still in progress
             Vector<String[]> cart=null;
             String[] order=new String[3];
@@ -61,7 +60,6 @@ public class order_handler extends HttpServlet {
             boolean found=false;
             for(int i=0;i<cart.size();i++){
                 if(cart.elementAt(i)[1].equals(order[1]) && cart.elementAt(i)[0].equals(order[0])){
-                    System.err.println("found already in cart! "+i);        // sometimes, reminds me to clean and build
                     Integer res=new Integer(Integer.parseInt(order[2])+Integer.parseInt(cart.elementAt(i)[2]));
                     order[2]=res.toString();
                     found=true;
@@ -83,7 +81,6 @@ public class order_handler extends HttpServlet {
                 }
             }
             if(!found){
-                System.err.println("didn't find it in cart!");
                 // now check the quantity in table
                 Integer amt = 0;
                 try {
@@ -101,7 +98,6 @@ public class order_handler extends HttpServlet {
             session.setAttribute("cart_array",cart);
             String target_url="";
             target_url=request.getParameter("target_url");
-            System.err.println("target_url "+target_url);
             response.sendRedirect(target_url==null?"index.jsp":target_url);
         }
         else{                // customer is done shopping, this one finalizes the purchase
@@ -110,7 +106,6 @@ public class order_handler extends HttpServlet {
                 Integer.parseInt(session.getAttribute("userid").toString());
             }
             catch(Exception e){
-                System.err.println("should never come here, didn't you check valid login before directing here (see checkout.jsp)");
                 e.printStackTrace();
             }
             String billid=null;
