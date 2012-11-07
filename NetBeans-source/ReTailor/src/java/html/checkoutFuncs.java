@@ -95,32 +95,4 @@ public class checkoutFuncs {
             return ret;
         }
     }
-    
-    // thank you message
-    public String getThankYou(String billid){
-        //ResultSet rs=null;
-        String page="";
-        System.err.println(billid);
-        try{
-            //rs=cc.getBillDetails(billid);
-            
-            String[] rs = cc.getBillDetailsInStringFormat(billid);
-            System.err.println(billid);
-            if(rs!=null){
-                page += "<table class=\"userDetails\">\n";
-                page += "<tr><td>Bill ID:</td><td>" + rs[0] + "</td></tr>";
-                page += "<tr><td>Bill Date:</td><td>" + rs[1] + "</td></tr>";
-                page += "<tr><td>Bill Cost:</td><td>" + rs[2] + "</td></tr>";
-                page += "</table>";
-            }
-            //System.err.println(rs.getString("ID")+" "+rs.getString(4)+" "+rs.getString("total_cost"));
-            else{
-                page="Thank you for using ReTailor. You order has been placed.";
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        return page;
-    }
 }
