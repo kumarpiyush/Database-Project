@@ -38,18 +38,18 @@ and open the template in the editor.
         </div>
 
         <div class="container" style="margin-top: 100px; width: 450px; padding: 30px 30px 30px 30px;  border:1px solid #021a40;">
-            <form class="form-signin" onsubmit="isValid">
+            <form name="loginform" class="form-signin" method="post" action="http://www.google.com" onsubmit="return isValid()">
                 <h2 class="form-signin-heading">Please sign in</h2>
-                <input class="input-block-level" type="text" placeholder="Name">
-                <input class="input-block-level" type="email" placeholder="Email address">
-                <input class="input-block-level" type="number" placeholder="Phone Number">
-                <input class="input-block-level" type="text" placeholder="Address">
-                <input class="input-block-level" type="password" placeholder="Password">
+                <input name="name" class="input-block-level" type="text" placeholder="Name">
+                <input name="emailaddress" class="input-block-level" type="email" placeholder="Email address">
+                <input name="number" class="input-block-level" type="text" placeholder="Phone Number">
+                <input name="address" class="input-block-level" type="text" placeholder="Address">
+                <input name="passwd"  class="input-block-level" type="password" placeholder="Password">
                 <label class="checkbox">
                     <input type="checkbox" value="remember-me">
                     Remember me
                 </label>
-                <button class="btn btn-large btn-info" type="submit">Sign in</button>
+                <button class="btn btn-large btn-info"> Sign Up </button>
             </form>
         </div>
     </body>
