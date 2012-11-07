@@ -23,6 +23,10 @@ public class pageRender {
     DatabaseConnection cc = new DatabaseConnection();
     int noOfProducts = 12;
     int noOfGroups = 4;
+    private final String TABLE1 = "Books";
+    private final String TABLE2 = "Computer Accessories";
+    private final String TABLE3 = "Electronics";
+    private final String TABLE4 = "Clothing";
     int offset = 0;
 
     private String getSiteBrand() {
@@ -120,22 +124,22 @@ public class pageRender {
 
     public String organiseResult(ResultSet rs, String cat) throws SQLException {
         String page = "";
-        if ("Books".equals(cat)) {
+        if (TABLE1.equals(cat)) {
             while (rs.next()) {
                 page += getElem(cat, rs.getString(1), rs.getString("title"), rs.getString("author"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
             }
-        } else if ("Clothing".equals(cat)) {
+        } else if (TABLE4.equals(cat)) {
             while (rs.next()) {
                 page += getElem(cat, rs.getString(1), rs.getString("category"), rs.getString("category2"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
             }
-        } else if ("Electronics".equals(cat)) {
+        } else if (TABLE3.equals(cat)) {
             while (rs.next()) {
                 page += getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
             }
-        } else if ("Computer Accessories".equals(cat)) {
+        } else if (TABLE2.equals(cat)) {
             while (rs.next()) {
                 page += getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
@@ -232,35 +236,30 @@ public class pageRender {
         l = cc.search_field(searchQuery, table, sort, no, off_set);
         int count = 0;
         page += "<div id=\"collectedEntry\">\n";
-        if (table.equals("Books")) {
+        if (table.equals(TABLE1)) {
             while (l.next()) {
-                //System.err.println(book.getString(2));
-
-                page += getElem("Books", l.getString(1), l.getString("title"), l.getString("author"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
+                page += getElem(TABLE1, l.getString(1), l.getString("title"), l.getString("author"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
         }
-        if (table.equals("Computer Accessories")) {
+        if (table.equals(TABLE2)) {
             while (l.next()) {
-                //System.err.println(compu.getString(7));
-                page += getElem("Computer Accessories", l.getString(1), l.getString(2), l.getString("category"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
+                page += getElem(TABLE2, l.getString(1), l.getString(2), l.getString("category"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
         }
-        if (table.equals("Clothing")) {
+        if (table.equals(TABLE4)) {
             while (l.next()) {
-                //System.err.println(cloth.getString(2));
-                page += getElem("Clothing", l.getString(1), l.getString("category"), l.getString(3), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
+                page += getElem(TABLE4, l.getString(1), l.getString("category"), l.getString(3), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
         }
-        if (table.equals("Electronics")) {
+        if (table.equals(TABLE3)) {
             while (l.next()) {
-                //System.err.println(elec.getString(2));
-                page += getElem("Electronics", l.getString(1), l.getString("model"), l.getString("category"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
+                page += getElem(TABLE3, l.getString(1), l.getString("model"), l.getString("category"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
@@ -382,22 +381,26 @@ public class pageRender {
                 ResultSet rs = cc.getBillDetails(id);
                 while(rs.next()){
                     page += "<tr><td>Bill ID:</td><td><a href=\"profile.jsp?id="+id+"&bill=true&specific="+rs.getString("ID")+"\">"+rs.getString("ID")+"</a></td></tr>";
-                    page += "<tr><td>Bill Date:</td><td>"+rs.getString("date")+"</td></tr>";
+                    page += "<tr><td>Bill Date:</td><td>"+rs.getString(4)+"</td></tr>";
                     page += "<tr><td>Bill Cost:</td><td>"+rs.getString("total_cost")+"</td></tr>";
                 }
                 page += "</table>";
             }
             else{
-                page+="<p>Bill details of Bill No. "+specificBill+"</p>";
-                page += "<table class=\"userDetails\">\n";
                 ResultSet rs = cc.getSpecificBillDetails(specificBill);
-                while(rs.next()){
-                    page += "<tr><td>Product Type:</td><td>"+rs.getString("prod_type") +"</td></tr>";
-                    page += "<tr><td>Product ID:</td><td>"+rs.getString("prod_id")+"</td></tr>";
-                    page += "<tr><td>Quantity:</td><td>"+rs.getString("quantity")+"</td></tr>";
-                    page += "<tr><td>Cost:</td><td>"+rs.getString("cost")+"</td></tr>";
+                if(rs.next()){
+                    page+="<p>Bill details of Bill No. "+specificBill+"</p>";
+                    page += "<table class=\"userDetails\">\n";
+                    do {
+                        page += "<tr><td>Product Type:</td><td>" + rs.getString("prod_type") + "</td></tr>";
+                        page += "<tr><td>Product ID:</td><td>" + rs.getString("prod_id") + "</td></tr>";
+                        page += "<tr><td>Quantity:</td><td>" + rs.getString("quantity") + "</td></tr>";
+                        page += "<tr><td>Cost:</td><td>" + rs.getString("cost") + "</td></tr>";
+                    }while (rs.next());
+                    page += "</table>";
+                }else{
+                    page+="<p>Dont try to be smart. There is no such bill</p>";
                 }
-                page += "</table>";
             }
         }
         page += "</div>";

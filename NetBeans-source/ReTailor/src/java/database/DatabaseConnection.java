@@ -210,14 +210,6 @@ public class DatabaseConnection {
     // function to put the ordered things in the database
     public String storeOrders(String userid, Vector<String[]> data) throws SQLException {
         int billid = 1;
-        /*for (int i = 0; i < data.size(); i++) {
-            int q1 = Integer.parseInt(data.elementAt(i)[2]);
-            int q2 = quantityOfItemID(data.elementAt(i)[0], data.elementAt(i)[1]);
-            if (q1 - q2 > 0) {
-                return -2;
-            }
-        }*/
-        
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select ID from billing order by ID desc limit 1");
         if (rs.next()) {
@@ -228,7 +220,7 @@ public class DatabaseConnection {
         for (int i = 0; i < data.size(); i++) {
             int q1 = Integer.parseInt(data.elementAt(i)[2]);
             updateQuantityOfItemID(data.elementAt(i)[0], data.elementAt(i)[1], q1);
-            total_price = Float.parseFloat(data.elementAt(i)[3]);
+            total_price += Float.parseFloat(data.elementAt(i)[3])*(Integer.parseInt(data.elementAt(i)[2]));
         }
         
         PreparedStatement pS = con.prepareStatement("INSERT into billing Values ( ?, ?, ?, now())");
@@ -297,13 +289,13 @@ public class DatabaseConnection {
     }
 
     public ResultSet getBillDetails(String id) throws SQLException {
-        PreparedStatement prepStmt = con.prepareStatement("select * from billing where customer_id = ?");
+        PreparedStatement prepStmt = con.prepareStatement("select ID,customer_id,total_cost,DATE_FORMAT(bill_date,'%b %d %Y %h:%i %p') from billing where customer_id = ?");
         prepStmt.setString(1, id);
         return prepStmt.executeQuery();
     }
 
     public ResultSet getSpecificBillDetails(String specificBill) throws SQLException {
-        PreparedStatement prepStmt = con.prepareStatement("select ID,customer_id,total_cost,DATE_FORMAT(bill_date,'%b %d %Y %h:%i %p') from bill_details where bill_id = ?");
+        PreparedStatement prepStmt = con.prepareStatement("select * from bill_details where bill_id = ?");
         prepStmt.setString(1, specificBill);
         return prepStmt.executeQuery();
     }
