@@ -13,10 +13,11 @@ import java.util.Vector;
 public class DatabaseConnection {
 
     private Connection con = null;
-    //private static final String DBNAME = "foobar";
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "55piyushh";
+    private static final String DBNAME = "foobar";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sundarban";
+
     private static final String URL = "jdbc:mysql://localhost/foobar";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -274,4 +275,20 @@ public class DatabaseConnection {
         return null;
         // TODO
     }
+    
+    public ResultSet getUserDetails(String id) throws SQLException{
+        Statement stmt = con.createStatement();
+        return stmt.executeQuery("select * from customer where id = "+id);
+    }
+    
+    public ResultSet getBillDetails(String id) throws SQLException{
+        Statement stmt = con.createStatement();
+        return stmt.executeQuery("select * from billing where customer_id = "+id);
+    }
+    
+    public ResultSet getSpecificBillDetails(String specificBill) throws SQLException{
+        Statement stmt = con.createStatement();
+        return stmt.executeQuery("select * from bill_details where bill_id = "+specificBill);
+    }
+    
 }
