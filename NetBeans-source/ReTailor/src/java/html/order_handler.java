@@ -73,13 +73,14 @@ public class order_handler extends HttpServlet {
             response.sendRedirect("index.jsp");
         }
         
-        else{                // customer iss done shopping
+        else{                // customer is done shopping
             DatabaseConnection cc=new DatabaseConnection();
             cc.storeOrders((Vector<String[]>)session.getAttribute("cart_array"));
             response.sendRedirect("index.jsp");
             
-            session.setAttribute("place_order",null);   // huh!
-            return;         // bye!
+            session.setAttribute("place_order",null);
+            session.setAttribute("cart_array",null);   // huh!
+            return;                                   // bye!
         }
     }
 
