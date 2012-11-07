@@ -22,9 +22,9 @@ public class DatabaseConnection {
     //private static final String DBNAME = "retailor";
 
     
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "55piyushh";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/retailor";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -328,5 +328,37 @@ public class DatabaseConnection {
         PreparedStatement prepStmt = con.prepareStatement("select * from bill_details where bill_id = ?");
         prepStmt.setString(1, specificBill);
         return prepStmt.executeQuery();
+    }
+    
+    //***************************************************************************
+    //check whether the email exists
+    public boolean checkEmail(String email) throws SQLException {
+        PreparedStatement prepStmt = con.prepareStatement("select email from customer where email = ?");
+        prepStmt.setString(1, email);
+        ResultSet rs = prepStmt.executeQuery();
+        if(rs.next()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    //***************************************************************************
+    //insert into customer
+    public void signupCustomer(String name,String email,String phone,String address,String password) throws SQLException{
+        int id = 1;
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select ID from customer order by ID desc limit 1");
+        if (rs.next()) {
+            id = rs.getInt(1) + 1;
+        }
+        PreparedStatement prepStmt = con.prepareStatement("Insert into customer Values = ( ?, ?, ?, ?, ?, PASSWORD(?))");
+        prepStmt.setInt(1, id);
+        prepStmt.setString(2, name);
+        prepStmt.setString(3, email);
+        prepStmt.setString(4, phone);
+        prepStmt.setString(5, address);
+        prepStmt.setString(6, password);
+        prepStmt.executeUpdate();
     }
 }
