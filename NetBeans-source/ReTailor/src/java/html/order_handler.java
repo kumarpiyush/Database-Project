@@ -61,6 +61,7 @@ public class order_handler extends HttpServlet {
                     order[2]=res.toString();
                     found=true;
                     cart.setElementAt(order, i);
+                    // now check the quantity in table
                     break;
                 }
             }
@@ -75,11 +76,12 @@ public class order_handler extends HttpServlet {
         
         else{                // customer is done shopping
             DatabaseConnection cc=new DatabaseConnection();
-            cc.storeOrders((Vector<String[]>)session.getAttribute("cart_array"));
-            response.sendRedirect("index.jsp");
+            int userid=Integer.parseInt((String)session.getAttribute("usesid"));
+            cc.storeOrders(userid,(Vector<String[]>)session.getAttribute("cart_array"));
             
             session.setAttribute("place_order",null);
             session.setAttribute("cart_array",null);   // huh!
+            response.sendRedirect("index.jsp");
             return;                                   // bye!
         }
     }

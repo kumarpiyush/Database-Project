@@ -255,7 +255,8 @@ public class DatabaseConnection {
         return l;
     }
 
-    public void insertBill(int userid,Vector<String[]> data){
+    // function to put the ordered things in the database
+    public String storeOrders(int userid,Vector<String[]> data){
         int billid=0;
         try {
             Statement stmt = con.createStatement();
@@ -266,14 +267,11 @@ public class DatabaseConnection {
             
             
             //return rs;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    
-    // function to put the ordered things in the database
-    public void storeOrders(Vector<String[]> cart){
-        System.err.println("TODO in DatBaseConnection::storeOrders");
-        // and seems someone's been trying to do it (in insertBill above)
+        return null;
+        // TODO
     }
 }
