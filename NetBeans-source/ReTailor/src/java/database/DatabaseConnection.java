@@ -14,9 +14,9 @@ public class DatabaseConnection {
 
     private Connection con = null;
     //private static final String DBNAME = "foobar";
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "55piyushh";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -195,20 +195,21 @@ public class DatabaseConnection {
             String query="select * from clothing where ";
             category_to_table("Clothing");
             for(int i=0;i<count;i++){
-                if("Men".equals(arr[i])){
-                    arr[i]="M";
+                String gender="A";
+                if("Men".equalsIgnoreCase(arr[i])){
+                    gender="M";
+                }else if("Women".equalsIgnoreCase(arr[i])){
+                    gender="W";
+                }else if("Kids".equalsIgnoreCase(arr[i]) || "Kid".equalsIgnoreCase(arr[i]) || "Children".equalsIgnoreCase(arr[i])){
+                    gender="K";
                 }
-                else if("Women".equals(arr[i])){
-                    arr[i]="W";
-                }
-                query += "(description like ? or category like ? or category2 like ?) and ";
+                query += "(description like ? or category = '"+gender+"' or category2 like ?) and ";
             }
             query+="true order by "+SORT_BY_1+" "+ORDER+", "+SORT_BY_2+" asc limit "+offset+","+no;
             PreparedStatement stmt = con.prepareStatement(query);
             for (int i = 0; i < count; i++) {
-                stmt.setString(3 * i + 1, "%" + arr[i] + "%");
-                stmt.setString(3 * i + 2, "%" + arr[i] + "%");
-                stmt.setString(3 * i + 3, "%" + arr[i] + "%");
+                stmt.setString(2 * i + 1, "%" + arr[i] + "%");
+                stmt.setString(2 * i + 2, "%" + arr[i] + "%");
             }
             cloth = stmt.executeQuery();
         }
@@ -252,6 +253,22 @@ public class DatabaseConnection {
         l.add(compu);
         l.add(elec);
         return l;
+    }
+
+    public void insertBill(int userid,Vector<String[]> data){
+        int billid=0;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select ID from billing order by ID desc limit 1");
+            if(rs.next()){
+                billid = rs.getInt(1)+1;
+            }
+            
+            
+            //return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     // function to put the ordered things in the database
