@@ -172,20 +172,18 @@ public class pageRender {
         if (!offset_found) {
             nextURL += "&offset=" + noOfProducts;
         }
-        page += "<br/><br/><br/><div id=\"prev_next\">";
-        page += " <a href=\"" + prevURL + "\">Prev</a>";
-        /* for(int i=0; i<5; i++){
-         page+=" <a href=\"\">" + (i+1) + "</a>";
-         }*/
-        page += " <a href=\"" + nextURL + "\">Next</a>";
+        page += "<br/><br/><br/><ul class=\"pager prev_next\">";
+        page += " <li class=\"previous\"><a href=\"" + prevURL + "\">&larr; Previous</a></li>";
+        
+        page += " <li class=\"next\"><a href=\"" + nextURL + "\">Next &rarr;</a>";
         page += "</p>";
         page += "</div>";
         return page;
     }
 
     private String getOptionForSortBy(String current_option, String index, String text, String URL, boolean is_sorted) {
-        String sortby = "\t\t\t<option ";
-        if (!index.equals("4")) {
+        String sortby = "\t\t\t<li> ";
+        /*if (!index.equals("4")) {
             if (is_sorted && current_option.equals(index)) {
                 sortby += " selected";
             }
@@ -193,11 +191,11 @@ public class pageRender {
             if (!is_sorted || (is_sorted && current_option.equals("4"))) {
                 sortby += " selected";
             }
-        }
-        sortby += " value=";
+        }*/
+        sortby += "<a href=\"";
         String URL1 = URL + "&sort=" + index;
-        sortby = sortby + "\"" + URL1 + "\"";
-        sortby += ">" + text + "</option>\n\t";
+        sortby += URL1 + "\"";
+        sortby += ">" + text + "</a></li>\n\t";
         return sortby;
     }
 
@@ -219,12 +217,12 @@ public class pageRender {
                 }
             }
         }
-        sortby += "<div  class=\"sortSelect\" ><table><tr><td>Sort :</td>\n\t<td><select name=\"Sort By\" onchange=\"location = this.options[this.selectedIndex].value;\">\n\t";
+        sortby += "<div class=\"container\"><div  class=\"btn-group\" id=\"sortSelect\" ><a class=\"btn dropdown-toggle\" data-toggle=\"dropdown\">Sort By <span class=\"caret\"></span></a>\n<ul class=\"dropdown-menu\">";
         sortby += getOptionForSortBy(current_option, "1", "Increasing Price", URL, is_sorted);
         sortby += getOptionForSortBy(current_option, "2", "Decreasing Price", URL, is_sorted);
         sortby += getOptionForSortBy(current_option, "3", "Increasing Popularity", URL, is_sorted);
         sortby += getOptionForSortBy(current_option, "4", "Decreasing Popularity", URL, is_sorted);
-        sortby += "\t\t\t\t</select></td></tr></table></div>";
+        sortby += "\t\t\t\t</ul></div></div>";
         return sortby;
     }
 
@@ -352,9 +350,9 @@ public class pageRender {
     private String getSearch() throws SQLException {
         String page = "";
         page += "<div id=\"search\">";
-        page += "<form action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
+        page += "<form class=\"navbar-search \" style=\"margin-top:-20px;\" action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
         page += "Search:";
-        page += "<input type=\"text\" name=\"mainSearch\">";
+        page += "<input type=\"text\" class=\"search-query\" placeholder=\"Search\" name=\"mainSearch\">";
         page += "<select name=\"table\">";
         page += "<option value=\"all\">All</option>";
         ResultSet rs = cc.listofcategories();
