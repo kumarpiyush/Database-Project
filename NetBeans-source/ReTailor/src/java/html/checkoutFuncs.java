@@ -79,13 +79,13 @@ public class checkoutFuncs {
             if(logged_in){  // put in database
                 ret+="<form action='order_handler' method='post'>";
                 ret+="<input type='hidden' name='place_order' value='1'>";
-                ret+="<input type='submit' value='"+login_str+"'>";
+                ret+="<input type='submit' value='"+login_str+"'></form>";
                 return ret;
             }
             else{           // call the login page address
                 // TODO : ask around for a login page
                 ret+="<form action='index.jsp' method='post'>";
-                ret+="<input type='submit' value='"+login_str+"'>";
+                ret+="<input type='submit' value='"+login_str+"'></form>";
                 return ret;
             }
         }
