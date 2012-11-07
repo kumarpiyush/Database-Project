@@ -3,6 +3,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="html.HtmlPages"%>
 <%@page import="html.pageRender"%>
+<%@page import="html.checkoutFuncs"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +16,7 @@
             <%
                 //inits
                 pageRender cc=new pageRender();
+                checkoutFuncs cf=new checkoutFuncs();
             %>
         </script>
     </head>
@@ -49,12 +52,10 @@
             <div id="mainPageText">
                 <%
                 session=request.getSession();
+                
                 Vector<String[]> order=(Vector<String[]>)session.getAttribute("cart_array");
-                for(String[] i:order){
-                    out.println(i[0]+" "+i[1]+" "+i[2]+"<br />");
-                }
-                //String res=cf.DisplayOrder(order);
-                //out.println(res);
+                String ret=cf.getOrderCode(order,session);
+                out.println(ret);
                 %>
             </div>
         </div>

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package html;
 
 import java.io.IOException;
@@ -14,87 +10,78 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import database.DatabaseConnection;
 
 
 /**
  *
- * @author piyush
+ * @author piyush (believe it :P)
  */
 @WebServlet(name = "order_handler", urlPatterns = {"/order_handler"})
 public class order_handler extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
- 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
-    /**
-     * Handles the HTTP
-     * <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        Vector<String[]> cart=null;
-        String[] order=new String[3];
-        order[0]=request.getParameter("cat");
-        order[1] = request.getParameter("id");
-        order[2] = request.getParameter("prod_cnt");
+        String isOrderDone=null;
         try{
-            cart=(Vector<String[]>)session.getAttribute("cart_array");
-            if(cart==null){
-                cart=new Vector<String[]>();
-            }
+            isOrderDone=request.getParameter("place_order");
         }
         catch(Exception e){
-            cart=new Vector<String[]>();
+            // my work is done here
         }
-        boolean found=false;
-        for(int i=0;i<cart.size();i++){
-            if(cart.elementAt(i)[1].equals(order[1]) && cart.elementAt(i)[0].equals(order[0])){
-                System.err.println("found it! "+i);
-                Integer res=new Integer(Integer.parseInt(order[2])+Integer.parseInt(cart.elementAt(i)[2]));
-                order[2]=res.toString();
-                found=true;
-                cart.setElementAt(order, i);
-                break;
+        System.err.println("isOrderDone "+isOrderDone);
+        if(isOrderDone==null){      // order still in progress
+            Vector<String[]> cart=null;
+            String[] order=new String[3];
+            order[0]=request.getParameter("cat");
+            order[1] = request.getParameter("id");
+            order[2] = request.getParameter("prod_cnt");
+            try{
+                cart=(Vector<String[]>)session.getAttribute("cart_array");  // try to get currently ordered things
+                if(cart==null){                                             // oops, cart got tripped
+                    cart=new Vector<String[]>();                            // pick up the empty cart
+                }
             }
-        }
-        if(!found){
-            System.err.println("didn't find it!");
-            cart.add(order);
+            catch(Exception e){     // never comes here, but who knows what's java's been up to :P
+                cart=new Vector<String[]>();
+            }
+
+            // just increase the amount if already ordered
+            boolean found=false;
+            for(int i=0;i<cart.size();i++){
+                if(cart.elementAt(i)[1].equals(order[1]) && cart.elementAt(i)[0].equals(order[0])){
+                    System.err.println("found already in cart! "+i);        // reminds me to clean and build
+                    Integer res=new Integer(Integer.parseInt(order[2])+Integer.parseInt(cart.elementAt(i)[2]));
+                    order[2]=res.toString();
+                    found=true;
+                    cart.setElementAt(order, i);
+                    break;
+                }
+            }
+            if(!found){
+                System.err.println("didn't find it in cart!");
+                cart.add(order);
+            }
+
+            session.setAttribute("cart_array",cart);
+            response.sendRedirect("index.jsp");
         }
         
-        session.setAttribute("cart_array",cart);
-        response.sendRedirect("index.jsp");
+        else{                // customer is done shopping
+            DatabaseConnection cc=new DatabaseConnection();
+            cc.storeOrders((Vector<String[]>)session.getAttribute("cart_array"));
+            response.sendRedirect("index.jsp");
+            
+            session.setAttribute("place_order",null);
+            session.setAttribute("cart_array",null);   // huh!
+            return;                                   // bye!
+        }
     }
 
     /**
@@ -104,6 +91,6 @@ public class order_handler extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "";
     }// </editor-fold>
 }

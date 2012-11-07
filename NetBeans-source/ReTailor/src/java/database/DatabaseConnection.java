@@ -17,6 +17,7 @@ public class DatabaseConnection {
     //private static final String DB_USERNAME = "sameer";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
+
     private static final String URL = "jdbc:mysql://localhost/foobar";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -254,7 +255,7 @@ public class DatabaseConnection {
         l.add(elec);
         return l;
     }
-    
+
     public void insertBill(int userid,Vector<String[]> data){
         int billid=0;
         try {
@@ -286,4 +287,9 @@ public class DatabaseConnection {
         return stmt.executeQuery("select * from bill_details where bill_id = "+specificBill);
     }
     
+    // function to put the ordered things in the database
+    public void storeOrders(Vector<String[]> cart){
+        System.err.println("TODO in DatBaseConnection::storeOrders");
+        // and seems someone's been trying to do it (in insertBill above)
+    }
 }
