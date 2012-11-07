@@ -85,6 +85,7 @@ public class pageRender {
         String page = "<ul class=\"dropdown-menu \" role=\"menu\" aria-labelledby=\"dLabel\">\n";
 
         ResultSet rs = cc.listofsubcats(cat);
+        page += "<li><a href = \"index.jsp?cat=" + cat + "\"> All </a></li>\n";
         while (rs.next()) {
             page += "<li><a href = \"index.jsp?cat=" + cat + "&subcat=";
             page += rs.getString(1) + "\">" + rs.getString(1) + "</a></li>\n";
@@ -325,17 +326,16 @@ public class pageRender {
          */
 
         page += "<form class=\"navbar-search \" action=\"index.jsp\" name=\"search\" method=\"get\">";
-        page += "<input class=\"search-query span2\" placeholder=\"Search\" type=\"text\" name=\"mainSearch\">";
-        page += "</form>";
-
+        page += "<input class=\"search-query span2\" placeholder=\"Search\" type=\"text\" name=\"mainSearch\"/>";
         page += "<select name=\"table\" class=\"controls\" style=\"margin-left: 15px; margin-right: 15px; margin-top: 5px; width: 170px; \">";
-
-
+      
         ResultSet rs = cc.listofcategories();
         while (rs.next()) {
             page += "<option value=\"" + rs.getString(1) + "\">" + rs.getString(1) + "</option>";
         }
         page += "</select>";
+        
+        page += "</form>";
 
         return page;
     }

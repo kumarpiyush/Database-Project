@@ -84,17 +84,7 @@ public class checkoutFuncs {
             //ret+="</form>";
             session.setAttribute("cart_array", processed_order);
             // <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">
-/*            if(logged_in){  // put in database
-                //ret+="<form action='order_handler' method='post'>";
-                //ret+="<input type='hidden' name='place_order' value='1'>";
-                
-            }
-            else{           // call the login page address
-                //ret+="<form action='SignUp.jsp' method='post'>";
-                ret+="<input type='submit' value='"+login_str+"'";
-                ret+="</form>";
-                return ret;
-            }*/
+
             ret+="<input type='submit' value='"+login_str+"'>";
             ret+="</form>";
             return ret;
