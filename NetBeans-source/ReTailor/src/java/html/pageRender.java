@@ -26,9 +26,16 @@ public class pageRender {
     int offset = 0;
 
     private String getSiteBrand() {
-        String page = "<div id=\"siteBrand\">";
-        page += "<a href=\"index.jsp\"><img style=\"margin-left:40px;\" src=\"images/retailor-logo.png\"/></a>";
+        String page = "";
+        page += "<div class=\"container pull-left\" style=\"padding-left: 50px\" >";
+        page += "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">";
+        page += "<span class=\"icon-bar\"></span>";
+        page += "<span class=\"icon-bar\"></span>";
+        page += "<span class=\"icon-bar\"></span>";
+        page += "</a>";
+        page += "<a class=\"brand\" href=\"index.jsp\">Re-Tailor</a>";
         page += "</div>";
+
         return page;
     }
 
@@ -42,28 +49,32 @@ public class pageRender {
         }
         String page = "";
         if (userid < 0) {
-            page += "\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
-            page += "Email: <input type=\"text\" name=\"username\" />\n";
-            page += "Password: <input type=\"password\" name=\"password\" />\n";
-            page += "<input type=\"submit\" value=\"Login\"/>\n";
-            page += "</form>\n\n";
-            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
-            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
-        }
-        else {
-            page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a></span>\n\t\t\t</td>\n\t\t\t";
-            page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
+            page += " <a href=\"#myModal\"  data-toggle=\"modal\">LogIn</a>";
+            Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
+            //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
+            page += "<a href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
+        } else {
+            Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
+            page += "<table style=\"margin-top: -5px;\"><tr><td>";
+            page += "Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a>";
+            page += "</td><td>";
+            //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
+            page += "<a href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
+            page += "</td><td>";
+            page += "<form style=\"margin: 0 0 0 0\" action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
-            page += "<input type=\"submit\" value=\"Logout\"/>\n";
-            page += "</form>\n\t\t</td>\n\t</tr></table>";
-            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
-            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
+            page += "<button class=\"btn\" type=\"submit\" value=\"Logout\">Logout</button>\n";
+            page += "</form>";
+            page += "</td></tr></table>\n";
+            
         }
         return page;
     }
 
     public String getSubCatsDropDown(String cat) throws SQLException {
-        String page = "<ul>\n";
+
+        String page = "<ul class=\"dropdown-menu \" role=\"menu\" aria-labelledby=\"dLabel\">\n";
+
         ResultSet rs = cc.listofsubcats(cat);
         while (rs.next()) {
             page += "<li><a href = \"index.jsp?cat=" + cat + "&subcat=";
@@ -75,9 +86,21 @@ public class pageRender {
 
     public String getHeader(HttpSession session) throws SQLException {
         String page = "";
-        page += "<div id=\"topLeft\">" + getSiteBrand() + "</div>";
-        page += "\n" + "<div id=\"topRight\">" + getLoginHandler(session);
-        page += "\n" + getSearch() + "</div>" + "\n";
+        page += "<div class=\"navbar navbar-inverse navbar-fixed-top\" ><div class=\"navbar-inner\">";
+        page += getSiteBrand();
+
+        page += "<div class=\"container \">";
+        page += "<div class=\"nav pull-right\" style=\"position: absolute; margin-left:650px\">";
+
+        page += "<table><tr><td>";
+        page += getSearch();
+        page += "</td><td>";
+        page += "\n" + getLoginHandler(session);
+        page += "</td></tr></table>";
+        
+        page += "</div></div>";
+        page += "</div></div>";
+
 
         return page;
     }
@@ -86,15 +109,16 @@ public class pageRender {
         String page = "";
         //page="<div id=\"topLevel\">";
         ResultSet rs = cc.listofcategories();
-        page += "<ul class=\"nav\">\n";
+        page += "<div class=\"span3 bs-docs-sidebar sidebar-info\" style=\"margin-top:100px; \">\n";
+        page += "<ul class=\"nav nav-list bs-docs-sidenav affix\" style=\"padding-top: 20px;  padding-bottom: 40px; border: 1px solid #021A40;\">\n";
         while (rs.next()) {
-            page += "<li class=\"dropdown\" ><a href = \"index.jsp?cat=" + rs.getString(1) + "\" >";
-            page += rs.getString(1);
+            page += "<li class=\"dropdown\" style=\"padding-top: 20px;\"><a href = \"index.jsp?cat=" + rs.getString(1) + "\" class=\"dropdown\" data-toggle=\"dropdown\">\n";
+            page += rs.getString(1) + "<b class=\"caret\"></b>\n";
             page += "</a>";
             page += getSubCatsDropDown(rs.getString(1));
             page += "</li>\n";
         }
-        page += "</ul>\n";
+        page += "</ul></div>\n";
         //page+="<ul class=\"nav\">\n<li><a href=\"#\">Home</a></li>\n<li class=\"dropdown\">\n<a href=\"#\">Work</a>\n<ul><li><a href=\"#\">Sublink</a></li><li><a href=\"#\">Sublink</a></li></ul></li><li><a href=\"#\">Portofolio</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Contact</a></li></ul>";
         return page;
     }
@@ -174,7 +198,7 @@ public class pageRender {
         }
         page += "<br/><br/><br/><ul class=\"pager prev_next\">";
         page += " <li class=\"previous\"><a href=\"" + prevURL + "\">&larr; Previous</a></li>";
-        
+
         page += " <li class=\"next\"><a href=\"" + nextURL + "\">Next &rarr;</a>";
         page += "</p>";
         page += "</div>";
@@ -184,14 +208,14 @@ public class pageRender {
     private String getOptionForSortBy(String current_option, String index, String text, String URL, boolean is_sorted) {
         String sortby = "\t\t\t<li> ";
         /*if (!index.equals("4")) {
-            if (is_sorted && current_option.equals(index)) {
-                sortby += " selected";
-            }
-        } else {
-            if (!is_sorted || (is_sorted && current_option.equals("4"))) {
-                sortby += " selected";
-            }
-        }*/
+         if (is_sorted && current_option.equals(index)) {
+         sortby += " selected";
+         }
+         } else {
+         if (!is_sorted || (is_sorted && current_option.equals("4"))) {
+         sortby += " selected";
+         }
+         }*/
         sortby += "<a href=\"";
         String URL1 = URL + "&sort=" + index;
         sortby += URL1 + "\"";
@@ -281,6 +305,43 @@ public class pageRender {
         return page;
     }
 
+    private String getSearch() throws SQLException {
+        String page = "";
+
+
+        /*
+         <form class="navbar-search " action="">
+         <input class="search-query span2" placeholder="Search" type="text">
+         </form>
+            
+         <li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="width:100px;">Categories <b class="caret"></b></a>
+         <ul class="dropdown-menu">
+         <li><a href="#">Action</a></li>
+         <li><a href="#">Another action</a></li>
+         <li><a href="#">Something else here</a></li>
+         <li class="divider"></li>
+         <li><a href="#">Separated link</a></li>
+         </ul>
+         </li>
+         */
+
+        page += "<form class=\"navbar-search \" action=\"index.jsp\" name=\"search\" method=\"get\">";
+        page += "<input class=\"search-query span2\" placeholder=\"Search\" type=\"text\" name=\"mainSearch\">";
+        page += "</form>";
+
+        page += "<select name=\"table\" class=\"controls\" style=\"margin-left: 15px; margin-right: 15px; margin-top: 5px; width: 170px; \">";
+
+        page += "<option value=\"all\">All</option>";
+        ResultSet rs = cc.listofcategories();
+        while (rs.next()) {
+            page += "<option value=\"" + rs.getString(1) + "\">" + rs.getString(1) + "</option>";
+        }
+        page += "</select>";
+
+        return page;
+    }
+
     public String getMainPage(String cat, String id, String subcat, String searchQuery, String table, int sort, int off_set) throws SQLException {
         String page = "";
         if (searchQuery != null) {
@@ -346,25 +407,6 @@ public class pageRender {
         return page;
     }
 
-    private String getSearch() throws SQLException {
-        String page = "";
-        page += "<div id=\"search\">";
-        page += "<form class=\"navbar-search \" style=\"margin-top:-20px;\" action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
-        page += "Search:";
-        page += "<input type=\"text\" class=\"search-query\" placeholder=\"Search\" name=\"mainSearch\">";
-        page += "<select name=\"table\">";
-        page += "<option value=\"all\">All</option>";
-        ResultSet rs = cc.listofcategories();
-        while (rs.next()) {
-            page += "<option value=\"" + rs.getString(1) + "\">" + rs.getString(1) + "</option>";
-        }
-        page += "</select>";
-        page += "<input type=\"submit\" value=\"Search\">";
-        page += "</form>";
-        page += "</div>";
-        return page;
-    }
-
     public String getUserDetails(int ID, boolean bill, String specificBill) throws SQLException {
         String page = "";
         String id = "" + ID;
@@ -383,27 +425,25 @@ public class pageRender {
             }
             page += "</table>";
             page += "<br/>See your previous transactions <a href=\"profile.jsp?id=" + id + "&bill=true\">here</a>.<br/>";
-        }
-        else{
-            if(specificBill==null){
+        } else {
+            if (specificBill == null) {
                 page += "<table class=\"userDetails\">\n";
                 ResultSet rs = cc.getBillDetails(id);
-                while(rs.next()){
-                    page += "<tr><td>Bill ID:</td><td><a href=\"profile.jsp?id="+id+"&bill=true&specific="+rs.getString("ID")+"\">"+rs.getString("ID")+"</a></td></tr>";
-                    page += "<tr><td>Bill Date:</td><td>"+rs.getString("date")+"</td></tr>";
-                    page += "<tr><td>Bill Cost:</td><td>"+rs.getString("total_cost")+"</td></tr>";
+                while (rs.next()) {
+                    page += "<tr><td>Bill ID:</td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
+                    page += "<tr><td>Bill Date:</td><td>" + rs.getString("date") + "</td></tr>";
+                    page += "<tr><td>Bill Cost:</td><td>" + rs.getString("total_cost") + "</td></tr>";
                 }
                 page += "</table>";
-            }
-            else{
-                page+="<p>Bill details of Bill No. "+specificBill+"</p>";
+            } else {
+                page += "<p>Bill details of Bill No. " + specificBill + "</p>";
                 page += "<table class=\"userDetails\">\n";
                 ResultSet rs = cc.getSpecificBillDetails(specificBill);
-                while(rs.next()){
-                    page += "<tr><td>Product Type:</td><td>"+rs.getString("prod_type") +"</td></tr>";
-                    page += "<tr><td>Product ID:</td><td>"+rs.getString("prod_id")+"</td></tr>";
-                    page += "<tr><td>Quantity:</td><td>"+rs.getString("quantity")+"</td></tr>";
-                    page += "<tr><td>Cost:</td><td>"+rs.getString("cost")+"</td></tr>";
+                while (rs.next()) {
+                    page += "<tr><td>Product Type:</td><td>" + rs.getString("prod_type") + "</td></tr>";
+                    page += "<tr><td>Product ID:</td><td>" + rs.getString("prod_id") + "</td></tr>";
+                    page += "<tr><td>Quantity:</td><td>" + rs.getString("quantity") + "</td></tr>";
+                    page += "<tr><td>Cost:</td><td>" + rs.getString("cost") + "</td></tr>";
                 }
                 page += "</table>";
             }

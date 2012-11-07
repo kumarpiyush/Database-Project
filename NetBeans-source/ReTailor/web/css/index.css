@@ -48,14 +48,14 @@ background-color: white;
 /*
     background-color: lightgray;
 */
-    background-color: white;/*gray;  whitesmoke; #bfb084;*/
+   /* background-color: white;gray;  whitesmoke; #bfb084;*/
     border-left: 2px;
     border-right: 2px;
         z-index: -2;
 }
 
 #sideBar a{
-    color: white;
+
     text-decoration: none;
 
     
@@ -80,8 +80,7 @@ background-color: white;
     left: 0px;
     margin-left: 0px;
     margin-top: 0px;
-    height: 120px;
-    background-color: #711b17;/*#711b17;#591F3E;*/
+
     color:#f4bd15;
     z-index: 1;
 }
@@ -154,6 +153,8 @@ strike{
 
 #sortSelect {
     margin-left: 850px;
+    margin-top:100px;
+    z-index:1000;
     /*position: absolute;
     float:left;*/
 }
