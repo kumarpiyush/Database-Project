@@ -12,8 +12,8 @@ import java.util.Vector;
 
 public class DatabaseConnection {
 
+    //private global members
     private Connection con = null;
-    private static final String DBNAME = "foobar";
     private static final String DB_USERNAME = "sameer";
     //private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
@@ -23,6 +23,8 @@ public class DatabaseConnection {
     private String SORT_BY_2 = null;
     private String ORDER = "desc";
 
+    //**************************************************************************
+    //Constructor which initializes the connection
     public DatabaseConnection() {
         try {
             if (con == null) {
@@ -36,6 +38,8 @@ public class DatabaseConnection {
         }
     }
 
+    //**************************************************************************
+    //converts the category into actual table names and adjusts the 2nd sorting order
     public void category_to_table(String category) {
         if (category.equals("Books")) {
             CATEGORY = "book";
@@ -53,7 +57,7 @@ public class DatabaseConnection {
     }
 
     //***************************************************************************
-    //gives the listimport java.sql.ResultSet; of main categories
+    //gives the list of main categories
     public ResultSet listofcategories() throws SQLException {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from categories order by name;");
@@ -61,6 +65,7 @@ public class DatabaseConnection {
     }
 
     //***************************************************************************
+    //given the category and the item id return the item detail
     public ResultSet itemByID(String cat, String id) throws SQLException {
         if (cat != null) {
             category_to_table(cat);
@@ -71,6 +76,8 @@ public class DatabaseConnection {
         return rs;
     }
 
+    //**************************************************************************
+    //given the sorting order adjusts the 1st sorting criteria
     private void sortToSort(int sort) {
         if (sort == 1) {
             SORT_BY_1 = "price";
@@ -87,6 +94,8 @@ public class DatabaseConnection {
         }
     }
 
+    //**************************************************************************
+    //given the category, subcategory, sorting order, number of elements and the offset, return the result in the stock
     public ResultSet itemBySubCat(String cat, String subcat, int sort, int no, int offset) throws SQLException {
         if (cat != null) {
             category_to_table(cat);
@@ -97,9 +106,9 @@ public class DatabaseConnection {
         ResultSet rs = prepStmt.executeQuery();
         return rs;
     }
+    
     //***************************************************************************
-    //gives the list of products sorted by some order with an offset on index
-
+    //gives the n (n = no)  products in stock in some category sorted by some order with an offset on index
     public ResultSet listofproducts(String category, int sort, int no, int offset) throws SQLException {
         if (category != null) {
             category_to_table(category);
@@ -111,7 +120,7 @@ public class DatabaseConnection {
     }
 
     //***************************************************************************
-    //gives the list of products sorted by some order with an offset on index
+    //gives the list of subcategories in a particular category
     public ResultSet listofsubcats(String category) throws SQLException {
         if (category != null) {
             category_to_table(category);
@@ -121,6 +130,8 @@ public class DatabaseConnection {
         return rs;
     }
 
+    //***************************************************************************
+    //check if its a valid login and returns the user details
     public ResultSet loginCheck(String username, String password) throws SQLException {
         ResultSet rs = null;
         PreparedStatement prepStmt = con.prepareStatement("select ID,name from customer where email = ? and passwd = PASSWORD(?)");
@@ -130,6 +141,8 @@ public class DatabaseConnection {
         return rs;
     }
 
+    //***************************************************************************
+    //given the search string,the category, sorting order, no of products and offset, returns the result in stock
     public ResultSet search_field(String search, String table, int sort, int no, int offset) throws SQLException {
         StringTokenizer st = new StringTokenizer(search);
         String[] arr = new String[st.countTokens()];
@@ -238,12 +251,11 @@ public class DatabaseConnection {
             pS2.setString(5, data.elementAt(i)[3]);
             pS2.executeUpdate();
         }
-        //return rs;
-        
         return String.valueOf(billid);
     }
 
-    //
+    //***************************************************************************
+    //returns the quantity of a particular item in the stock
     public int quantityOfItemID(String cat, String id) throws SQLException {
         int quantity = 0;
         if (cat != null) {
@@ -258,6 +270,8 @@ public class DatabaseConnection {
         return quantity;
     }
 
+    //***************************************************************************
+    //returns the prics of the particular item
     public float priceOfItemID(String cat, String id) throws SQLException {
         float price = -2;
         if (cat != null) {

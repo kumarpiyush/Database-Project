@@ -51,17 +51,16 @@ public class pageRender {
             page += "Password: <input type=\"password\" name=\"password\" />\n";
             page += "<input type=\"submit\" value=\"Login\"/>\n";
             page += "</form>\n\n";
-            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
-            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
-        }
-        else {
+            Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
+            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
+        } else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a></span>\n\t\t\t</td>\n\t\t\t";
             page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Logout\"/>\n";
             page += "</form>\n\t\t</td>\n\t</tr></table>";
-            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
-            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
+            Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
+            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
         }
         return page;
     }
@@ -124,26 +123,29 @@ public class pageRender {
 
     public String organiseResult(ResultSet rs, String cat) throws SQLException {
         String page = "";
+        if (!rs.next()) {
+            return "<p>Sorry, no results found :(</p>\n";
+        }
         if (TABLE1.equals(cat)) {
-            while (rs.next()) {
+            do {
                 page += getElem(cat, rs.getString(1), rs.getString("title"), rs.getString("author"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
-            }
+            } while (rs.next());
         } else if (TABLE4.equals(cat)) {
-            while (rs.next()) {
+            do {
                 page += getElem(cat, rs.getString(1), rs.getString("category"), rs.getString("category2"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
-            }
+            } while (rs.next());
         } else if (TABLE3.equals(cat)) {
-            while (rs.next()) {
+            do {
                 page += getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
-            }
+            } while (rs.next());
         } else if (TABLE2.equals(cat)) {
-            while (rs.next()) {
+            do {
                 page += getElem(cat, rs.getString(1), rs.getString("model"), rs.getString("category"), rs.getString("mrp"), rs.getString("price"), rs.getString("img_url"));
                 page += "\n";
-            }
+            } while (rs.next());
         }
         page += "\n";
         return page;
@@ -178,7 +180,7 @@ public class pageRender {
         }
         page += "<br/><br/><br/><ul class=\"pager prev_next\">";
         page += " <li class=\"previous\"><a href=\"" + prevURL + "\">&larr; Previous</a></li>";
-        
+
         page += " <li class=\"next\"><a href=\"" + nextURL + "\">Next &rarr;</a>";
         page += "</p>";
         page += "</div>";
@@ -188,14 +190,14 @@ public class pageRender {
     private String getOptionForSortBy(String current_option, String index, String text, String URL, boolean is_sorted) {
         String sortby = "\t\t\t<li> ";
         /*if (!index.equals("4")) {
-            if (is_sorted && current_option.equals(index)) {
-                sortby += " selected";
-            }
-        } else {
-            if (!is_sorted || (is_sorted && current_option.equals("4"))) {
-                sortby += " selected";
-            }
-        }*/
+         if (is_sorted && current_option.equals(index)) {
+         sortby += " selected";
+         }
+         } else {
+         if (!is_sorted || (is_sorted && current_option.equals("4"))) {
+         sortby += " selected";
+         }
+         }*/
         sortby += "<a href=\"";
         String URL1 = URL + "&sort=" + index;
         sortby += URL1 + "\"";
@@ -291,40 +293,43 @@ public class pageRender {
                     page += "\n";
                 } else if (id != null) {
                     ResultSet rs2 = cc.itemByID(cat, id);
-                    while (rs2.next()) {
-                        page += "<table  class=\"product_detail\">\n";
-                        page += "<tr>";
-                        page += "<td><img class=\"detail_img\" src=\"" + rs2.getString("img_url") + "\"/></td>\n";
-                        page += "<td>";
-                        page += "<div class = \"product_description\" ><p>";
-                        page += rs2.getString(2);
-                        page += "</p>\n<p>";
-                        page += rs2.getString(3);
-                        page += "</p>\n<p>";
-                        page += rs2.getString(4);
-                        page += "</p>\n<p>";
-                        page += "<strike>";
-                        page += rs2.getString(5);
-                        page += "</strike>&nbsp;&nbsp;";
-                        page += rs2.getString(6);
-                        page += "</p>\n<p>";
-                        page += rs2.getString(7);
-                        page += "</p>\n";
-                        page += "</div>\n</td>";
-                        page += "</tr>\n";
-                        page += "</table>\n";
+                    if (!rs2.next()) {
+                        page += "<p>Sorry, no results found :(</p>\n";
+                    } else {
+                        do {
+                            page += "<table  class=\"product_detail\">\n";
+                            page += "<tr>";
+                            page += "<td><img class=\"detail_img\" src=\"" + rs2.getString("img_url") + "\"/></td>\n";
+                            page += "<td>";
+                            page += "<div class = \"product_description\" ><p>";
+                            page += rs2.getString(2);
+                            page += "</p>\n<p>";
+                            page += rs2.getString(3);
+                            page += "</p>\n<p>";
+                            page += rs2.getString(4);
+                            page += "</p>\n<p>";
+                            page += "<strike>";
+                            page += rs2.getString(5);
+                            page += "</strike>&nbsp;&nbsp;";
+                            page += rs2.getString(6);
+                            page += "</p>\n<p>";
+                            page += rs2.getString(7);
+                            page += "</p>\n";
+                            page += "</div>\n</td>";
+                            page += "</tr>\n";
+                            page += "</table>\n";
 
-                        // now the add to cart part
-                        page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">\n";
-                        // the product details
-                        page += "<input type=\"hidden\" name=\"cat\" value=\"" + cat + "\">";
-                        page += "<input type=\"hidden\" name=\"id\" value=\"" + id + "\">";
-                        page += "<input type=\"hidden\" name=\"target_url\" value=''>";
+                            // now the add to cart part
+                            page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">\n";
+                            // the product details
+                            page += "<input type=\"hidden\" name=\"cat\" value=\"" + cat + "\">";
+                            page += "<input type=\"hidden\" name=\"id\" value=\"" + id + "\">";
+                            page += "<input type=\"hidden\" name=\"target_url\" value=''>";
 
-                        page += "Number: <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
-                        page += "<input type=\"submit\" value=\"Add to Cart\">";
-                        page += "</form>";
-
+                            page += "Number: <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
+                            page += "<input type=\"submit\" value=\"Add to Cart\">";
+                            page += "</form>";
+                        } while (rs2.next());
                     }
                 } else {
                     ResultSet rs2 = cc.itemBySubCat(cat, subcat, sort, noOfProducts, off_set);
@@ -374,32 +379,30 @@ public class pageRender {
             }
             page += "</table>";
             page += "<br/>See your previous transactions <a href=\"profile.jsp?id=" + id + "&bill=true\">here</a>.<br/>";
-        }
-        else{
-            if(specificBill==null){
+        } else {
+            if (specificBill == null) {
                 page += "<table class=\"userDetails\">\n";
                 ResultSet rs = cc.getBillDetails(id);
-                while(rs.next()){
-                    page += "<tr><td>Bill ID:</td><td><a href=\"profile.jsp?id="+id+"&bill=true&specific="+rs.getString("ID")+"\">"+rs.getString("ID")+"</a></td></tr>";
-                    page += "<tr><td>Bill Date:</td><td>"+rs.getString(4)+"</td></tr>";
-                    page += "<tr><td>Bill Cost:</td><td>"+rs.getString("total_cost")+"</td></tr>";
+                while (rs.next()) {
+                    page += "<tr><td>Bill ID:</td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
+                    page += "<tr><td>Bill Date:</td><td>" + rs.getString(4) + "</td></tr>";
+                    page += "<tr><td>Bill Cost:</td><td>" + rs.getString("total_cost") + "</td></tr>";
                 }
                 page += "</table>";
-            }
-            else{
+            } else {
                 ResultSet rs = cc.getSpecificBillDetails(specificBill);
-                if(rs.next()){
-                    page+="<p>Bill details of Bill No. "+specificBill+"</p>";
+                if (rs.next()) {
+                    page += "<p>Bill details of Bill No. " + specificBill + "</p>";
                     page += "<table class=\"userDetails\">\n";
                     do {
                         page += "<tr><td>Product Type:</td><td>" + rs.getString("prod_type") + "</td></tr>";
                         page += "<tr><td>Product ID:</td><td>" + rs.getString("prod_id") + "</td></tr>";
                         page += "<tr><td>Quantity:</td><td>" + rs.getString("quantity") + "</td></tr>";
                         page += "<tr><td>Cost:</td><td>" + rs.getString("cost") + "</td></tr>";
-                    }while (rs.next());
+                    } while (rs.next());
                     page += "</table>";
-                }else{
-                    page+="<p>Dont try to be smart. There is no such bill</p>";
+                } else {
+                    page += "<p>Dont try to be smart. There is no such bill</p>";
                 }
             }
         }
