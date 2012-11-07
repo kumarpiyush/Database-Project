@@ -1,8 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This file returns html segments for the page
+ * index.jsp, profie.jsp and thankyou.jsp
  */
 package html;
+
+/**
+ *
+ * @author sameer
+ */
 
 import database.DatabaseConnection;
 import java.io.IOException;
@@ -14,10 +19,6 @@ import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author sameer
- */
 public class pageRender {
 
     DatabaseConnection cc = new DatabaseConnection();
@@ -29,6 +30,8 @@ public class pageRender {
     private final String TABLE4 = "Clothing";
     int offset = 0;
 
+    //***************************************************************************
+    //retruns the site brand
     private String getSiteBrand() {
         String page = "<div id=\"siteBrand\">";
         page += "<a href=\"index.jsp\"><img style=\"margin-left:40px;\" src=\"images/retailor-logo.png\"/></a>";
@@ -36,6 +39,8 @@ public class pageRender {
         return page;
     }
 
+    //***************************************************************************
+    //returns the login box
     private String getLoginHandler(HttpSession session) {
         int userid = -1;
         try {
@@ -46,17 +51,20 @@ public class pageRender {
         }
         String page = "";
         if (userid < 0) {
-            page += "\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
+            page += "\n\n<form action=\"HtmlPages\" name=\"login_form\" method=\"post\" onsubmit=\"jump_and_link2();\">\n";
             page += "Email: <input type=\"text\" name=\"username\" />\n";
             page += "Password: <input type=\"password\" name=\"password\" />\n";
+            page += "<input type=\"hidden\" name=\"target_url\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Login\"/>\n";
             page += "</form>\n\n";
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
             page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
         } else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a></span>\n\t\t\t</td>\n\t\t\t";
-            page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
+            
+            page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"jump_and_link1();\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
+            page += "<input type=\"hidden\" name=\"target_url\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Logout\"/>\n";
             page += "</form>\n\t\t</td>\n\t</tr></table>";
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");

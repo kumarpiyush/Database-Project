@@ -1,9 +1,13 @@
+/* This file contains all the functions related to connection and querying to
+  the database */
+
 package database;
 
 /**
  *
  * @author sameer
  */
+
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -256,7 +260,7 @@ public class DatabaseConnection {
     }
 
     //***************************************************************************
-    //returns the quantity of a particular item in the stock
+    //returns the quantity of a particular item
     public int quantityOfItemID(String cat, String id) throws SQLException {
         int quantity = 0;
         if (cat != null) {
@@ -272,7 +276,7 @@ public class DatabaseConnection {
     }
 
     //***************************************************************************
-    //returns the prics of the particular item
+    //returns the price of the particular item
     public float priceOfItemID(String cat, String id) throws SQLException {
         float price = -2;
         if (cat != null) {
@@ -287,6 +291,8 @@ public class DatabaseConnection {
         return price;
     }
 
+    //***************************************************************************
+    //decrease the quantity of particular item in the stock after order is placed
     public void updateQuantityOfItemID(String cat, String userid, int quantity) throws SQLException {
         if (cat != null) {
             category_to_table(cat);
@@ -297,18 +303,23 @@ public class DatabaseConnection {
         prepStmt.executeUpdate();
     }
 
+    //***************************************************************************
+    //returns the customer details
     public ResultSet getUserDetails(String id) throws SQLException {
         PreparedStatement prepStmt = con.prepareStatement("select * from customer where id = ?");
         prepStmt.setString(1, id);
         return prepStmt.executeQuery();
     }
 
+    //***************************************************************************
+    //returns the bill details
     public ResultSet getBillDetails(String id) throws SQLException {
         PreparedStatement prepStmt = con.prepareStatement("select ID,customer_id,total_cost,DATE_FORMAT(bill_date,'%b %d %Y %h:%i %p') from billing where customer_id = ?");
         prepStmt.setString(1, id);
         return prepStmt.executeQuery();
     }
 
+    //***************************************************************************
     // returns transaction summary
     public ResultSet getSpecificBillDetails(String specificBill) throws SQLException {
         PreparedStatement prepStmt = con.prepareStatement("select * from bill_details where bill_id = ?");

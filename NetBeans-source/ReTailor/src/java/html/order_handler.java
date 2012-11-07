@@ -1,3 +1,6 @@
+/*
+ * This file handles the order placement
+ */
 package html;
 
 import java.io.IOException;
