@@ -19,7 +19,8 @@ public class DatabaseConnection {
 
     //private global members
     private Connection con = null;
-    private static final String DBNAME = "retailor";
+    //private static final String DBNAME = "retailor";
+
     
     private static final String DB_USERNAME = "sameer";
     //private static final String DB_USERNAME = "root";
