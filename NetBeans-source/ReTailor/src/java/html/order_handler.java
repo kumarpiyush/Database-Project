@@ -1,6 +1,13 @@
 /*
  * This file handles the order placement
  */
+
+/**
+ *
+ * @author 
+ * ReTailor
+ */
+
 package html;
 
 import java.io.IOException;
@@ -18,11 +25,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-/**
- *
- * @author piyush (believe it :P)
- */
 @WebServlet(name = "order_handler", urlPatterns = {"/order_handler"})
 public class order_handler extends HttpServlet {
 

@@ -1,12 +1,13 @@
 /* This file contains all the functions related to connection and querying to
   the database */
 
-package database;
-
 /**
  *
- * @author sameer
+ * @author
+ * ReTailor
  */
+
+package database;
 
 import java.sql.*;
 import java.util.LinkedList;

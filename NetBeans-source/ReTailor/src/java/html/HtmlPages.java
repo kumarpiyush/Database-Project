@@ -1,6 +1,13 @@
 /*
  * This file handles the login and session details
  */
+
+/**
+ *
+ * @author
+ * ReTailor
+ */
+
 package html;
 
 import database.DatabaseConnection;
@@ -109,7 +116,6 @@ public class HtmlPages extends HttpServlet {
         }
         
         String target_url=request.getParameter("target_url");
-        System.err.println("target_url "+target_url);
         response.sendRedirect(target_url==null?"index.jsp":target_url);
     }
 

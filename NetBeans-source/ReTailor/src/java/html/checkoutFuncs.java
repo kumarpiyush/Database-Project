@@ -1,13 +1,20 @@
+/*
+ * This file returns html segments for the page
+ * checkout.jsp
+ */
+
+/**
+ *
+ * @author
+ * ReTailor
+ */
+
 package html;
 import java.sql.ResultSet;
 import java.util.*;
 import javax.servlet.http.HttpSession;
 import database.DatabaseConnection;
-/**
- *
- * @author
- * piyush
- */
+
 public class checkoutFuncs {
     DatabaseConnection cc=new DatabaseConnection();
     
