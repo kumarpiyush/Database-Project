@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -46,14 +47,17 @@ public class pageRender {
             page += "Password: <input type=\"password\" name=\"password\" />\n";
             page += "<input type=\"submit\" value=\"Login\"/>\n";
             page += "</form>\n\n";
-            page += "<a href=\"checkout.jsp\"> Checkout </a>";
-        } else {
+            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
+            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
+        }
+        else {
             page += "\n<table style=\"position: relative; float: right; margin-right: 50px;\">\n\t<tr>\n\t\t<td>\n\t\t\t<span >Hi <a href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a></span>\n\t\t\t</td>\n\t\t\t";
             page += "<td><form action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
             page += "<input type=\"submit\" value=\"Logout\"/>\n";
             page += "</form>\n\t\t</td>\n\t</tr></table>";
-            page += "<a href=\"checkout.jsp\"> Checkout </a>";
+            Vector<String[]> crt=(Vector<String[]>)session.getAttribute("cart_array");
+            page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout ("+(crt==null?"0":crt.size())+")\" /></a>";
         }
         return page;
     }
@@ -168,20 +172,18 @@ public class pageRender {
         if (!offset_found) {
             nextURL += "&offset=" + noOfProducts;
         }
-        page += "<br/><br/><br/><div id=\"prev_next\">";
-        page += " <a href=\"" + prevURL + "\">Prev</a>";
-        /* for(int i=0; i<5; i++){
-         page+=" <a href=\"\">" + (i+1) + "</a>";
-         }*/
-        page += " <a href=\"" + nextURL + "\">Next</a>";
+        page += "<br/><br/><br/><ul class=\"pager prev_next\">";
+        page += " <li class=\"previous\"><a href=\"" + prevURL + "\">&larr; Previous</a></li>";
+        
+        page += " <li class=\"next\"><a href=\"" + nextURL + "\">Next &rarr;</a>";
         page += "</p>";
         page += "</div>";
         return page;
     }
 
     private String getOptionForSortBy(String current_option, String index, String text, String URL, boolean is_sorted) {
-        String sortby = "\t\t\t<option ";
-        if (!index.equals("4")) {
+        String sortby = "\t\t\t<li> ";
+        /*if (!index.equals("4")) {
             if (is_sorted && current_option.equals(index)) {
                 sortby += " selected";
             }
@@ -189,11 +191,11 @@ public class pageRender {
             if (!is_sorted || (is_sorted && current_option.equals("4"))) {
                 sortby += " selected";
             }
-        }
-        sortby += " value=";
+        }*/
+        sortby += "<a href=\"";
         String URL1 = URL + "&sort=" + index;
-        sortby = sortby + "\"" + URL1 + "\"";
-        sortby += ">" + text + "</option>\n\t";
+        sortby += URL1 + "\"";
+        sortby += ">" + text + "</a></li>\n\t";
         return sortby;
     }
 
@@ -215,12 +217,12 @@ public class pageRender {
                 }
             }
         }
-        sortby += "<div  class=\"sortSelect\" ><table><tr><td>Sort :</td>\n\t<td><select name=\"Sort By\" onchange=\"location = this.options[this.selectedIndex].value;\">\n\t";
+        sortby += "<div class=\"container\"><div  class=\"btn-group\" id=\"sortSelect\" ><a class=\"btn dropdown-toggle\" data-toggle=\"dropdown\">Sort By <span class=\"caret\"></span></a>\n<ul class=\"dropdown-menu\">";
         sortby += getOptionForSortBy(current_option, "1", "Increasing Price", URL, is_sorted);
         sortby += getOptionForSortBy(current_option, "2", "Decreasing Price", URL, is_sorted);
         sortby += getOptionForSortBy(current_option, "3", "Increasing Popularity", URL, is_sorted);
         sortby += getOptionForSortBy(current_option, "4", "Decreasing Popularity", URL, is_sorted);
-        sortby += "\t\t\t\t</select></td></tr></table></div>";
+        sortby += "\t\t\t\t</ul></div></div>";
         return sortby;
     }
 
@@ -314,10 +316,11 @@ public class pageRender {
                         page += "</table>\n";
 
                         // now the add to cart part
-                        page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\">\n";
+                        page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">\n";
                         // the product details
                         page += "<input type=\"hidden\" name=\"cat\" value=\"" + cat + "\">";
                         page += "<input type=\"hidden\" name=\"id\" value=\"" + id + "\">";
+                        page += "<input type=\"hidden\" name=\"target_url\" value=''>";
 
                         page += "Number: <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
                         page += "<input type=\"submit\" value=\"Add to Cart\">";
@@ -338,9 +341,9 @@ public class pageRender {
     private String getSearch() throws SQLException {
         String page = "";
         page += "<div id=\"search\">";
-        page += "<form action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
+        page += "<form class=\"navbar-search \" style=\"margin-top:-20px;\" action=\"index.jsp\" name=\"frmLogin\" method=\"get\">";
         page += "Search:";
-        page += "<input type=\"text\" name=\"mainSearch\">";
+        page += "<input type=\"text\" class=\"search-query\" placeholder=\"Search\" name=\"mainSearch\">";
         page += "<select name=\"table\">";
         //page += "<option value=\"all\">All</option>";
         ResultSet rs = cc.listofcategories();
