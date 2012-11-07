@@ -226,48 +226,39 @@ public class pageRender {
 
     public String getSearch(String searchQuery, String table, int sort, int no, int off_set) throws SQLException {
         String page = "";
-        List<ResultSet> l;
-        if (table.equals("all")) {
-            l = cc.search_field(searchQuery, table, sort, no, off_set / noOfGroups);
-        } else {
-            l = cc.search_field(searchQuery, table, sort, noOfGroups * no, off_set);
-        }
-        ResultSet book, compu, cloth, elec;
-        book = l.get(0);
-        cloth = l.get(1);
-        compu = l.get(2);
-        elec = l.get(3);
+        ResultSet l;
+        l = cc.search_field(searchQuery, table, sort, no, off_set);
         int count = 0;
         page += "<div id=\"collectedEntry\">\n";
-        if (book != null) {
-            while (book.next()) {
+        if (table.equals("Books")) {
+            while (l.next()) {
                 //System.err.println(book.getString(2));
 
-                page += getElem("Books", book.getString(1), book.getString("title"), book.getString("author"), book.getString("mrp"), book.getString("price"), book.getString("img_url"));
+                page += getElem("Books", l.getString(1), l.getString("title"), l.getString("author"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
         }
-        if (compu != null) {
-            while (compu.next()) {
+        if (table.equals("Computer Accessories")) {
+            while (l.next()) {
                 //System.err.println(compu.getString(7));
-                page += getElem("Computer Accessories", compu.getString(1), compu.getString(2), compu.getString("category"), compu.getString("mrp"), compu.getString("price"), compu.getString("img_url"));
+                page += getElem("Computer Accessories", l.getString(1), l.getString(2), l.getString("category"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
         }
-        if (cloth != null) {
-            while (cloth.next()) {
+        if (table.equals("Clothing")) {
+            while (l.next()) {
                 //System.err.println(cloth.getString(2));
-                page += getElem("Clothing", cloth.getString(1), cloth.getString("category"), cloth.getString(3), cloth.getString("mrp"), cloth.getString("price"), cloth.getString("img_url"));
+                page += getElem("Clothing", l.getString(1), l.getString("category"), l.getString(3), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
         }
-        if (elec != null) {
-            while (elec.next()) {
+        if (table.equals("Electronics")) {
+            while (l.next()) {
                 //System.err.println(elec.getString(2));
-                page += getElem("Electronics", elec.getString(1), elec.getString("model"), elec.getString("category"), elec.getString("mrp"), elec.getString("price"), elec.getString("img_url"));
+                page += getElem("Electronics", l.getString(1), l.getString("model"), l.getString("category"), l.getString("mrp"), l.getString("price"), l.getString("img_url"));
                 page += "\n";
                 count++;
             }
@@ -282,7 +273,7 @@ public class pageRender {
     public String getMainPage(String cat, String id, String subcat, String searchQuery, String table, int sort, int off_set) throws SQLException {
         String page = "";
         if (searchQuery != null) {
-            page += getSearch(searchQuery, table, sort, noOfProducts / noOfGroups, off_set);
+            page += getSearch(searchQuery, table, sort, noOfProducts, off_set);
         } else {
             page += "<div id=\"collectedEntry\">\n";
             if (cat == null) {
@@ -351,7 +342,7 @@ public class pageRender {
         page += "Search:";
         page += "<input type=\"text\" name=\"mainSearch\">";
         page += "<select name=\"table\">";
-        page += "<option value=\"all\">All</option>";
+        //page += "<option value=\"all\">All</option>";
         ResultSet rs = cc.listofcategories();
         while (rs.next()) {
             page += "<option value=\"" + rs.getString(1) + "\">" + rs.getString(1) + "</option>";

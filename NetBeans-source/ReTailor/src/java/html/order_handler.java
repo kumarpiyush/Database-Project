@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import database.DatabaseConnection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -76,9 +79,12 @@ public class order_handler extends HttpServlet {
             response.sendRedirect("index.jsp");
         }
         
-        else{                // customer is done shopping
+        else{                
+            try {
+                // customer is done shopping
+                cc.storeOrders(session.getAttribute("userid").toString(), (Vector<String[]>) session.getAttribute("cart_array"));
+            } catch (SQLException ex) { }
             
-            cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
             response.sendRedirect("index.jsp");
 
             session.setAttribute("cart_array",null);   // huh!
