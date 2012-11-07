@@ -14,9 +14,9 @@ public class DatabaseConnection {
 
     private Connection con = null;
     //private static final String DBNAME = "foobar";
-    private static final String DB_USERNAME = "sameer";
-    //private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "sundarban";
+    //private static final String DB_USERNAME = "sameer";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "55piyushh";
     private static final String URL = "jdbc:mysql://localhost/foobar";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -273,6 +273,7 @@ public class DatabaseConnection {
     
     // function to put the ordered things in the database
     public void storeOrders(Vector<String[]> cart){
-        
+        System.err.println("TODO in DatBaseConnection::storeOrders");
+        // and seems someone's been trying to do it (in insertBill above)
     }
 }

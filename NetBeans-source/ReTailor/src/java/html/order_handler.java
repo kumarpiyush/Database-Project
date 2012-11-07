@@ -30,11 +30,12 @@ public class order_handler extends HttpServlet {
         
         String isOrderDone=null;
         try{
-            isOrderDone=session.getAttribute("place_order").toString();
+            isOrderDone=request.getParameter("place_order");
         }
         catch(Exception e){
             // my work is done here
         }
+        System.err.println("isOrderDone "+isOrderDone);
         if(isOrderDone==null){      // order still in progress
             Vector<String[]> cart=null;
             String[] order=new String[3];
@@ -55,7 +56,7 @@ public class order_handler extends HttpServlet {
             boolean found=false;
             for(int i=0;i<cart.size();i++){
                 if(cart.elementAt(i)[1].equals(order[1]) && cart.elementAt(i)[0].equals(order[0])){
-                    System.err.println("found it! "+i);
+                    System.err.println("found already in cart! "+i);        // reminds me to clean and build
                     Integer res=new Integer(Integer.parseInt(order[2])+Integer.parseInt(cart.elementAt(i)[2]));
                     order[2]=res.toString();
                     found=true;
@@ -64,7 +65,7 @@ public class order_handler extends HttpServlet {
                 }
             }
             if(!found){
-                System.err.println("didn't find it!");
+                System.err.println("didn't find it in cart!");
                 cart.add(order);
             }
 
