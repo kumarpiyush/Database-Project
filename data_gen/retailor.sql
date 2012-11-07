@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.28, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.24, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: foobar
+-- Host: localhost    Database: retailor
 -- ------------------------------------------------------
--- Server version	5.5.28-0ubuntu0.12.04.2
+-- Server version	5.5.24-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,7 +18,7 @@
 --
 -- Table structure for table `bill_details`
 --
-use foobar
+
 DROP TABLE IF EXISTS `bill_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -27,11 +27,11 @@ CREATE TABLE `bill_details` (
   `prod_type` varchar(30) NOT NULL DEFAULT '',
   `prod_id` int(11) NOT NULL DEFAULT '0',
   `quantity` int(11) DEFAULT NULL,
-  `cost` float DEFAULT NULL,
+  `cost` int(11) DEFAULT NULL COMMENT 'cost is per piece',
   PRIMARY KEY (`bill_id`,`prod_id`,`prod_type`),
   KEY `prod_type` (`prod_type`),
-  CONSTRAINT `bill_details_ibfk_4` FOREIGN KEY (`prod_type`) REFERENCES `categories` (`name`) ON UPDATE CASCADE,
-  CONSTRAINT `bill_details_ibfk_3` FOREIGN KEY (`bill_id`) REFERENCES `billing` (`ID`) ON DELETE CASCADE
+  CONSTRAINT `bill_details_ibfk_1` FOREIGN KEY (`bill_id`) REFERENCES `billing` (`ID`),
+  CONSTRAINT `bill_details_ibfk_2` FOREIGN KEY (`prod_type`) REFERENCES `categories` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,12 +54,12 @@ DROP TABLE IF EXISTS `billing`;
 CREATE TABLE `billing` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) DEFAULT NULL,
-  `total_cost` float DEFAULT NULL,
-  `bill_date` datetime DEFAULT NULL,
+  `total_cost` int(11) DEFAULT NULL,
+  `bill_date` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `billing_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,6 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (4,1,10,'2012-11-07 00:00:00');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,4 +259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-07 20:22:58
+-- Dump completed on 2012-11-07 22:15:22

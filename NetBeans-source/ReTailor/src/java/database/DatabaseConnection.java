@@ -14,10 +14,11 @@ public class DatabaseConnection {
 
     //private global members
     private Connection con = null;
+
     private static final String DB_USERNAME = "sameer";
     //private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
-    private static final String URL = "jdbc:mysql://localhost/foobar";
+    private static final String URL = "jdbc:mysql://localhost/retailor";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
     private String SORT_BY_2 = null;
@@ -308,21 +309,10 @@ public class DatabaseConnection {
         return prepStmt.executeQuery();
     }
 
+    // returns transaction summary
     public ResultSet getSpecificBillDetails(String specificBill) throws SQLException {
         PreparedStatement prepStmt = con.prepareStatement("select * from bill_details where bill_id = ?");
         prepStmt.setString(1, specificBill);
         return prepStmt.executeQuery();
-    }
-    
-    // returns transaction summary
-    public String[] getSpecificBillSummary(String specificBill) throws SQLException{
-        Statement stmt = con.createStatement();
-        ResultSet rs=stmt.executeQuery("select * from billing where ID = "+specificBill);
-        String[] details=new String[3];
-        details[0]=rs.getString(1);
-        details[1]=rs.getString(3);
-        details[2]=rs.getString(4);
-        
-        return details;
     }
 }

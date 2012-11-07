@@ -50,6 +50,7 @@ public class checkoutFuncs {
         ResultSet rs=null;
         try{
             rs=cc.getSpecificBillDetails(billid);
+            rs.next();
         }
         catch(Exception e){
             //die
