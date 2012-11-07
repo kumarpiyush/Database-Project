@@ -48,7 +48,7 @@ and open the template in the editor.
 
 
         <div class="container" style="margin-top: 100px; width: 450px; padding: 30px 30px 30px 30px;  border:1px solid #021a40;">
-            <form class="form-signin" onsubmit="isValid" method="post">
+            <form class="form-signin" onsubmit="isValid" method="post" action="AddAccount">
                 <h2 class="form-signin-heading">Please sign up</h2>
                 <input name="name" class="input-block-level" type="text" placeholder="Name">
                 <input name="email" class="input-block-level" type="email" placeholder="Email address" >
