@@ -46,6 +46,7 @@ public class order_handler extends HttpServlet {
             // my work is done here
         }
         if(isOrderDone==null){      // order still in progress
+            System.err.println("isOrderDone: "+isOrderDone);
             Vector<String[]> cart=null;
             String[] order=new String[3];
             order[0]=request.getParameter("cat");
@@ -115,6 +116,8 @@ public class order_handler extends HttpServlet {
                 e.printStackTrace();
             }
             String billid=null;
+            Vector<String[]> cart=(Vector<String[]>)session.getAttribute("cart_array");
+            
             
             try {
                 billid=cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));

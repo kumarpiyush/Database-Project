@@ -30,6 +30,7 @@ public class checkoutFuncs {
         String[] temp=null;
         if(order!=null){
             ret+="<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">";
+            ret+="<input type='hidden' name='place_order' value='1'>";
             for(String[] i : order){
                 ResultSet rs=cc.itemByID(i[0], i[1]);
                 temp=new String[4];
