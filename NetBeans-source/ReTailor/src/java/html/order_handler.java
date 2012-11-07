@@ -58,24 +58,41 @@ public class order_handler extends HttpServlet {
             boolean found=false;
             for(int i=0;i<cart.size();i++){
                 if(cart.elementAt(i)[1].equals(order[1]) && cart.elementAt(i)[0].equals(order[0])){
-                    System.err.println("found already in cart! "+i);        // reminds me to clean and build
+                    System.err.println("found already in cart! "+i);        // sometimes, reminds me to clean and build
                     Integer res=new Integer(Integer.parseInt(order[2])+Integer.parseInt(cart.elementAt(i)[2]));
                     order[2]=res.toString();
                     found=true;
                     cart.setElementAt(order, i);
                     // now check the quantity in table
-                    int amt=cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
+                    Integer amt=cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
+                    if(amt<Integer.parseInt(cart.elementAt(i)[2])){
+                        // ordered more than one could buy
+                        order[2]=amt.toString();        // give him what we have
+                        cart.setElementAt(order, i);
+                    }
+                    if(amt<=0){
+                        cart.removeElementAt(i);
+                    }
                     break;
                 }
             }
             if(!found){
                 System.err.println("didn't find it in cart!");
                 // now check the quantity in table
-                cart.add(order);
+                Integer amt=cc.quantityOfItemID(order[0],order[1]);
+                if(amt<Integer.parseInt(order[2])){
+                    // ordered more than one could buy
+                    order[2]=amt.toString();        // give him what we have
+                }
+                if(amt>0){
+                    cart.add(order);                // no use adding if we don't have
+                }
             }
 
             session.setAttribute("cart_array",cart);
-            response.sendRedirect("index.jsp");
+            String target_page="";
+            target_page=request.getParameter("target_url");
+            response.sendRedirect(target_page==null?"index.jsp":target_page);
         }
         
         else{                // customer is done shopping
