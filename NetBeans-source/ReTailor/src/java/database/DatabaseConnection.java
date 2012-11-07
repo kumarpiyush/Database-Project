@@ -257,7 +257,7 @@ public class DatabaseConnection {
     }
 
     // function to put the ordered things in the database
-    public String storeOrders(int userid,Vector<String[]> data){
+    public int storeOrders(String userid,Vector<String[]> data){
         int billid=0;
         try {
             Statement stmt = con.createStatement();
@@ -272,10 +272,27 @@ public class DatabaseConnection {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-        // TODO
+        return billid;
     }
     
+    //
+    public int quantityOfItemID(String cat,String id){
+        int quantity = 0;
+        if (cat != null) {
+            category_to_table(cat);
+        }
+        try {
+            PreparedStatement prepStmt = con.prepareStatement("select quantity from " + CATEGORY + " where ID= ?");
+            prepStmt.setString(1, id);
+            ResultSet rs = prepStmt.executeQuery();
+            if(rs.next())
+                quantity = rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return quantity;
+    }
+            
     public ResultSet getUserDetails(String id) throws SQLException{
         Statement stmt = con.createStatement();
         return stmt.executeQuery("select * from customer where id = "+id);

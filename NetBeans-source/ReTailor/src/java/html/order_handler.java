@@ -20,6 +20,8 @@ import database.DatabaseConnection;
 @WebServlet(name = "order_handler", urlPatterns = {"/order_handler"})
 public class order_handler extends HttpServlet {
 
+    DatabaseConnection cc=new DatabaseConnection();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,7 +64,7 @@ public class order_handler extends HttpServlet {
                     found=true;
                     cart.setElementAt(order, i);
                     // now check the quantity in table
-                    int amt=cc.fetchAmount(cart.elementAt(i)[0],cart.elementAt(i)[1]);
+                    int amt=cc.quantityOfItemID(cart.elementAt(i)[0],cart.elementAt(i)[1]);
                     break;
                 }
             }
@@ -77,7 +79,6 @@ public class order_handler extends HttpServlet {
         }
         
         else{                // customer is done shopping
-            DatabaseConnection cc=new DatabaseConnection();
             int userid=-1;
             try{
                 Integer.parseInt(session.getAttribute("userid").toString());
@@ -86,9 +87,9 @@ public class order_handler extends HttpServlet {
                 System.err.println("should never come here, didn't you check valid login before directing here (see checkout.jsp)");
                 e.printStackTrace();
             }
-            
-            cc.storeOrders(userid,(Vector<String[]>)session.getAttribute("cart_array"));
-            
+            cc.storeOrders(session.getAttribute("userid").toString(),(Vector<String[]>)session.getAttribute("cart_array"));
+            response.sendRedirect("index.jsp");
+
             session.setAttribute("cart_array",null);   // huh!
             response.sendRedirect("index.jsp");
             return;                                   // bye!
