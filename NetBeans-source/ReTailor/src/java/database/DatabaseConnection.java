@@ -22,8 +22,8 @@ public class DatabaseConnection {
     //private static final String DBNAME = "retailor";
 
     
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/retailor";
     private String CATEGORY = null;
@@ -177,21 +177,14 @@ public class DatabaseConnection {
             String query = "select * from clothing where ";
             category_to_table("Clothing");
             for (int i = 0; i < count; i++) {
-                String gender = "A";
-                if ("Men".equalsIgnoreCase(arr[i])) {
-                    gender = "M";
-                } else if ("Women".equalsIgnoreCase(arr[i])) {
-                    gender = "W";
-                } else if ("Kids".equalsIgnoreCase(arr[i]) || "Kid".equalsIgnoreCase(arr[i]) || "Children".equalsIgnoreCase(arr[i])) {
-                    gender = "K";
-                }
-                query += "(description like ? or category = '" + gender + "' or category2 like ?) and ";
+                query += "(description like ? or category like ? or category2 like ?) and ";
             }
             query += "quantity > 0 order by " + SORT_BY_1 + " " + ORDER + ", " + SORT_BY_2 + " asc limit " + offset + "," + no;
             PreparedStatement stmt = con.prepareStatement(query);
             for (int i = 0; i < count; i++) {
-                stmt.setString(2 * i + 1, "%" + arr[i] + "%");
-                stmt.setString(2 * i + 2, "%" + arr[i] + "%");
+                stmt.setString(3 * i + 1, "%" + arr[i] + "%");
+                stmt.setString(3 * i + 2, "%" + arr[i] + "%");
+                stmt.setString(3 * i + 3, "%" + arr[i] + "%");
             }
             return stmt.executeQuery();
         }else if (table.equals("Computer Accessories")) {
