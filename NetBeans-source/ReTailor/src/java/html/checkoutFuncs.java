@@ -59,11 +59,11 @@ public class checkoutFuncs {
                 processed_order.add(temp);
                 
                 ret+="<div id=\"buyDisplay\">";
-                ret+="<table id=\"buyOuterTable\" class=\"table\">";
+                ret+="<table id=\"buyOuterTable\" class=\"table table-bordered table-hover\">";
                 ret+="<tr id=\"buyOuterRow\">";
                 ret+="<td style=\"width:200px;\"><img src=\""+rs.getString("img_url")+"\"/ id=\"buyImage\"></td>";
                 ret+="<td>";
-                ret+="<table id=\"buyInnerTable\" class=\"table\">";
+                ret+="<table id=\"buyInnerTable\" class=\"table table-bordered\" style=\"margin-top: auto; margin-bottom:auto\">";
                 ret+="<tr><td>"+rs.getString(3)+"</td></tr>";
                 ret+="<tr><td>"+rs.getString(2)+"("+rs.getString(4)+")</td></tr>";
                 ret+="<tr><td>Number: "+i[2]+"</td></tr>";
@@ -73,8 +73,8 @@ public class checkoutFuncs {
                 ret+="</table>\n\n";
                 ret+="</td>";
                 //ret+=(i[0]+" "+i[1]+" "+i[2]+"<br />"); // category, ID, count
-                ret+="<td>";
-                ret+="<table><tr><td>Edit order:</td></tr><tr><td><input type=\"number\" min=\"0\" name=\"product"+j+"\" value=\""+i[2]+"\"/></td></tr></table>";
+                ret+="<td style=\"padding-top:40px;\">";
+                ret+="</label>Edit order:</label><input type=\"number\" min=\"0\" name=\"product"+j+"\" value=\""+i[2]+"\"/>";
                 ret+="</td>";
                 ret+="</tr>";
                 ret+="</table>";

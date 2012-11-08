@@ -12,7 +12,8 @@
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/navigation.css">
-        <script type="text/javascript" src="js/javas.js"> </script>
+        <title>ReTailor</title>
+        <script type="text/javascript" src="js/javas.js"></script>
             <%
                 //inits
                 pageRender cc = new pageRender();

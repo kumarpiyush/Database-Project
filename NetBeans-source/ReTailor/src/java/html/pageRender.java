@@ -61,14 +61,15 @@ public class pageRender {
             page += " <a style=\"color: white;\" href=\"#myModal\"  data-toggle=\"modal\">LogIn</a>";
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
             //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
-            page += "<a style=\"margin-left: 20px;\" href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
+            page += "<a class=\"btn\" type=\"submit\" style=\"margin-left: 20px;\" href=\"checkout.jsp\"><i class=\"icon-shopping-cart\"></i> Checkout (" + (crt == null ? "0" : crt.size()) + ")</a>";
         } else {
             Vector<String[]> crt = (Vector<String[]>) session.getAttribute("cart_array");
             page += "<table style=\"margin-top: -5px;\"><tr><td>";
             page += "Hi <a style=\"color: white;\" href=\"profile.jsp?id=" + userid + "\">" + session.getAttribute("name").toString() + "!</a>";
             page += "</td><td>";
             //page += "<a href=\"checkout.jsp\"> <input type='button' value=\"Checkout (" + (crt == null ? "0" : crt.size()) + ")\" /></a>";
-            page += "<a style=\"margin-left: 10px;\" href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
+            page += "<a class=\"btn\" type=\"submit\" style=\"margin-left: 10px;\" href=\"checkout.jsp\"><i class=\"icon-shopping-cart\"></i>Checkout (" + (crt == null ? "0" : crt.size()) + ")</a>";
+            //page += "<a style=\"margin-left: 10px;\" href=\"checkout.jsp\"> <button class=\"btn\" type=\"submit\">Checkout (" + (crt == null ? "0" : crt.size()) + ")</button> </a>";
             page += "</td><td>";
             page += "<form style=\"margin: 0 0 0 0\" action=\"HtmlPages\" name=\"logout_form\" method=\"post\" onsubmit=\"HtmlPages\">\n";
             page += "<input type=\"hidden\" name=\"logoutflag\" value=\"1\"/>\n";
