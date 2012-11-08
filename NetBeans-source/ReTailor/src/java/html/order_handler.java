@@ -46,7 +46,6 @@ public class order_handler extends HttpServlet {
             e.printStackTrace();
         }
         if(isOrderDone==null){      // order still in progress
-            System.err.println("isOrderDone: "+isOrderDone);
             Vector<String[]> cart=null;
             String[] order=new String[3];
             order[0]=request.getParameter("cat");
@@ -108,7 +107,6 @@ public class order_handler extends HttpServlet {
         }
         
         else{                // customer is done shopping, this one finalizes the purchase
-            System.err.println("isOrderDone: "+isOrderDone);
                     
             int userid=-1;
             try{
@@ -124,7 +122,6 @@ public class order_handler extends HttpServlet {
             try{
                 for(int i=0;i<cart.size();i++){
                     Integer newCount=Integer.parseInt(request.getParameter("product"+i));
-                    System.err.println(i+" "+newCount);
                     if((newCount>0)){
                         String[] tmp=new String[4];
                         tmp[0]=cart.elementAt(i)[0];
@@ -138,7 +135,6 @@ public class order_handler extends HttpServlet {
                 }
                 cart=newCart;
                 if(cart.size()==0){
-                    System.err.println("User has nothing to order :P");
                     orderOk=false;
                 }
             }
