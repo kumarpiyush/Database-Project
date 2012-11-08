@@ -297,25 +297,6 @@ public class pageRender {
 
     private String getSearch() throws SQLException {
         String page = "";
-
-
-        /*
-         <form class="navbar-search " action="">
-         <input class="search-query span2" placeholder="Search" type="text">
-         </form>
-            
-         <li class="dropdown">
-         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="width:100px;">Categories <b class="caret"></b></a>
-         <ul class="dropdown-menu">
-         <li><a href="#">Action</a></li>
-         <li><a href="#">Another action</a></li>
-         <li><a href="#">Something else here</a></li>
-         <li class="divider"></li>
-         <li><a href="#">Separated link</a></li>
-         </ul>
-         </li>
-         */
-
         page += "<form class=\"navbar-search \" action=\"index.jsp\" name=\"search\" method=\"get\">";
         page += "<input class=\"search-query span2\" placeholder=\"Search\" type=\"text\" name=\"mainSearch\"/>";
         page += "<select name=\"table\" class=\"controls\" style=\"margin-left: 15px; margin-right: 15px; margin-top: 5px; width: 170px; \">";
@@ -442,35 +423,38 @@ public class pageRender {
             page += "</table>";
             page += "<br/><p style=\"margin-left: 250px;\">See your previous transactions <a href=\"profile.jsp?id=" + id + "&bill=true\">here</a>.</p>";
         } else {
+            ResultSet rs = cc.getBillDetails(id);
             if (specificBill == null) {
-                //page += "<table class=\"table  table-bordered userDetails\">\n";
-                ResultSet rs = cc.getBillDetails(id);
                 while (rs.next()) {
-                    // page+="<tr><td>";
                     page += "<table class=\"table  table-bordered userDetails\">\n";
                     page += "<tr><td>Bill ID: </td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
                     page += "<tr><td>Bill Date: </td><td>" + rs.getString(4) + "</td></tr>";
                     page += "<tr><td>Bill Cost: </td><td> &#8377;" + rs.getString("total_cost") + "</td></tr>";
                     page += "</table>";
-                    //page += "</td></tr>";
                 }
-                // page += "</table>";
             } else {
-                ResultSet rs = cc.getSpecificBillDetails(specificBill);
-                if (rs.next()) {
-                    page += "<p style=\"margin-left: 250px;\" >Bill details of Bill No. " + specificBill + "</p>";
+                boolean hacker = false;
+                while (rs.next()) {
+                    if (rs.getString(1).equals(specificBill)) {
+                        hacker = true;
+                    }
+                }
+                if (hacker) {
+                    ResultSet rs2 = cc.getSpecificBillDetails(specificBill);
+                    if (rs2.next()) {
+                        page += "<p style=\"margin-left: 250px;\" >Bill details of Bill No. " + specificBill + "</p>";
 
-                    do {
-                        page += "<table class=\"table table-bordered userDetails\" >\n";
-                        page += "<tr><td>Product Type: </td><td>" + rs.getString("prod_type") + "</td></tr>";
-                        page += "<tr><td colspan=\"2\">View the item: <a href=\"index.jsp?cat="+rs.getString("prod_type")+"&id="+rs.getString("prod_id")+"\">click here</a>.</td></tr>";
-                        page += "<tr><td>Quantity: </td><td>" + rs.getString("quantity") + "</td></tr>";
-                        page += "<tr><td>Cost of one item: </td><td> &#8377;" + rs.getString("cost") + "</td></tr>";
-                        page += "</table>";
-                    } while (rs.next());
-
+                        do {
+                            page += "<table class=\"table table-bordered userDetails\" >\n";
+                            page += "<tr><td>Product Type: </td><td>" + rs2.getString("prod_type") + "</td></tr>";
+                            page += "<tr><td colspan=\"2\">View the item: <a href=\"index.jsp?cat=" + rs2.getString("prod_type") + "&id=" + rs2.getString("prod_id") + "\">click here</a>.</td></tr>";
+                            page += "<tr><td>Quantity: </td><td>" + rs2.getString("quantity") + "</td></tr>";
+                            page += "<tr><td>Cost of one item: </td><td> &#8377;" + rs2.getString("cost") + "</td></tr>";
+                            page += "</table>";
+                        } while (rs2.next());
+                    }
                 } else {
-                    page += "<p style=\"margin-left: 250px;\">Dont try to be smart. There is no such bill</p>";
+                    page += "<p style=\"margin-left: 250px;\">Dont try to be smart. There is no such bill in your account</p>";
                 }
             }
         }

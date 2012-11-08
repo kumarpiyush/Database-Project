@@ -22,10 +22,9 @@ public class DatabaseConnection {
     //private static final String DBNAME = "retailor";
 
     
-    //private static final String DB_USERNAME = "sameer";
-    private static final String DB_USERNAME = "root";
-    //private static final String DB_PASSWORD = "sundarban";
-    private static final String DB_PASSWORD = "55piyushh";
+    private static final String DB_USERNAME = "sameer";
+    //private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "sundarban";
     private static final String URL = "jdbc:mysql://localhost/retailor";
     private String CATEGORY = null;
     private String SORT_BY_1 = "popularity";
@@ -348,14 +347,12 @@ public class DatabaseConnection {
     //insert into customer
     public int signupCustomer(String name,String email,String phone,String address,String password) throws SQLException{
         int id = 1;
-        System.err.println("details "+name+email+phone+address+password);
         
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select ID from customer order by ID desc limit 1");
         if (rs.next()) {
             id = rs.getInt(1) + 1;
         }
-        System.err.println("id : "+id);
         PreparedStatement prepStmt = con.prepareStatement("insert into customer values ( ?, ?, ?, ?, ?, PASSWORD(?))");
         prepStmt.setInt(1, id);
         prepStmt.setString(2, name);
