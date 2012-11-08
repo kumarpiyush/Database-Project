@@ -406,7 +406,8 @@ public class pageRender {
     public String getUserDetails(int ID, boolean bill, String specificBill) throws SQLException {
         String page = "";
         String id = "" + ID;
-        page += "<div id=\"user\">";
+        page += "<div"
+                + " id=\"user\">";
         if (!bill) {
             page += "<table class=\"table table-bordered userDetails\" >\n";
             ResultSet rs = cc.getUserDetails(id);
