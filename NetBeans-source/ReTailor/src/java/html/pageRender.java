@@ -211,26 +211,15 @@ public class pageRender {
         if (!offset_found) {
             nextURL += "&offset=" + noOfProducts;
         }
-        page += "<br/><br/><br/><ul class=\"pager prev_next\">";
+        page += "<ul class=\"pager\" id=\"prev_next\">";
         page += " <li class=\"previous\"><a href=\"" + prevURL + "\">&larr; Previous</a></li>";
-
         page += " <li class=\"next\"><a href=\"" + nextURL + "\">Next &rarr;</a>";
-        page += "</p>";
-        page += "</div>";
+        page += "</ul>";
         return page;
     }
 
     private String getOptionForSortBy(String current_option, String index, String text, String URL, boolean is_sorted) {
         String sortby = "\t\t\t<li> ";
-        /*if (!index.equals("4")) {
-         if (is_sorted && current_option.equals(index)) {
-         sortby += " selected";
-         }
-         } else {
-         if (!is_sorted || (is_sorted && current_option.equals("4"))) {
-         sortby += " selected";
-         }
-         }*/
         sortby += "<a href=\"";
         String URL1 = URL + "&sort=" + index;
         sortby += URL1 + "\"";
