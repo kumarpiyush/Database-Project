@@ -121,7 +121,7 @@ public class pageRender {
         String page = "";
         //page="<div id=\"topLevel\">";
         ResultSet rs = cc.listofcategories();
-        page += "<div class=\"span3 bs-docs-sidebar sidebar-info\" style=\"margin-top:100px; \">\n";
+        page += "<div class=\"span3 bs-docs-sidebar sidebar-info\" style=\"margin-top:50px; \">\n";
         page += "<ul class=\"nav nav-list bs-docs-sidenav affix\" style=\"padding-top: 20px;  padding-bottom: 40px; border: 1px solid #021A40;\">\n";
         while (rs.next()) {
             page += "<li class=\"dropdown\" style=\"padding-top: 20px;\"><a href = \"index.jsp?cat=" + rs.getString(1) + "\" class=\"dropdown\" data-toggle=\"dropdown\">\n";
