@@ -358,7 +358,7 @@ public class pageRender {
                         page += "<p>Sorry, no results found :(</p>\n";
                     } else {
                         do {
-                            page += "<table  class=\"product_detail\">\n";
+                            page += "<table  class=\"table product_detail\">\n";
                             page += "<tr>";
                             page += "<td><img class=\"detail_img\" src=\"" + rs2.getString("img_url") + "\"/></td>\n";
                             page += "<td>";
@@ -377,9 +377,9 @@ public class pageRender {
                             page += rs2.getString(7);
                             page += "</p>\n";
                             page += "</div>\n</td>";
-                            page += "</tr>\n";
-                            page += "</table>\n";
-
+                            page += "</tr></table>\n";
+                            
+                            page += "<table class = \"table table-bordered table-hover\" style=\"margin-left: 35%; width: 400px;\"><tr><td>\n";
                             // now the add to cart part
                             page += "<form name=\"addtocart\" method=\"post\" action=\"order_handler\" onsubmit=\"jump_and_link();\">\n";
                             // the product details
@@ -387,9 +387,11 @@ public class pageRender {
                             page += "<input type=\"hidden\" name=\"id\" value=\"" + id + "\">";
                             page += "<input type=\"hidden\" name=\"target_url\" value=''>";
 
-                            page += "Number: <input type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
-                            page += "<input type=\"submit\" value=\"Add to Cart\">";
+                            page += "<label>Number :</label> <input style=\"margin-top: 10px;\" type=\"number\" min=\"1\" name=\"prod_cnt\" value=\"1\">";
+                            page += "<button style=\"margin-left: 20px;\" type=\"submit\" class=\"btn\">Add to Cart</button>";
+                            //page += "<input type=\"submit\" value=\"Add to Cart\">";
                             page += "</form>";
+                            page += "</tr></td></table>\n";
                         } while (rs2.next());
                     }
                 } else {
@@ -409,7 +411,7 @@ public class pageRender {
         page += "<div"
                 + " id=\"user\">";
         if (!bill) {
-            page += "<table class=\"table table-bordered userDetails\" >\n";
+            page += "<table class=\"table table-bordered table-hover userDetails\" >\n";
             ResultSet rs = cc.getUserDetails(id);
             if (!rs.next()) {
                 page += "<tr><td>Severe Error Occured</td></tr>";
@@ -426,7 +428,7 @@ public class pageRender {
             ResultSet rs = cc.getBillDetails(id);
             if (specificBill == null) {
                 while (rs.next()) {
-                    page += "<table class=\"table  table-bordered userDetails\">\n";
+                    page += "<table class=\"table  table-bordered table-hover userDetails\">\n";
                     page += "<tr><td>Bill ID: </td><td><a href=\"profile.jsp?id=" + id + "&bill=true&specific=" + rs.getString("ID") + "\">" + rs.getString("ID") + "</a></td></tr>";
                     page += "<tr><td>Bill Date: </td><td>" + rs.getString(4) + "</td></tr>";
                     page += "<tr><td>Bill Cost: </td><td> &#8377;" + rs.getString("total_cost") + "</td></tr>";
@@ -445,7 +447,7 @@ public class pageRender {
                         page += "<p style=\"margin-left: 250px;\" >Bill details of Bill No. " + specificBill + "</p>";
 
                         do {
-                            page += "<table class=\"table table-bordered userDetails\" >\n";
+                            page += "<table class=\"table table-bordered table-hover userDetails\" >\n";
                             page += "<tr><td>Product Type: </td><td>" + rs2.getString("prod_type") + "</td></tr>";
                             page += "<tr><td colspan=\"2\">View the item: <a href=\"index.jsp?cat=" + rs2.getString("prod_type") + "&id=" + rs2.getString("prod_id") + "\">click here</a>.</td></tr>";
                             page += "<tr><td>Quantity: </td><td>" + rs2.getString("quantity") + "</td></tr>";
