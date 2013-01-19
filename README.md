@@ -1,7 +1,7 @@
 Online Retail Shop Simulator
 ================
 Made by : Sanket, Umang, Sameer, Piyush  <br />
-The project implements java backend-supported format online retail shop. <br />
+The project implements JAVA backend-supported format online retail shop. <br />
 Salient features include:
 <ul>
   <li> Customer accounts :: profile, past transactions, logins and signup features, etc
